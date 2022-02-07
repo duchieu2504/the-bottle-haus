@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import Header from './component/page/Header/Header.js'
 import Footer from './component/page/Footer/Footer.js'
 import Main from './component/page/Main/index.js';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import GlobalStyles from 'scss/GlobalStyles/index.js';
 import NavabarInfo from 'component/Content/PageInfo/PageInfo.js';
 import Products from 'component/Content/PageProducts/PageProducts.js';
@@ -26,6 +26,7 @@ const App = () => {
             <main style={{marginTop: '80px', minHeight: '90vh'}}>
               <Routes>
                 <Route exact path='/home' element={<Main />} />
+                <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route exact path='/' element={<Main />} />
                 <Route path='/thong_tin' element={<NavabarInfo />} />
                 <Route path='/cart' element={<PageCart />} />

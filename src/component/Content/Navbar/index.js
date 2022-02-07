@@ -120,7 +120,7 @@ const  Navbar = (props) => {
                         className={clsx(styles.navbar_link, {[styles.active]: +activeNavbar === 0})} 
                         onClick={handleClick}
                         data-index='0'
-                        to='/shop-demo/home' 
+                        to='/home' 
                     > 
                         Trang chủ 
                     </NavLink>

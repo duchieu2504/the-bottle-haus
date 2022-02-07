@@ -3,6 +3,7 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import styles from './../User.module.scss'
+import Loading1 from 'util/Loading1/Loading1';
 
 SelectField.propTypes = {
     field: PropTypes.object.isRequired,
@@ -25,6 +26,10 @@ function SelectField(props) {
     const [ codeDistrict, setCodeDistrict ] = useState(0)
     // const [ codeWards, setCodeWards ] = useState(0)
 
+    const [ loadingCity, setLoadingCity ] = useState(false)
+    const [ loadingDis, setLoadingDis ] = useState(true)
+    const [ loadingWards, setLoadingWards ] = useState(true)
+
     // lấy dữ liệu các tỉnh, thành phố
      useEffect(() => {
         const fetchProducts = async () => {
@@ -34,8 +39,7 @@ function SelectField(props) {
                 console.log('err:', err);
             })
             reponse && setDataCity(reponse.data);
-            // const action = setProduct(reponse.data)
-            // dispatch(action)
+            setLoadingCity(true)
         }
         fetchProducts()
     }, [])
@@ -51,6 +55,7 @@ function SelectField(props) {
                 })
                 const r = reponse && reponse.data.districts
                 setDataDistrict(r);
+                setLoadingDis(true)
             }
             fetchProducts()
         }
@@ -68,6 +73,7 @@ function SelectField(props) {
                 })
                 const r = reponse && reponse.data.wards
                 setDataWards(r);
+                setLoadingWards(true)
             }
             fetchProducts()
         }
@@ -101,7 +107,7 @@ function SelectField(props) {
         }
         field.onChange(changeEvent)
     }
-    
+    console.log(loadingDis);
 
     return (
         <div className={clsx(styles.form_group)}>
@@ -115,6 +121,7 @@ function SelectField(props) {
                     onChange={(e) => {
                         setCity(e.target.value);
                         setCodeCity(e.target.value)
+                        setLoadingDis(false);
                     }}
                 >
                     <option value=''>Tỉnh / Tp</option>
@@ -137,6 +144,7 @@ function SelectField(props) {
                     onChange={(e) => {
                         setDistrict(e.target.value);
                         setCodeDistrict(e.target.value)
+                        setLoadingWards(false);
                     }}
                 >
                     <option value="">Quận/Huyện</option>
@@ -172,6 +180,9 @@ function SelectField(props) {
                     }
                 </select>
             </div>
+            {loadingCity  ? <div></div> : <Loading1 />}
+            {loadingDis  ? <div></div> : <Loading1 />}
+            {loadingWards  ? <div></div> : <Loading1 />}
             { showErrors && <span className={clsx(styles.form_message)}>{errors[name]}</span> }
         </div> 
     );

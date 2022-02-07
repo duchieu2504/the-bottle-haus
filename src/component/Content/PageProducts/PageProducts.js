@@ -20,6 +20,8 @@ function Products() {
     const dataCategory = useSelector(state => state.products)
     const dataProdcuts = [...dataCategory]
 
+    const [ loading, setLoading ] = useState(false)
+
     const dataUrl = dataProdcuts.filter(item => removeVN(item.category) === url)
     const [ data, setData ] = useState(dataUrl)
 
@@ -52,6 +54,7 @@ function Products() {
     // Thay đổi data khi chuyển sang mặt hàng khác
     useEffect(() => {
         setDataClassify(dataUrl)
+        setLoading(true)
         // tạo giá trị khởi tạo cho index mỗi khi thay đổi url
         setIndex(0)
         setIndexSort(0)
