@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import CartItem from './CartItem';
 import { useDispatch, useSelector } from 'react-redux';
 import convertPrice from 'util/convertNumber';
-import { clickNavbar } from 'redux/Login';
 
 Cart.propTypes = {
     activeCart: PropTypes.bool,
@@ -20,7 +19,6 @@ Cart.defaultProps = {
 function Cart({activeCart, handleClickAllCart}) {
 
     const data = useSelector(state => state.productsCart)
-    const dispatch = useDispatch()
 
     const dataArray = useMemo(() => [...data], [data])
     const [total, setTotal] = useState(0)

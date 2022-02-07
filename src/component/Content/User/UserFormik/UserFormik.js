@@ -48,7 +48,7 @@ function UserFormik(props) {
         >
             {
                 formikProps => {
-                    const { isSubmitting } = formikProps
+                    {/* const { isSubmitting } = formikProps */}
                     return (
                         <form
                             onReset={formikProps.handleReset} 

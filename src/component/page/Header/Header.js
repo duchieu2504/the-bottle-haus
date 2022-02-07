@@ -15,7 +15,7 @@ const Header = (props) => {
     const [activeSearch, setActiveSearch] = useState(false);
 
     const activeLogin = useSelector(state => state.activeLogin.activeLogin)
-    const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
+    // const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
     const dispatch = useDispatch()
 
     const cartRef = useRef()
