@@ -1,0 +1,49 @@
+@import '../../../scss/base';
+
+.footer {
+    background-color: #2f466c;
+    color: $white-color;
+    overflow-y: hidden;
+    .header {
+        p {
+            padding: 12px 0;
+            font-size: 1.4rem;
+            line-height: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+    &_fanpage {
+        display: flex;
+        align-items: center;
+        max-height: 4rem;
+    }
+    &_icon {
+        font-size: 2rem;
+        color: #fff;
+        width: 3.2rem;
+        margin-right: 8px;
+    }
+    &_about {
+        p {
+            font-size: 1.5rem;
+            color: #fff;
+            line-height: 3rem;
+        }
+        li {
+            font-size: 1.2rem;
+            color: #fff;
+            line-height: 2rem;
+        }
+    }
+    &_caption {
+        text-align: center;
+        padding: 12px 0 4px;
+        &_heading {
+            font-size: 1rem;
+            color: #fff;
+        }
+    }
+    
+}

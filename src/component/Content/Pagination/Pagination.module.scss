@@ -1,0 +1,25 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto 30px;
+    .page {
+        font-size: 1.4rem;
+        color: #222222;
+        background-color: rgba(34, 34, 34, .4);
+        text-decoration: none;
+        padding: 10px 16px;
+        border-radius: 50%;
+        &_icon {
+            font-size: 1.4rem;
+            color: #000;
+        }
+    }
+    .button {
+        padding: 0px 22px;
+        font-size: 1.2rem;
+        color: #acacac;
+        border: none;
+        cursor: pointer;
+    }
+}

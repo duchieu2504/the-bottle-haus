@@ -1,0 +1,123 @@
+.cart {
+    position: absolute;
+    top: 50px;
+    right: 0;
+
+    width: 320px;
+    z-index: 3;
+    background-color: #fff;
+    border-left: 1px solid #e1e1e1;
+    border-top: 1px solid #e1e1e1;
+    box-shadow: 8px 7px 13px rgba(0, 0, 0, 0.13);
+    border-radius: 12px;
+
+    visibility: hidden;
+    transform: scale(0.5);
+    opacity: 0;
+    transition: all 0.2s ease-in-out;
+    // transform-origin: ;
+    transform-origin: top right;
+    will-change: transform;
+    &.active{
+        visibility: visible;
+        opacity: 1;
+        transform: scale(1);       
+    }
+    h1 {
+        font-size: 1.8rem;
+        color: #000;
+        line-height: 4rem;
+        padding: 0 24px;
+        border-bottom: 1px solid #dfdfdf;
+    }
+    &_list {
+        color: #000;
+        min-height: 140px;
+        .no_product {
+            text-align: center;
+            padding-top: 20px;
+            opacity: 0.8;
+            p {
+                font-size: 1.2rem;
+                color: #f00;
+                line-height: 3rem;
+            }
+        }
+    }
+    .title{
+        font-size: 1.2rem;
+        line-height: 2rem;
+        text-align: center;
+        width: 100%;
+        font-weight: 600;
+        padding: 12px 0 0;
+    }
+    &_item {
+        display: flex;
+        padding: 12px 24px;
+        justify-content: space-between;
+        &_img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+        &_content {
+            flex: 1;
+            padding: 0 20px;
+        }
+        &_price {
+            font-size: 1.6rem;
+            line-height: 2.6rem;
+            color: #000;
+            font-weight: 700;
+        }
+        &_title {
+            font-size: 1.2rem;
+            color: #9c9c9c;
+            line-height: 1.7rem;
+        }
+    }
+    &_total {
+        display: flex;
+        padding: 16px 50px 0;
+        justify-content: space-between;
+        color: #000;
+        align-items: center;
+        p {
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            font-weight: 600;
+            line-height: 2rem;
+        }
+        span {
+            font-size: 1.5rem;
+            line-height: 3rem;
+            font-weight: 600;
+        }
+    }
+    &_footer {
+        padding: 12px 24px 24px;
+        display: flex;
+        justify-content: flex-end;
+        .btn {
+            font-size: 1.2rem;
+            padding: 6px 8px;
+            border-radius: 6px;
+            line-height: 2rem;
+            cursor: pointer;
+            &:first-child {
+                color: #000;
+                border: 1px solid #484848;
+                background-color: #fff;
+            }
+            &:last-child {
+                width: 120px;
+                color: #fff;
+                border: none;
+                background-color: #1597E5;
+            }
+        }
+    }
+}

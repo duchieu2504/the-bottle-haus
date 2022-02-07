@@ -1,0 +1,65 @@
+.navbarInfo {
+    width: 800px;
+}
+.heading {
+    padding: 24px 0;
+    line-height: 3rem;
+    font-size: 2rem;
+    color: #000;
+    text-align: center;
+}
+.img {
+    width: 100%;
+    background-size: contain;
+    background-repeat: repeat;
+    background-position: top center;
+    border-radius: 6px;
+}
+
+.date {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 6px;
+    h1 {
+        padding: 0 12px;
+        font-size: 1.2rem;
+        color: #666;
+    }
+}
+
+.line {
+    height: 1px;
+    background-color: #dddddd;
+    width: 75px;
+}
+
+@keyframes typing {
+  from {
+    width: 0
+  }
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent
+  }
+}
+
+.info {
+    padding: 12px 0;
+    p {
+
+        color: #000;
+        line-height: 3rem;
+        font-size: 1.5rem;
+    }
+    li {
+        color: #000;
+        line-height: 3rem;
+        font-size: 1.5rem;
+    }
+}
+.title_bord {
+    font-weight: 750;
+}

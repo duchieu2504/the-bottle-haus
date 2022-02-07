@@ -1,0 +1,318 @@
+// checkout_details
+.checkout_details {
+    position: relative;
+    min-height: 900px;
+}
+.checkout_heading {
+    position: absolute;
+    left: 222px;
+    top: 40px;
+    font-size: 2rem;
+    color: #000;
+    line-height: 4rem;
+
+}
+.checkout_warning {
+    border: 1px solid #b0b0b0;
+    width: 350px;
+    border-radius: 36px;
+    min-height: 240px;
+    padding: 12px 24px;
+    position: absolute;
+    top: 40px;
+    right: 200px;
+    .header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        img {
+            margin-right: 12px;
+            width: 24px;
+            height: 24px
+        }
+        p {
+            padding: 0;
+            text-align: justify;
+            font-size: 1.4rem;
+            font-weight: 550;
+            color: #000;
+        }
+    }
+    .title, p {
+        text-align: justify;
+        font-size: 1.3rem;
+        letter-spacing: 1px;
+        padding-top: 10px;
+        color: #000;
+    }
+    span {
+        color: #000;
+        letter-spacing: 1px;
+        font-size: 1.3rem;
+        padding: 10px 0
+    }
+}
+
+// user
+.user {
+    position: absolute;
+    top: 145px;
+    z-index: 2;
+    left: 180px;
+    width: 320px;
+    .form {
+        text-align: center;
+        background: #fff;
+        border-radius: 2px;
+        margin: 20px 24px 32px;
+        align-self: center;
+        box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+        .heading {
+            font-size: 2rem;
+            line-height: 4rem;
+            padding-bottom: 12px;
+            text-align: start;
+        }
+        &.active {
+            display: none;
+        }
+    }
+    .form_group {
+        display: flex;
+        margin-bottom: 16px;
+        flex-direction: column;
+    }
+    .form_select {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .form_control {
+            cursor: pointer;
+            width: 85px;
+        }
+    }
+    .form_label {
+        text-align: left;
+        font-weight: 700;
+        padding-bottom: 6px;
+        line-height: 1.8rem;
+        font-size: 1.4rem;
+    }
+    .form_control {
+        height: 40px;
+        padding: 8px 12px;
+        border: none;
+        background-color: #e1e1e1;
+        border-radius: 10px;
+        outline: none;
+        font-size: 1.4rem;
+    }
+    .form_submit {
+        outline: none;
+        background-color: #1dbfaf;
+        padding: 12px 16px;
+        font-weight: 600;
+        color: #fff;
+        border: none;
+        width: 100%;
+        font-size: 14px;
+        border-radius: 24px;
+        cursor: pointer;
+    }
+//Banking
+}
+.banking {
+    display: none;
+    margin: 20px 24px 32px;
+    &.active {
+        display: block;
+    }
+    .prev_icon {
+        position: absolute;
+        top: -14px;
+        left: 14px;
+        display: flex;
+        cursor: pointer;
+        img {
+            width: 16px;
+        }
+        p {
+            font-size: 1.3rem;
+            color: #000;
+        }
+    }
+    .form_submit {
+        background-color: #bf1d1d;
+    }
+    .checkout_method {
+        font-size: 1.4rem;
+        line-height: 3rem;
+        color: #000;
+        p {
+            padding-top: 4px;
+        }
+        &_list {
+            padding-bottom: 10px;
+            display: flex;
+            justify-content: center;
+        }
+        &_item {
+            display: flex;
+            align-items: center;
+            background-color: #fff;
+            margin: 0 12px;
+            border-radius: 10px;
+            padding: 4px 4px;
+            box-shadow: 0px 1px 10px rgba(0, 0, 0, .3);
+            cursor: pointer;
+            &:hover {
+                background-color: #ff9a52
+            }
+            &.active {
+                background-color: #ff9a52
+            }
+            p {
+                padding-right: 4px;
+                line-height: 2rem;
+                &:last-child {
+                    text-align:center;
+                }
+            }
+        }
+        &_logo_banking {
+            height: 30px;
+            background-color: #fff;
+            border-radius: 5px;
+            .banking_logo {
+                display: inline-block;
+                font-size: inherit;
+                overflow: visible;
+                vertical-align: -0.125em;
+
+                max-width: 30px;
+                height: 30px;
+                color: #fff;
+            }
+        }
+        &_logo:last-child {
+            background-color: #a50064;
+            width: 30px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            
+        }
+        .momo_logo {
+            max-width: 22px;
+        }
+    }
+
+    
+    //Transfre method
+    .transfer_method {
+        display: none;
+        &.active {
+            display: block;
+        }
+        .transfer_title {
+            p {
+                text-align: justify;
+                font-size: 1.2rem;
+                padding: 2px 0 16px;
+                color: #000;
+                font-weight: bold;
+            }
+        }
+        .form_transfer {
+            position: relative;
+            padding: 4px 6px;
+            border: 1px solid #acacac;
+            border-radius: 6px;
+            margin-bottom: 18px;
+            .form_header {
+                position: absolute;
+                top: -10px;
+                left: 10px;
+                background-color: #fff;
+                font-size: 1.3rem;
+                color: rgba(0, 0, 0, 0.5);
+                z-index: 2;
+            }
+            .form_title {
+                font-size: 1.4rem;
+                color: #000; 
+                padding: 2px 0 0 4px; 
+                font-weight: 100;
+                line-height: 2.8rem;
+            }
+            &:last-child {
+                margin-bottom: 20px;
+            }
+        }
+        .form_checkbox {
+            display: flex;
+            align-items: center;
+            p {
+                font-size: 1.3rem;
+                padding: 0 0 10px 5px;
+                color: #000;
+                text-align: justify;
+            }
+        }
+    }
+    //Payment_method
+    .payment_method {
+        display: none;
+        &.active {
+            display: block;
+        }
+        p{
+            font-size: 1.3rem;
+            color: #000;
+            padding: 4px 0;
+            line-height: 2rem;
+            text-align: justify;
+            font-weight: bold;
+            &:last-child {
+                padding-bottom: 154px;
+            }
+        }
+    }
+}
+
+//product_cart
+.product_cart {
+    border: 1px solid #b0b0b0;
+    width: 350px;
+    border-radius: 36px;
+    min-height: 200px;
+    padding: 12px 24px;
+    position: absolute;
+    top: 350px;
+    right: 200px;
+    p {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #000;
+        line-height: 4rem;
+    }
+}
+
+//checkout
+.checkout {
+    position: absolute;
+    top: 80px;
+    left: 25px;
+    img {
+        width: 630px;
+    }
+}
+
+#notice {
+    position: fixed;
+    top: 124px;
+    right: 16px;
+    z-index: 99999;
+}

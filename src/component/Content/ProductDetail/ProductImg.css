@@ -1,0 +1,40 @@
+@keyframes imgFake {
+    0% {
+        visibility: visible;
+        opacity: 1;
+        transform: var(--imgFake-from);
+    }
+    100% {
+        transform: var(--imgFake-to);
+        opacity: 0.5;
+        visibility: hidden;
+    }
+}
+
+.product_img {
+    animation: growth linear 0.3s;
+    position: relative;
+    height: 310px;
+}
+.product_img_fake {
+    --imgFake-from: translate(0px, -0px) scale(1);
+    --imgFake-to: translate(897px, -250px) scale(0.1);
+    position: absolute;
+    z-index: 15;
+    top: 0;
+    width: 95%;
+    height:100% ;
+    animation: imgFake 1s ease-in-out;
+    }
+/* .img {
+        border-radius: 34px;
+        width: 100%;
+}
+.img:last-child {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    visibility: visible;
+    transition: all 0.75s linear 0.5s;
+} */

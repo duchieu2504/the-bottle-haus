@@ -1,0 +1,216 @@
+@keyframes growth {
+    0% {
+        opacity: 0;
+        transform: scale(0.8)
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1)
+    }
+}
+
+@keyframes img {
+    0% {
+        opacity: 1;
+        transform: scale(1)
+    }
+    95% {
+        opacity: 1;
+        transform: scale(1)
+    }
+    100% {
+
+    }
+}
+
+@keyframes imgFake {
+    0% {
+        visibility: visible;
+        opacity: 1;
+        transform: translate(0px, -0px) scale(1);
+    }
+    100% {
+        transform: translate(897px, -250px) scale(0.1);
+        opacity: 0.5;
+        visibility: hidden;
+    }
+}
+
+.product_detail {
+    padding: 24px 0;
+}
+.product_briefing {
+    border-top: 1px solid #e5e5e5;
+    padding: 34px;
+    border-radius: 34px;
+    box-shadow: 3px 9px 34px 0 rgba(0 ,0 ,0 , 0.2);
+}
+.product_img {
+    animation: growth linear 0.3s;
+    position: relative;
+    min-height: 320px;
+    .img {
+        width: 100%;
+        background-size: contain;
+        background-repeat: repeat;
+        background-position: top center;
+        border-radius: 24px;
+    }
+
+
+    .img_fake {
+        width: 100%;
+        background-size: contain;
+        background-repeat: repeat;
+        background-position: top center;
+        border-radius: 24px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        // z-index: 2;
+        // visibility: visible;
+        // transform :translate(897px, -278px) scale(0.1);
+        transition: all 0.75s linear 0.5s;
+
+        transition-property: visibility, opacity, transform;
+        // animation: imgFake 1s ease-in-out;
+        z-index: 11;
+    }
+}
+.product_content {
+    margin: auto;
+    width: 75%;
+}
+.product_header {
+    // opacity: 1;
+    h2 {
+        font-size: 1.2rem;
+        color: #acacac;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+    }
+    h3 {
+        font-size: 1.6rem;
+        color: #000;
+    }
+}
+.product_size {
+    display: flex;
+    align-items: center;
+    &_heading {
+        font-size: 1.4rem;
+        color: #000;
+        line-height: 2rem;
+    }
+    .size_item {
+        font-size: 1.3rem;
+        color: #000;
+        line-height: 2rem;
+        border: 1px solid #c1c1c1;
+        font-weight: bold;
+        border-radius: 10px;
+        margin: 0 12px;
+        padding: 3px 4px;
+        cursor: pointer;
+        &:hover {
+            background-color: #1597E5;
+        }
+        &.active {
+            background-color: #1597E5;
+        }
+    }
+}
+.product_rating {
+
+}
+.product_price {
+    font-size: 1.4rem;
+    color: #000;
+    font-weight: 550;
+    margin: 16px 0;
+    display: flex;
+    justify-content: space-around;
+    .product_quantity {
+        border: 1px solid #999999;
+        border-radius: 6px;
+        .btn {
+            width: 30px;
+            height: 20px;
+            border-width: 2px;
+            border-style: solid;
+            border: none;
+            cursor: pointer;
+            &:last-child {
+                transform: translate(-1px, -1px);
+            }
+        }
+        span {
+            font-size: 1.2rem;
+            color: #000;
+        }
+    }
+}
+
+.product_des {
+    height: 135px;
+    padding: 12px 0;
+    p {
+        font-size: 1.4rem;
+        line-height: 2.6rem;
+        color: #000;
+    }
+}
+
+.product_footer {
+    // width: 400px;
+    .product_btn {
+        display: flex;
+        justify-content: space-around;
+        text-align: center;
+        
+        .btn {
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+            font-size: 1.2rem;
+            width: 35%;
+            line-height: 4rem;
+            text-transform: uppercase;
+            color: #000;
+            &:hover {
+                background-color: #1597E5;
+                color: rgb(255, 255, 255);
+            }
+            &:first-child {
+                font-weight: 550;
+                background-color: #1597E5;
+                color: rgb(255, 255, 255);
+            }
+            &:last-child {
+                border: 1px solid #888888;
+            }
+        }
+    }
+}
+    
+    // recommendation
+    .recommendation {
+        padding: 30px 0;
+        p {
+            font-size: 1.6rem;
+            color: #000;
+            font-weight: 550;
+            padding-bottom: 14px;
+        }
+    }
+
+
+#notice {
+    position: fixed;
+    top: 124px;
+    right: 16px;
+    z-index: 99999;
+}
+
+

@@ -1,0 +1,254 @@
+@keyframes scaleLine {
+    0% {
+        transform: scaleX(0)
+    }
+    100% {
+        transform: scaleX(1)
+    }
+}
+
+.my_cart {
+    padding: 24px 0;
+    .header {
+        display: flex;
+        position: relative;
+        p {
+             font-size: 2.6rem;
+            color: #000;
+            line-height: 4.4rem;
+            letter-spacing: 1px;
+            &:first-child {
+                position: absolute;
+                left: 0%;
+                top: 50%;
+                transform: translate(0%, -50%) !important;
+                letter-spacing: 2px; 
+                text-transform: uppercase;
+                font-size: 3rem ;
+                -webkit-text-fill-color: transparent;
+                -webkit-text-stroke-width: 2px;
+            }
+            &:last-child {
+                font-weight: 600;
+                padding-left: 170px;
+                transform: translateY(3px);
+            }
+        }
+    }
+    .header_line {
+        width: 260px;
+        height: 1.5px;
+        background-color: #000;
+        transition-property: transform;
+        transform-origin: left top;
+        animation: scaleLine 0.5s ease-in;
+    }
+    .container {
+        .products {
+            color: #000;
+            padding: 40px 0;
+            width: 1000px;
+            margin: auto;
+            border-bottom: 1px solid #d9d9d9;
+            &_navbar {
+                display: flex;
+                padding-bottom: 16px;
+                line-height: 3.4rem;
+                p {
+                    font-size: 1.4rem;
+                    font-weight: 600;
+                    letter-spacing: 1px;
+
+                    &:first-child {
+                        padding: 0 128px;
+                        width: 434px;
+                    }
+                    &:nth-child(2) {
+                        width: 146px;
+                    }
+                    &:nth-child(3) {
+                        width: 159px;
+                    }
+                    &:nth-child(4) {
+                        width: 150px;
+                    }
+                }
+            }
+        }
+    }
+    .product {
+        &_delete {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            position: relative;
+            
+                &:hover .product_delete_title{
+                 
+                    visibility: visible;
+                    opacity: 1;
+                
+            }
+            &_title {
+                position: absolute;
+                top: -32px;
+                left: 20px;
+                visibility: hidden;
+                opacity: 0;
+                transition: all 0.2s ease-in;
+                p {
+                    color: #000;
+                    font-size: 1.2rem;
+                    font-weight: 550;
+                    position: absolute;
+                    top: 15px;
+                    left: 14px;
+                }
+            }
+        }
+        .no_product {
+            color: #000;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            padding: 30px 0;
+            p {
+                font-size: 1.3rem;
+                line-height: 2rem;
+                padding-left: 12px;
+            }
+            img {
+                width: 24px;
+            }
+        }
+    }
+    .product_item {
+            display: flex;
+            padding: 20px 24px;
+        &_img {
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 90px;
+            object-fit: contain;
+            border-radius: 12px;
+        }
+        &_content {
+            flex: 0.9;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+        }
+        &_info {
+            flex: 1;
+            font-size: 1.3rem;
+        }
+        &_title {
+            font-weight: 700;
+            padding-bottom: 12px;
+        }
+        &-size {
+            
+        }
+        &_price {
+            width: 150px;
+            text-align: center;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+        &_quantily {
+            display: flex;
+            padding: 0 30px;
+            align-items: center;
+            .btn {
+                border: none;
+                font-size: 1.2rem;
+                font-weight: 900;
+                width: 34px;
+                height: 34px;
+                cursor: pointer;
+                &:hover {
+                        background-color: #d9d9d9;
+                        border-radius: 20px;
+                        box-shadow: 1px 1px 6px rgba(0, 0, 0, .4);
+                }
+            }
+            p {
+                font-size: 1.3rem;
+                padding: 12px;
+                width: 40px;
+                height: 40px;
+                text-align: center;
+            }
+        }
+        &_total {   
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 4rem;
+            width: 150px;
+            text-align: center;
+        }
+    }
+    
+    .checkout {
+        width: 400px;
+        padding: 32px 24px;
+        background-color: #fff;
+        margin: 32px 116px 32px auto;
+        border: 1px solid #b0b0b0;
+        border-radius: 10px;
+        &_total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            line-height: 3.6rem;
+            text-transform: uppercase;
+            color: #000;
+            font-weight: 550;
+        }
+        
+
+        &_warning {
+            display: flex;
+            padding: 12px 0;
+            &_title {
+                font-size: 1.2rem;
+                line-height: 2rem;
+                padding-left: 12px;
+            }
+        }
+        &_button {
+            text-align: center;
+            position: relative;
+            min-height: 40px;
+            .btn, .btn_no_click {
+                width: 70%;
+                font-size: 1.4rem;
+                color: rgb(255, 255, 255);
+                line-height:4rem;
+                background-color: #1597E5;
+                border: none;
+                margin: auto;
+                border-radius: 24px;
+            }
+            .btn {
+                cursor: pointer;
+                display: none;
+                &.btn_active {
+                    display: inline-block;
+                }
+            }
+            .btn_no_click {
+                cursor: not-allowed;
+                position: absolute;
+                z-index: 2;
+                top: 0;
+                display: none;
+                left: 52px;
+                &.btn_active {
+                    opacity: 0.6;
+                    display: block;
+                }
+            }
+        }
+    }
+}

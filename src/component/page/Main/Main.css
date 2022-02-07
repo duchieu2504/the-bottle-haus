@@ -1,0 +1,17 @@
+[data-aos="text-zoom-out-left"] {
+    transform: translate(400px, 100px) scale(1.5);
+    transition-property: transform;
+}
+[data-aos="text-zoom-out-left"].aos-animate {
+    transform:  inherit;
+}
+
+[data-aos="zoom-in-right-box"] {
+    transform: translate(-25px, -20px) scale(.5);;
+    opacity: 0;
+    transition-property: transform, opacity;
+}
+[data-aos="zoom-in-right-box"].aos-animate {
+    transform:  inherit;
+    opacity: 1;
+}

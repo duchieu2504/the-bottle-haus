@@ -1,0 +1,6 @@
+[data-aos=fade-up] {
+    transform: translate3d(0,70px,0)
+}
+[data-aos][data-aos][data-aos-easing=ease-out-back], body[data-aos-easing=ease-out-back] [data-aos] {
+    transition-timing-function: cubic-bezier(.175,.885,.32,1.275);
+}
