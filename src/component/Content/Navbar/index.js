@@ -120,7 +120,7 @@ const  Navbar = (props) => {
                         className={clsx(styles.navbar_link, {[styles.active]: +activeNavbar === 0})} 
                         onClick={handleClick}
                         data-index='0'
-                        to='/home' 
+                        to='/shop-demo/home' 
                     > 
                         Trang chủ 
                     </NavLink>
@@ -139,7 +139,7 @@ const  Navbar = (props) => {
                             <NavLink 
                                 className={clsx(styles.navbar_link, {[styles.active]: +activeNavbar === (i + 1)})} 
                                 onClick={handleClick}
-                                to={path} 
+                                to={path}
                                 data-index={i+1}
                             >
                                 <span data-index={i+1}>{title}</span>
