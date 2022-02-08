@@ -242,7 +242,7 @@ function CheckOut() {
                         </div>
                         <div className={clsx(styles.form_transfer)}>
                             <p className={clsx(styles.form_header)}>Số tiền</p>
-                            <h1 className={clsx(styles.form_title)}>1.200.000</h1>
+                            <h1 className={clsx(styles.form_title)}>{convertPrice((shipper + total).toString())}</h1>
                         </div>
                         <div className={clsx(styles.form_transfer)}>
                             <p className={clsx(styles.form_header)}>Nội dung chuyển tiền</p>
