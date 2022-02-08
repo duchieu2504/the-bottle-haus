@@ -15,8 +15,9 @@
             position: relative;
             background-color: #fff;
             text-decoration: none;
+            transform: translateY(1px);
             &:hover {
-                    transform: translateY(-2px);
+                    transform: translateY(-1.5px);
                     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.22);
                 }
             
