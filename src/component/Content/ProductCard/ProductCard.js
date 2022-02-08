@@ -25,9 +25,8 @@ const ProductCard = ({ item, itemRef, col }) => {
                     to={`/${url}/${id}`}
                 >
                     <img alt="product_img" src={img} className={clsx(styles.img)} />
-                    {/* <div className={clsx(styles.img)} style={{ backgroundImage: `url(${img})`}}></div> */}
-                    <h4 className={clsx(styles.title)}>{title}</h4>
-                    <h5 className={clsx(styles.price)}>{convertPrice(price)}</h5>
+                        <h4 className={clsx(styles.title)}>{title}</h4>
+                        <h5 className={clsx(styles.price)}>{convertPrice(price)}</h5>
                 </NavLink>
             </div>
     );
