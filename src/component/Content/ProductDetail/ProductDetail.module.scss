@@ -86,8 +86,9 @@
     // opacity: 1;
     h2 {
         font-size: 1.2rem;
-        color: #acacac;
+        line-height: 4rem;
         letter-spacing: 1px;
+        color: #acacac;
         text-transform: uppercase;
     }
     h3 {
@@ -134,19 +135,40 @@
     .product_quantity {
         border: 1px solid #999999;
         border-radius: 6px;
+        height: 24px;
+        display: flex;
+        align-items: center;
         .btn {
             width: 30px;
             height: 20px;
-            border-width: 2px;
-            border-style: solid;
             border: none;
+            border-radius: 6px;
             cursor: pointer;
-            &:last-child {
-                transform: translate(-1px, -1px);
+            position: relative;
+            &:first-child::before {
+                content: "";
+                position: absolute;
+                top: 2px;
+                right: 0;
+                width: 1px;
+                height: 16px;
+                background-color: #cbcbcb;
+            }
+            &:last-child::before {
+                content: "";
+                position: absolute;
+                top: 2px;
+                left: 0;
+                width: 1px;
+                height: 16px;
+                background-color: #cbcbcb;
             }
         }
         span {
             font-size: 1.2rem;
+            width: 24px;
+            line-height: 2.4rem;
+            text-align: center;
             color: #000;
         }
     }
