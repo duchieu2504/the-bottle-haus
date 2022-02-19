@@ -85,6 +85,7 @@ const SliderImg = props => {
         setState({ ...state, transitioning: true})
     }
 
+    // click vào nút prev
     const prevSlide = () => {
         if(transitioning) {
             setState({
@@ -99,6 +100,8 @@ const SliderImg = props => {
     //     translate: 0,
     //     activeIndex: activeIndex === 0 ? slides.length - 1 : activeIndex - 1
     //   })
+
+    //Click vào nút next
     const nextSlide = () => {
 //F8
         // if(transitioning) {

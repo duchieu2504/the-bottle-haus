@@ -7,6 +7,7 @@ import 'aos/dist/aos.css';
 import AOS from 'aos';
 import './Main.css'
 import { BG1 } from 'svg/Image.js';
+import Slider_3d from 'util/Slider_3d/Slider_3d.js';
 
 
 
@@ -46,7 +47,9 @@ const Main = () => {
     }, [])
     return (
             <div>
+                {/* thư viện react-slick */}
                 <Slider />
+
                 <div style={{padding: '0 0 24px 0'}}>
                     <div className={clsx(styles.welcome)}>
                         <div className="grid wide" style={{height: '100%'}}>
@@ -176,7 +179,20 @@ const Main = () => {
                     </div>
 
                     <div className="grid wide">
+                        
+                        {/* Sản phẩm nổi bật */}
                         <ProductsFeatured title="Sản phẩm nổi bật" />
+
+                        {/* slider_3d */}
+                        <div className="row">
+                            <div className="col l-6">
+                                <Slider_3d />
+                            </div>
+                            <div className="col l-6">
+                                <p>Xưởng cở khí Đức Hải với bề dày kinh nghiệm hơn 10 năm trong nghê. Luôn được khách hàng tin tưởng và hài lòng với các sản phẩm của xưởng.</p>
+                            </div>
+                        </div>
+                        
                         <ProductsFeatured title="Khuôn sắt" allView={true}/>
                     </div>
                 </div>
