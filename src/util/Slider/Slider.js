@@ -118,6 +118,8 @@ const SliderImg = props => {
         //     translate: translate + getWidth(),
         //     activeIndex: activeIndex === slides.length - 1 ? 0 : activeIndex + 1
         // })
+
+        
     const smoothTransition = () => {
 // THEO SLIDERSHOW OF WEB
         // let _slides = []

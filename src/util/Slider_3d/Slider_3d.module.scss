@@ -25,6 +25,7 @@
     position: relative;
     margin: 24px 0 48px;
     min-height: 400px;
+    transform: translateX(-40px)
 }
 .slider_3d_list {
   width: 100%;
@@ -102,7 +103,13 @@
   top: 47%;
   display: flex;
   width: 93%;
-  justify-content: space-between;
+  justify-content: flex-end;
+  &_right {
+    opacity: 0.7;
+    &:hover {
+      opacity: 1;
+    }
+  }
   &_icon{
     width: 24px;
     cursor: pointer;
