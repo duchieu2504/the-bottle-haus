@@ -184,12 +184,16 @@ const Main = () => {
                         <ProductsFeatured title="Sản phẩm nổi bật" />
 
                         {/* slider_3d */}
-                        <div className="row">
+                        <div className={clsx(styles.slider_3d, 'row')}>
                             <div className="col l-6">
                                 <Slider_3d />
                             </div>
                             <div className="col l-6">
-                                <p>Xưởng cở khí Đức Hải với bề dày kinh nghiệm hơn 10 năm trong nghê. Luôn được khách hàng tin tưởng và hài lòng với các sản phẩm của xưởng.</p>
+                                <p>Xưởng cơ khí Đức Hải là xưởng cơ khí chuyên sản xuất các mặt hàng khuôn sắt và khuôn bằng bê tông phục vụ cho các công trình. Bên cạnh đó, xưởng cũng cung cấp các mặt hàng khác như sắt ly, khuôn nhựa. Các sản phẩm khuôn nổi tiếng với chất lượng đi kèm và luôn được khách hàng đánh giá cao.
+
+                                <br/>
+                                Thành lập ngày 10/10/2018 bắt đầu với cơ sở nhỏ, ít nhân công, bằng sự nỗ lực không ngừng nghỉ, với kinh nghiệm hơn 10 năm trong nghề xưởng đã dần khẳng định thương hiệu. Hiện tại xưởng chỉ có một cở sở duy nhất.
+                                </p>
                             </div>
                         </div>
                         
