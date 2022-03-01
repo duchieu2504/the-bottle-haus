@@ -63,12 +63,15 @@ function Products() {
     // Render hiệu ứng AOs tránh mất hiệu ứng khi click vào từng classify
     useEffect(() => {
         const time = setTimeout(() => {
-            setIndexPrev(filterRef.current.querySelector('.Products_active__2KSV4').dataset.index)
+            const index = filterRef.current.querySelector('.Products_active__2KSV4') && filterRef.current.querySelector('.Products_active__2KSV4').dataset.index
+            setIndexPrev(index)
         }, 100)
         // console.log(filterRef.current.querySelector('.Products_active__2KSV4'));
         // console.log(filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev]);
-        filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev].classList.toggle('aos-init', true);
-        filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev].classList.toggle('aos-animate', true);
+        if (filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev] !== undefined) {
+            filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev].classList.toggle('aos-animate', true);
+            filterRef.current.querySelectorAll('.Products_filter_item__1YTmr')[indexPrev].classList.toggle('aos-init', true);
+        }
         return () => clearTimeout(time)
     }, [index])
 
