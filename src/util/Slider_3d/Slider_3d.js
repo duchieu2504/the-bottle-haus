@@ -90,13 +90,6 @@ function Slider_3d(props) {
                 })} 
             </div>
             <div className={clsx(styles.slider_arrow)}>
-                {/* <div 
-                    className={clsx(styles.slider_arrow_left)} 
-                    onClick={prevSlide}
-                >
-                    <img className={clsx(styles.slider_arrow_icon)} src="https://img.icons8.com/ios/50/000000/circled-chevron-left.png" alt="Img arrow left"/>
-
-                </div> */}
                 <div 
                     className={clsx(styles.slider_arrow_right)} 
                     onClick={nextSlide}

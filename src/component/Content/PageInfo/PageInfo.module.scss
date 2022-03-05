@@ -63,3 +63,15 @@
 .title_bord {
     font-weight: 750;
 }
+.map {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 400px;
+    margin-bottom: 48px;
+    &_iframe {
+        border: 1px solid #dddddd;
+        padding: 10px;
+        border-radius: 10px;
+    }
+}

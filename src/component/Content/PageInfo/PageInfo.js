@@ -36,6 +36,9 @@ function NavabarInfo(props) {
                 <br/>
                 <p className={clsx(styles.title_bord)}>Xưởng cơ khí Đức Hải</p>
             </div>
+            <div data-aos='fade-down-right'  data-aos-duration='1000' className={clsx(styles.map)}>
+                <iframe className={clsx(styles.map_iframe)} src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3718.5738993491514!2d105.52821231493635!3d21.248738885879717!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3134f16a6d8e4771%3A0x2a07797c1e8ce63e!2zWMaw4bufbmcgQ8ahIGtoaSDEkOG7qWMgSOG6o2k!5e0!3m2!1svi!2sjp!4v1646449947768!5m2!1svi!2sjp" width="600" height="300" allowfullscreen="" loading="lazy"></iframe>
+            </div>
         </div>
     );
 }
