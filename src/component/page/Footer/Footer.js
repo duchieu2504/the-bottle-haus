@@ -10,13 +10,13 @@ const Footer = () => {
             <div className={clsx(styles.footer)}>
                 <div className="grid wide">
                     <div className={clsx(styles.header)}>
-                        <p>Xưởng cơ khí <br /> Đức hải </p>
+                        <h1>Xưởng cơ khí <br /> Đức hải </h1>
                     </div>
                     <div className={clsx(styles.content)}>
                         <div className="row">
                             <div className="col l-3">
                                 <div className={clsx(styles.footer_about)}>
-                                    <p>Cửa hàng</p>
+                                    <h2>Cửa hàng</h2>
                                     <ul>
                                         <li>
                                             Giới thiệu
@@ -29,7 +29,7 @@ const Footer = () => {
                             </div>
                             <div className="col l-3">
                                 <div className={clsx(styles.footer_about)}>
-                                    <p>Hệ thống</p>
+                                    <h2>Hệ thống</h2>
                                     <ul>
                                         <li>SĐT: 0971939340</li>
                                         <li>Địa chỉ: thôn Phong Doanh, xã Bình Dương, huyện Vĩnh Tường, tỉnh Vĩnh Phúc</li>
@@ -38,7 +38,7 @@ const Footer = () => {
                             </div>
                             <div className="col l-3">
                                 <div className={clsx(styles.footer_about)}>
-                                    <p>Sản phẩm</p>
+                                    <h2>Sản phẩm</h2>
                                     <ul>
                                         <li>
                                             Khuôn hàng rào
@@ -60,7 +60,7 @@ const Footer = () => {
                             </div>
                             <div className="col l-3">
                                 <div className={clsx(styles.footer_about)}>
-                                    <p>Fanpage</p>
+                                    <h2>Fanpage</h2>
                                     <div className={clsx(styles.footer_fanpage)}>
                                         <a 
                                             href='https://www.facebook.com/X%C6%B0%E1%BB%9Fng-c%C6%A1-kh%C3%AD-%C4%90%E1%BB%A9c-H%E1%BA%A3i-410086636054420' 

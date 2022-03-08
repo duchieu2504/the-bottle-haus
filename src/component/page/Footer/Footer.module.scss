@@ -4,15 +4,29 @@
     background-color: #2f466c;
     color: $white-color;
     overflow-y: hidden;
+    padding: 24px 0;
     .header {
-        p {
-            padding: 12px 0;
-            font-size: 1.4rem;
-            line-height: 30px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-align: center;
-        }
+        
+    }
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        color: #fff;
+        line-height: 4rem;
+    }
+
+    h2 {
+        padding: 12px 0;
+        font-weight: normal;
+        font-size: 1.6rem;
+        line-height: 30px;
+        letter-spacing: 1px;
+    }
+    li {
+        font-size: 1.4rem;
+        padding-top: 6px;
+        color: #fff;
+        line-height: 2rem;
     }
     &_fanpage {
         display: flex;
@@ -39,9 +53,9 @@
     }
     &_caption {
         text-align: center;
-        padding: 12px 0 4px;
+        padding-top: 24px;
         &_heading {
-            font-size: 1rem;
+            font-size: 1.4rem;
             color: #fff;
         }
     }
