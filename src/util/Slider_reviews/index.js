@@ -41,6 +41,7 @@ const SliderImg = (props) => {
     const transitionRef = useRef();
     const throttleRef = useRef();
     const resizeRef = useRef();
+    const sliderRef = useRef();
 
     useEffect(() => {
         setState({ ...state, translate: getWidth * 3 });
@@ -61,6 +62,7 @@ const SliderImg = (props) => {
 
     //ComponentDidMount
     useEffect(() => {
+        const sliderElement = sliderRef.current;
         const smooth = () => {
             transitionRef.current();
         };
@@ -73,22 +75,31 @@ const SliderImg = (props) => {
             resizeRef.current();
         };
         // khi hiệu ứng bắt đầu
-        window.addEventListener("transitionstart", throttle);
+        const transitionStart = sliderElement.addEventListener(
+            "transitionstart",
+            throttle
+        );
 
         // khi kết thúc hiệu ứng
-        window.addEventListener("transitionend", smooth);
+        const transitionEnd = sliderElement.addEventListener(
+            "transitionend",
+            smooth
+        );
 
         //
-        window.addEventListener("resize", resize);
+        const onResize = window.addEventListener("resize", resize);
         return () => {
             // khi sự kiện chuyển đổi kết thúc
-            window.removeEventListener("transitionend", smooth);
+            sliderElement.removeEventListener("transitionend", transitionEnd);
 
             // sự kiện khi kết thúc bắt đầu
-            window.removeEventListener("transitionstart", throttle);
+            sliderElement.removeEventListener(
+                "transitionstart",
+                transitionStart
+            );
 
             // thay đổi kích thước trình duyệt
-            window.removeEventListener("resize", resize);
+            window.removeEventListener("resize", onResize);
         };
     }, []);
 
@@ -163,7 +174,7 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <div className="slider_reviews">
+        <div className="slider_reviews" ref={sliderRef}>
             <SliderReviewContent
                 activeIndex={activeIndex}
                 slides={_slides}

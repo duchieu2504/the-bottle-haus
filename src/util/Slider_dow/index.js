@@ -21,6 +21,7 @@ const SliderImg = (props) => {
     const transitionRef = useRef();
     const throttleRef = useRef();
     const resizeRef = useRef();
+    const sliderRef = useRef();
 
     useEffect(() => {
         const height = document.querySelector(".slider_dow").clientHeight;
@@ -36,6 +37,7 @@ const SliderImg = (props) => {
 
     //ComponentDidMount
     useEffect(() => {
+        const sliderDowElement = sliderRef.current;
         const smooth = () => {
             transitionRef.current();
         };
@@ -46,18 +48,30 @@ const SliderImg = (props) => {
             resizeRef.current();
         };
         // // khi hiệu ứng bắt đầu
-        window.addEventListener("transitionstart", throttle);
+        const transitionStart = sliderDowElement.addEventListener(
+            "transitionstart",
+            throttle
+        );
         // // khi kết thúc hiệu ứng
-        window.addEventListener("transitionend", smooth);
+        const transitionEnd = sliderDowElement.addEventListener(
+            "transitionend",
+            smooth
+        );
         // //
-        window.addEventListener("resize", resize);
+        const onResize = window.addEventListener("resize", resize);
         return () => {
             //     // khi sự kiện chuyển đổi kết thúc
-            window.removeEventListener("transitionend", smooth);
+            sliderDowElement.removeEventListener(
+                "transitionend",
+                transitionEnd
+            );
             //     // sự kiện khi kết thúc bắt đầu
-            window.removeEventListener("transitionstart", throttle);
+            sliderDowElement.removeEventListener(
+                "transitionstart",
+                transitionStart
+            );
             //     // thay đổi kích thước trình duyệt
-            window.removeEventListener("resize", resize);
+            window.removeEventListener("resize", onResize);
         };
     }, []);
 
@@ -128,7 +142,7 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <div className="slider_dow">
+        <div className="slider_dow" ref={sliderRef}>
             <SliderDowContent
                 activeIndex={activeIndex}
                 slides={_slides}
