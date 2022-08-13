@@ -1,0 +1,160 @@
+.product_reviews {
+    padding: 60px 0 100px;
+    &_title {
+        text-align: center;
+
+        h1 {
+            font-size: 2.6rem;
+            line-height: 2rem;
+            font-weight: 400;
+            color: #000;
+            padding: 16px 0 26px;
+        }
+        p {
+            font-size: 5rem;
+            font-weight: bold;
+            line-height: 3rem;
+            color: #000;
+        }
+    }
+    &_customers {
+        padding: 80px 0;
+    }
+    .customers_reviews_item {
+        &_rating {
+            height: 20px;
+            display: flex;
+            margin-bottom: 6px;
+        }
+        &_verified {
+            background: #000000;
+            color: #fff;
+            padding: 2px 4px;
+            font-size: 1.2rem;
+        }
+        p {
+            margin-top: 12px;
+            font-weight: 400;
+            font-size: 1.6rem;
+            color: #969696;
+            width: 85%;
+        }
+        &_name {
+            padding: 40px 0 6px;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: #757575;
+        }
+        &_date {
+            font-size: 1.6rem;
+            color: #757575;
+        }
+    }
+    .product_rating_star,
+    .product_rating_star_n {
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: top center;
+        width: 20px;
+        height: 20px;
+        margin-right: 6px;
+    }
+    .product_rating_star {
+        background-image: url("https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/rev.svg");
+    }
+    .product_rating_star_n {
+        background-image: url("https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/b_rev.svg");
+    }
+
+    &_graph {
+        display: flex;
+        background-color: #ededed;
+        padding: 24px 40px;
+        border-radius: 20px;
+        &_text {
+            h2 {
+                font-weight: 600;
+                font-size: 3rem;
+                line-height: 5rem;
+                color: #000;
+                padding-bottom: 100px;
+                padding-right: 50px;
+                border-right: 1px solid #dedede;
+            }
+            &_summary {
+                font-size: 1.6rem;
+                color: #676767;
+                line-height: 3rem;
+            }
+        }
+        .customers_reviews_histogram {
+            &_list {
+                flex: 1;
+                padding-left: 20px;
+            }
+            &_item {
+                padding-top: 10px;
+                display: flex;
+                align-items: center;
+            }
+            &_star {
+                display: flex;
+                align-items: center;
+                padding-right: 12px;
+            }
+            &_bar {
+                border-radius: 4px;
+                width: 100px;
+                height: 20px;
+                margin-right: 8px;
+                position: relative;
+                border: 1px solid #cacaca;
+                &_content {
+                    background-color: #fd7a1f;
+                    border-radius: 4px;
+                    height: calc(100% + 2px);
+                }
+                // &::after {
+                //     content: "";
+                //     position: absolute;
+                //     top: 0;
+                //     left: 0;
+                //     width: 100px;
+                //     height: 20px;
+                //     border: 1px solid #676767;
+                // }
+            }
+            &_percentage {
+                font-size: 1.2rem;
+                list-style: 1rem;
+                color: #757575;
+                padding-right: 4px;
+            }
+            &_frequency {
+                font-size: 1.2rem;
+                list-style: 1rem;
+                color: #757575;
+            }
+        }
+        .widget_actions_wrapper {
+            border: 1px solid #676767;
+            border-radius: 10px;
+            background-color: #fff;
+            transition: all 0.25s linear;
+            height: 48px;
+            &:hover {
+                background-color: #105756;
+                a {
+                    color: #fff;
+                }
+            }
+            a {
+                transition: all 0.25s linear;
+                font-size: 1.6rem;
+                display: block;
+                padding: 16px 24px;
+                color: #676767;
+            }
+        }
+    }
+}

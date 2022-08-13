@@ -1,0 +1,435 @@
+import React from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import styles from "./ProductReview.module.scss";
+
+const ProductReview = (props) => {
+    return (
+        <div className={clsx(styles.product_reviews)}>
+            <div className={clsx(styles.product_reviews_title)}>
+                <h1>What our customer</h1>
+                <p>Are Saying</p>
+            </div>
+            <div className={clsx(styles.product_reviews_customers)}>
+                <div className="row">
+                    <div className="col l-4">
+                        <div className={clsx(styles.customers_reviews_item)}>
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_item_rating
+                                )}
+                            >
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                            </div>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_verified
+                                )}
+                            >
+                                Verified
+                            </span>
+                            <p>
+                                Four Roses Single Barrel Bourbon Whiskey 750ml
+                            </p>
+                            <h2
+                                className={clsx(
+                                    styles.customers_reviews_item_name
+                                )}
+                            >
+                                Matthew Kreitel
+                            </h2>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_date
+                                )}
+                            >
+                                12/24/2021
+                            </span>
+                        </div>
+                    </div>
+                    <div className="col l-4">
+                        <div className={clsx(styles.customers_reviews_item)}>
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_item_rating
+                                )}
+                            >
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                            </div>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_verified
+                                )}
+                            >
+                                Verified
+                            </span>
+                            <p>
+                                Four Roses Single Barrel Bourbon Whiskey 750ml
+                            </p>
+                            <h2
+                                className={clsx(
+                                    styles.customers_reviews_item_name
+                                )}
+                            >
+                                Scottie Lyons
+                            </h2>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_date
+                                )}
+                            >
+                                07/30/2021
+                            </span>
+                        </div>
+                    </div>
+                    <div className="col l-4">
+                        <div className={clsx(styles.customers_reviews_item)}>
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_item_rating
+                                )}
+                            >
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                                <span
+                                    className={clsx(styles.product_rating_star)}
+                                ></span>
+                            </div>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_verified
+                                )}
+                            >
+                                Verified
+                            </span>
+                            <p>
+                                Four Roses Single Barrel Bourbon Whiskey 750ml
+                            </p>
+                            <h2
+                                className={clsx(
+                                    styles.customers_reviews_item_name
+                                )}
+                            >
+                                Mike Smith
+                            </h2>
+                            <span
+                                className={clsx(
+                                    styles.customers_reviews_item_date
+                                )}
+                            >
+                                01/13/2021
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className={clsx(styles.product_reviews_graph)}>
+                <div className={clsx(styles.product_reviews_graph_text)}>
+                    <h2> Customer Reviews</h2>
+                    <div
+                        className={clsx(
+                            styles.product_reviews_graph_text_summary
+                        )}
+                    >
+                        Based on 3 reviews
+                    </div>
+                </div>
+                <div className={clsx(styles.customers_reviews_histogram_list)}>
+                    <div
+                        className={clsx(
+                            styles.customers_reviews_histogram_item
+                        )}
+                    >
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_star
+                            )}
+                        >
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_bar
+                            )}
+                        >
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_histogram_bar_content
+                                )}
+                                style={{ width: "100%" }}
+                            ></div>
+                        </div>
+                        <h5
+                            className={clsx(
+                                styles.customers_reviews_histogram_percentage
+                            )}
+                        >
+                            100%
+                        </h5>
+                        <span
+                            className={clsx(
+                                styles.customers_reviews_histogram_frequency
+                            )}
+                        >
+                            (3)
+                        </span>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.customers_reviews_histogram_item
+                        )}
+                    >
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_star
+                            )}
+                        >
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_bar
+                            )}
+                        >
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_histogram_bar_content
+                                )}
+                                style={{ width: "0%" }}
+                            ></div>
+                        </div>
+                        <h5
+                            className={clsx(
+                                styles.customers_reviews_histogram_percentage
+                            )}
+                        >
+                            0%
+                        </h5>
+                        <span
+                            className={clsx(
+                                styles.customers_reviews_histogram_frequency
+                            )}
+                        >
+                            (0)
+                        </span>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.customers_reviews_histogram_item
+                        )}
+                    >
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_star
+                            )}
+                        >
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_bar
+                            )}
+                        >
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_histogram_bar_content
+                                )}
+                                style={{ width: "0%" }}
+                            ></div>
+                        </div>
+                        <h5
+                            className={clsx(
+                                styles.customers_reviews_histogram_percentage
+                            )}
+                        >
+                            0%
+                        </h5>
+                        <span
+                            className={clsx(
+                                styles.customers_reviews_histogram_frequency
+                            )}
+                        >
+                            (0)
+                        </span>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.customers_reviews_histogram_item
+                        )}
+                    >
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_star
+                            )}
+                        >
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_bar
+                            )}
+                        >
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_histogram_bar_content
+                                )}
+                                style={{ width: "0%" }}
+                            ></div>
+                        </div>
+                        <h5
+                            className={clsx(
+                                styles.customers_reviews_histogram_percentage
+                            )}
+                        >
+                            0%
+                        </h5>
+                        <span
+                            className={clsx(
+                                styles.customers_reviews_histogram_frequency
+                            )}
+                        >
+                            (0)
+                        </span>
+                    </div>
+                    <div
+                        className={clsx(
+                            styles.customers_reviews_histogram_item
+                        )}
+                    >
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_star
+                            )}
+                        >
+                            <span
+                                className={clsx(styles.product_rating_star)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                            <span
+                                className={clsx(styles.product_rating_star_n)}
+                            ></span>
+                        </div>
+                        <div
+                            className={clsx(
+                                styles.customers_reviews_histogram_bar
+                            )}
+                        >
+                            <div
+                                className={clsx(
+                                    styles.customers_reviews_histogram_bar_content
+                                )}
+                                style={{ width: "0%" }}
+                            ></div>
+                        </div>
+                        <h5
+                            className={clsx(
+                                styles.customers_reviews_histogram_percentage
+                            )}
+                        >
+                            0%
+                        </h5>
+                        <span
+                            className={clsx(
+                                styles.customers_reviews_histogram_frequency
+                            )}
+                        >
+                            (0)
+                        </span>
+                    </div>
+                </div>
+                <div className={clsx(styles.widget_actions_wrapper)}>
+                    <a href="/">Write a review</a>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+ProductReview.propTypes = {};
+
+export default ProductReview;

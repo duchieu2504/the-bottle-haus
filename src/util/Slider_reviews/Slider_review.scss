@@ -1,0 +1,45 @@
+.slider_reviews {
+    position: relative;
+    // width: 100vw;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: 10px;
+
+    &__dots {
+        position: absolute;
+        bottom: 25px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__dot {
+        padding: 6px;
+        margin-right: 5px;
+        cursor: pointer;
+        border-radius: 50%;
+    }
+    &_btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 12px;
+    }
+    &_arrow {
+        height: 50px;
+        width: 50px;
+        background: white;
+        border-radius: 50%;
+        cursor: pointer;
+        align-items: center;
+        transition: transform ease-in 0.1s;
+        &:hover {
+            transform: scale(1.1);
+        }
+        img {
+            &:focus {
+                outline: 0;
+            }
+        }
+    }
+}

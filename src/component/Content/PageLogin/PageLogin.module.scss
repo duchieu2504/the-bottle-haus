@@ -1,36 +1,37 @@
 @keyframes scale-login {
     0% {
         opacity: 0;
-        transform: scale(0.5)
+        transform: scale(0.5);
     }
     100% {
         opacity: 1;
-        transform: scale(1)
+        transform: scale(1);
     }
 }
 @mixin scale-login($duration) {
-  animation: scale-login $duration ease-in-out both;
+    animation: scale-login $duration ease-in-out both;
 }
 .pageLogin {
-    visibility: hidden;
-    opacity: 0;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 12;
-    width: 100%;
-    height: 100%;
-    transition: all 0.2s linear;
-
-    &.active {
+    &_container {
+        visibility: hidden;
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 12;
+        width: 100%;
+        height: 100%;
+        transition: all 0.2s linear;
+    }
+    &_container.active {
         visibility: visible;
         opacity: 1;
-        .login {
+        .pageLogin_wrap {
             opacity: 1;
-            transform: scale(1)
+            transform: translate(-50%, -50%) scale(1);
         }
     }
-    .overlay {
+    &_overlay {
         width: 100%;
         backdrop-filter: blur(11px);
         background-color: rgba(255, 255, 255, 0.3);
@@ -41,14 +42,16 @@
         left: 0;
         transition: all 0.5s linear;
     }
-    .login {
-        min-height: 100%;
-        width: 100vw;
+    &_wrap {
+        width: 60vw;
         position: absolute;
         z-index: 2;
-        top: 18%;
-        left: 0;
-        transform: scale(0.8);
+        top: 50%;
+        left: 50%;
+        flex: 1;
+        transform: translate(-50%, -50%) scale(0.8);
+        display: flex;
+        justify-content: center;
         opacity: 0;
         transition: all 0.2s ease-out 0.2s;
         transition-property: transform, opacity;
@@ -57,169 +60,258 @@
         // animation: scaleLogin 0.5s ease-out;
         // @include scale-login(0.5s);
 
-        .form_submit {
-            display: flex;
-            justify-content: center;
-        }
         &_img {
-            width: 350px;
-            box-shadow: 14px 14px 14px rgba(0, 0, 0, .5);
+            box-shadow: 14px 14px 14px rgba(0, 0, 0, 0.5);
             border-top-left-radius: 18px;
             border-bottom-left-radius: 18px;
-            .img {
-                border-top-left-radius: 18px;
-            border-bottom-left-radius: 18px;
-                padding-top: 100%;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: top center;
-            }
-        }
-    }
-}
-
-
-// nội dung thẻ login
-.content {
-    background-color: #fff;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-    width: 350px;
-    text-align: center;
-    padding: 24px 12px;
-    position: relative;
-    box-shadow: 14px 14px 14px rgba(0, 0, 0, .5);
-    .header {
-        color: #000;
-        h1 {
-            font-size: 1.8rem;
-            line-height: 2.8rem;
-        }
-        p {
-            font-size: 1.2rem;
-            line-height: 2.2rem;
-            padding: 0 12px;
-        }
-    }
-    .container {
-        padding: 12px 0;
-        .form_group {
-            width: 70%;
-            min-height: 40px;
-            margin: 22px auto 0;
-            text-align: start;
             position: relative;
-        }
-        .form_label {
-            position: absolute;
-            left: 16px;
-            top: 12px;
-            pointer-events: none;
-            // z-index: 1;
-            
-            padding: 2px 4px;
-            transform: translateY(-2px);
-            color: rgb(153, 152, 152);
-            background-color: #fff;
-            letter-spacing: 0.5px;
-            font-size: 1.2rem;
-            transition: all 0.2s ease-in-out;
-        }
-        .form_control {
-            position: absolute;
-            top: 0;
-            left: 0;
-            // z-index: 2;
-
-            font-size: 1.4rem;
-            line-height: 2rem;
-            color: #000;
-            padding: 9px 16px;
-            width: 100%;
-            border-radius: 10px;
-            outline: none;
-            border: 1px solid rgba(0, 0, 0, 0.3);
-            background-color: transparent;
-        }
-        .form_border{
-            i {
-                &::before,
-                &::after {
-                    content: "";
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    width: 2px;
-                    height: 0;
-                    background-color: #3399FF;
-                    transition: 0.4s;
+            .img {
+                max-width: 100%;
+                height: 100%;
+                overflow: hidden;
+                border-top-left-radius: 18px;
+                border-bottom-left-radius: 18px;
+                // padding-top: 100%;
+                // background-size: cover;
+                // background-repeat: no-repeat;
+                // background-position: top center;
+            }
+            &_text {
+                position: absolute;
+                top: 0;
+                left: 0;
+                padding: 36px 48px;
+                h4 {
+                    font-size: 3rem;
+                    line-height: 3.4rem;
+                    color: #606060;
+                    font-family: Gilroy;
+                }
+                span {
+                    color: #fd802b;
                 }
             }
         }
-        .form_border::before,
-        .form_border::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #3399FF;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-        .form_border::after,
-        .form_border i::after {
-            top: auto;
-            bottom: 0;
-            left: auto;
-            right: 0;
-        }
-        .form_control:focus ~ .form_border::after,
-        .form_control:focus ~ .form_border::before {
-            width: 100%; 
-            transition: 0.3s;
-        }
-        .form_control:focus ~ .form_border i::after,
-        .form_control:focus ~ .form_border i::before {
-            height: 100%; 
-            transition: 0.3s;
+    }
+    &_content {
+        background-color: #fff;
+        border-top-right-radius: 18px;
+        border-bottom-right-radius: 18px;
+        flex: 1;
+        text-align: center;
+        padding: 48px 12px;
+        position: relative;
+        box-shadow: 14px 14px 14px rgba(0, 0, 0, 0.5);
+        &_header {
+            color: #000;
+            h1 {
+                font-weight: 600;
+                font-size: 2.8rem;
+                line-height: 3rem;
+                text-align: center;
+                color: #000;
+                margin-bottom: 15px;
+                letter-spacing: 0;
+            }
+            p {
+                font-weight: 400;
+                font-size: 1.6rem;
+                text-align: center;
+                letter-spacing: 0;
+                a {
+                    color: #377dff;
+                    text-decoration: none;
+                }
+            }
         }
 
-        .form_control:focus ~ .form_label,
-        .form_control:not(:placeholder-shown).form_control:not(:focus) ~ .form_label
-        {
-            top: -8px;
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: rgb(104, 104, 104);
-            left: 0.8rem;
+        &_social {
+            padding: 8px 20px;
+            max-width: 70%;
+            margin: 30px auto;
+            border: 1px solid #dbdbdb;
+            border-radius: 16px;
+            &_link {
+                display: flex;
+                align-items: center;
+                text-decoration: none;
+            }
+            &_logo {
+                width: 18px;
+                height: 18px;
+            }
+            p {
+                color: #757575;
+                font-size: 1.6rem;
+                flex: 1;
+                text-align: center;
+                line-height: 3rem;
+            }
         }
-        .form_message {
+
+        &_divider {
+            position: relative;
+            margin: 0 24px;
+            span {
+                font-weight: 400;
+                font-size: 1.8rem;
+                text-align: center;
+                color: #8c98a4;
+                width: max-content;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 0%;
+                width: 40%;
+                height: 1px;
+                background-color: #757575;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                right: 0%;
+                width: 40%;
+                height: 1px;
+                background-color: #757575;
+            }
+        }
+
+        &_form {
+            .form_submit {
+            }
+            padding: 12px 0;
+            .form_group {
+                width: 70%;
+                height: 56px;
+                margin: 22px auto 0;
+                text-align: start;
+                position: relative;
+            }
+            .form_label {
+                position: absolute;
+                left: 16px;
+                top: 12px;
+                pointer-events: none;
+                // z-index: 1;
+
+                padding: 2px 4px;
+                transform: translateY(1px);
+                color: rgb(153, 152, 152);
+                background-color: #fff;
+                letter-spacing: 0.5px;
+                font-size: 1.6rem;
+                transition: all 0.2s ease-in-out;
+            }
+            .form_control {
+                position: absolute;
+                top: 0;
+                left: 0;
+                // z-index: 2;
+
+                font-size: 1.4rem;
+                line-height: 2rem;
+                color: #000;
+                padding: 14px 16px;
+                width: 100%;
+                border-radius: 16px;
+                outline: none;
+                border: 1px solid rgba(0, 0, 0, 0.3);
+                background-color: transparent;
+            }
+            .form_border {
+                i {
+                    &::before,
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 2px;
+                        height: 0;
+                        background-color: #3399ff;
+                        transition: 0.4s;
+                    }
+                }
+            }
+            .form_border::before,
+            .form_border::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 2px;
+                background-color: #3399ff;
+                border-radius: 10px;
+                transition: 0.3s;
+            }
+            .form_border::after,
+            .form_border i::after {
+                top: auto;
+                bottom: 0;
+                left: auto;
+                right: 0;
+            }
+            .form_control:focus ~ .form_border::after,
+            .form_control:focus ~ .form_border::before {
+                width: 100%;
+                transition: 0.3s;
+            }
+            .form_control:focus ~ .form_border i::after,
+            .form_control:focus ~ .form_border i::before {
+                height: 100%;
+                transition: 0.3s;
+            }
+
+            .form_control:focus ~ .form_label,
+            .form_control:not(:placeholder-shown).form_control:not(:focus) ~ .form_label {
+                top: -8px;
+                font-size: 1.3rem;
+                font-weight: bold;
+                color: rgb(104, 104, 104);
+                left: 0.8rem;
+            }
+            .form_message {
                 // font-size: 1.2rem;
                 line-height: 2rem;
                 color: #000;
                 padding-top: 8px;
                 padding-left: 8px;
-        }   
-    }
-    .footer {
-        button {
-            letter-spacing: 1px;
-            width: 70%;
-            border-radius: 10px;
-            color: #fff;
-            margin: auto;
-            font-size: 1.2rem;
-            line-height: 4rem;
-            border: none;
-            background-color: #3eb4ad;
+            }
+        }
+        &_forgot_pass {
+            font-weight: 400;
+            font-size: 1.6rem;
+            text-align: center;
+            padding: 6px 0 20px;
             cursor: pointer;
+            margin-bottom: 23p;
+            a {
+                color: #377dff;
+                text-decoration: none;
+            }
+        }
+        .footer {
+            button {
+                letter-spacing: 1px;
+                width: 70%;
+                border-radius: 10px;
+                color: #fff;
+                margin: auto;
+                font-size: 1.6rem;
+                line-height: 4.8rem;
+                border: none;
+                background-color: #3eb4ad;
+                cursor: pointer;
+            }
         }
     }
 }
 
-
+// nội dung thẻ login
 
 // đóng  thẻ login
 .close {
@@ -256,7 +348,7 @@
         -webkit-transform: rotate(45deg) translate(10px, 8px);
         transform: rotate(45deg) translate(10px, 8px);
         -webkit-transition: all 0.2s ease-in;
-        transition: all 0.2s ease-in ;
+        transition: all 0.2s ease-in;
         will-change: transform;
         opacity: 1;
     }
@@ -270,8 +362,8 @@
         opacity: 0;
     }
     &.open::before {
-            // -webkit-transform: rotate(0deg) translate(0px, 12px);
-            transform: rotate(0deg) translate(0px, 12px);
-            opacity: 0;
-        }
+        // -webkit-transform: rotate(0deg) translate(0px, 12px);
+        transform: rotate(0deg) translate(0px, 12px);
+        opacity: 0;
+    }
 }

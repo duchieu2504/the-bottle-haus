@@ -1,77 +1,78 @@
 .form {
-        text-align: center;
-        background: #fff;
-        border-radius: 2px;
-        padding-top: 20px;
-        margin: 20px 24px 32px;
-        align-self: center;
-        box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
-        .heading {
-            font-size: 2rem;
-            line-height: 4rem;
-            padding-bottom: 12px;
-            text-align: start;
-        }
-        &.active {
-            display: none;
-        }
-    }
-    .form_group {
-        display: flex;
-        min-height: 84px;
-        flex-direction: column;
-    }
-    .form_select {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        .form_control {
-            cursor: pointer;
-            width: 85px;
-        }
-    }
-    .form_label {
-        text-align: left;
-        font-weight: 700;
-        padding-bottom: 6px;
-        line-height: 1.8rem;
-        font-size: 1.4rem;
-    }
-    .form_control {
-        height: 40px;
-        padding: 8px 12px;
-        border: 1px solid #929292;
-        background-color: #e7e7e7;
-        border-radius: 10px;
-        outline: none;
-        font-size: 1.4rem;
-    }
-    .form_control:not(:placeholder-shown).form_control:not(:focus) {
-        border: 1px solid #c7c7c7;
-        background-color: #fff;
-    }
-
-    .form_invalid .form_control{
-        border: 1px solid;
-        border-color: red;
-    }
-    .form_message {
-
-        color: #f33a58;
-        font-size: 1.2rem;
-        line-height: 1.6rem;
-        padding: 2px 0 0;
+    text-align: center;
+    background: #fff;
+    border-radius: 2px;
+    padding-top: 20px;
+    align-self: center;
+    .heading {
+        font-size: 2rem;
+        line-height: 4rem;
+        padding-bottom: 12px;
         text-align: start;
     }
-    .form_submit {
-        outline: none;
-        background-color: #1dbfaf;
-        padding: 12px 16px;
-        font-weight: 600;
-        color: #fff;
-        border: none;
-        width: 100%;
-        font-size: 14px;
-        border-radius: 24px;
-        cursor: pointer;
+    &.active {
+        display: none;
     }
+}
+.form_group {
+    display: flex;
+    padding-bottom: 20px;
+    flex-direction: column;
+}
+.form_select {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .form_control {
+        cursor: pointer;
+        width: calc((100% - 20px) / 3);
+    }
+}
+.form_label {
+    text-align: left;
+    font-weight: normal;
+    padding-bottom: 8px;
+    line-height: 1.8rem;
+    font-size: 1.6rem;
+}
+.form_control {
+    padding: 12px 16px;
+    border: 1px solid #d9d9d9;
+    border-radius: 6px;
+    outline: none;
+    font-size: 1.6rem;
+}
+.form_control:not(:placeholder-shown).form_control:not(:focus) {
+    border: 1px solid #d9d9d9;
+    background-color: #fff;
+}
+
+.form_invalid .form_control {
+    border: 1px solid;
+    border-color: red;
+}
+.form_message {
+    color: #f33a58;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 2px 0 0;
+    text-align: start;
+}
+.form_submit {
+    outline: none;
+    background-color: #115e5c;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    width: 30%;
+    font-size: 1.6rem;
+    border-radius: 24px;
+    cursor: pointer;
+}
+.shipping {
+    text-align: start;
+    font-size: 2rem;
+    font-weight: normal;
+    padding: 20px 0;
+}
