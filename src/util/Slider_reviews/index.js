@@ -105,7 +105,7 @@ const SliderImg = (props) => {
     }, [times, activeIndex]);
     useEffect(() => {
         if (transition === 0) setState({ ...state, transition: 0.45 });
-    }, [transition, state]);
+    }, [transition]);
 
     const handleResize = () => {
         // khi thay đổi trình duyệt thì gán gias trị chuyển đổi bằng 0
@@ -142,6 +142,7 @@ const SliderImg = (props) => {
             });
         }
     };
+
     const smoothTransition = () => {
         // khi trình duyệt trang tính đang ở cuối trang tính và chuyển slider lên trang tính đầu
         if (activeIndex + slides.length === _slides.length - 5) {

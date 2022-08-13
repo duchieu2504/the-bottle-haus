@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Slider from "../../../util/Slider/Slider.js";
+import Slider from "../../../util/Slider/index.js";
 import ProductsFeatured from "../../Content/ProductsFeatured/ProductsFeatured.js";
 import clsx from "clsx";
 import styles from "./Main.module.scss";

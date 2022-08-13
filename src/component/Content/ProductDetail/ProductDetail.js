@@ -72,8 +72,8 @@ const ProductDetail = () => {
             textDesProductRef.current.clientHeight >
             desProductRef.current.clientHeight
         )
-            console.log(textDesProductRef.current.clientHeight);
-        setActiveMore(true);
+            // console.log(textDesProductRef.current.clientHeight);
+            setActiveMore(true);
     }, []);
     //kiểm tra xem đã có sản phẩm trong cửa hàng chưa
     let isCheckIdCart = dataProdcutsCart.filter(
@@ -165,7 +165,7 @@ const ProductDetail = () => {
                 quantily: `${quanti}`,
                 size: `${sizeText}`,
             };
-            console.log(productCart);
+            // console.log(productCart);
             const action = buyProduct(productCart);
             dispatch(action);
         }

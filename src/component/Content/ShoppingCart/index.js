@@ -20,7 +20,6 @@ function Cart({ activeCart, handleClickAllCart }) {
     const data = useSelector((state) => state.productsCart);
 
     const dataArray = useMemo(() => [...data], [data]);
-    console.log(dataArray);
     const [total, setTotal] = useState(0);
 
     const dataReverse = dataArray.reverse().slice(0, 2);

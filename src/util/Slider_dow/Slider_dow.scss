@@ -2,7 +2,6 @@
     position: relative;
     height: 75vh;
     overflow: hidden;
-    padding: 40px 0;
 }
 
 .slider {
@@ -12,7 +11,7 @@
         flex-direction: column;
     }
     &_item {
-        height: 70vh;
+        height: 75vh;
         width: 100%;
         display: flex;
         //   background-image: url('${content}');
@@ -94,12 +93,15 @@
             background: #9acbcf;
             position: relative;
             .img {
-                padding-top: 70%;
+                height: 64%;
                 width: 100%;
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: top center;
                 position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translate(0, -50%);
                 z-index: 2;
             }
         }

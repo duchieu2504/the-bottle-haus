@@ -99,7 +99,7 @@ const Header = (props) => {
                     <div className={clsx(styles.header_wrap)}>
                         <div className={clsx(styles.header_wrap_logo)}>
                             <NavLink
-                                to="/home"
+                                to="/the-bottle-haus/home"
                                 className={clsx(styles.header_logo)}
                             >
                                 <img

@@ -33,7 +33,7 @@ const SliderDowContent = ({
                             </NavLink>
                         </button>
                         <div className="text_number">
-                            <span>0{i}</span>
+                            <span>0{slide.id}</span>
                             <div className="text_line"></div>
                         </div>
                     </div>

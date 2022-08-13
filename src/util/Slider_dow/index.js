@@ -74,7 +74,7 @@ const SliderImg = (props) => {
     }, [times, activeIndex]);
     useEffect(() => {
         if (transition === 0) setState({ ...state, transition: 0.45 });
-    }, [transition, state]);
+    }, [transition]);
 
     const handleResize = () => {
         // khi thay đổi trình duyệt thì gán gias trị chuyển đổi bằng 0
@@ -178,6 +178,7 @@ const SliderImg = (props) => {
 };
 const images = [
     {
+        id: 1,
         name: "Lightning Fast Delivery",
         title: "Crown Royal Peach ",
         description:
@@ -186,6 +187,7 @@ const images = [
     },
 
     {
+        id: 2,
         name: "Haus of Rye",
         title: "Willett Rye ",
         description:
@@ -194,6 +196,7 @@ const images = [
     },
 
     {
+        id: 3,
         name: "Haus of Bourbon",
         title: "Weller 12 Year ",
         description:

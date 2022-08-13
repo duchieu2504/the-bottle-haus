@@ -10,6 +10,7 @@ const SliderImg = (props) => {
     const { slides, times } = props;
     const firstSlide = slides[0];
     const lastSlide = slides[slides.length - 1];
+    // const secondSlide = slides[[1]];
     const slidesCopy = [lastSlide, ...slides, firstSlide]; //WEB
     const [getWidth, setGetWidth] = useState();
 
@@ -19,17 +20,19 @@ const SliderImg = (props) => {
         activeIndex: 0,
         transitioning: false,
         _slides: [...slidesCopy], //F8
-        // _slides: [lastSlide, firstSlide, secondSlide],  //WEB
+        // _slides: [lastSlide, firstSlide, secondSlide], //WEB
     });
     const { translate, transition, activeIndex, _slides, transitioning } =
         state;
+    console.log("transition", transition);
     const autoPlayRef = useRef();
     const transitionRef = useRef();
     const throttleRef = useRef();
     const resizeRef = useRef();
+    const sliderRef = useRef();
 
     useEffect(() => {
-        const width = document.querySelector(".slider_dow").clientWidth;
+        const width = document.querySelector(".slider").clientWidth;
         setGetWidth(width);
     }, []);
 
@@ -42,34 +45,35 @@ const SliderImg = (props) => {
 
     //ComponentDidMount
     useEffect(() => {
-        const smooth = () => {
-            transitionRef.current();
+        const sliderElement = sliderRef.current;
+        const smooth = (e) => {
+            if (e.target.className.includes("slider")) transitionRef.current();
         };
 
         const throttle = (e) => {
-            throttleRef.current();
+            if (e.target.className.includes("slider")) throttleRef.current();
         };
 
         const resize = () => {
             resizeRef.current();
         };
         // khi hiệu ứng bắt đầu
-        window.addEventListener("transitionstart", throttle);
+        sliderElement.addEventListener("transitionstart", throttle);
 
         // khi kết thúc hiệu ứng
         window.addEventListener("transitionend", smooth);
 
         //
-        window.addEventListener("resize", resize);
+        const onResize = window.addEventListener("resize", resize);
         return () => {
             // khi sự kiện chuyển đổi kết thúc
             window.removeEventListener("transitionend", smooth);
 
             // sự kiện khi kết thúc bắt đầu
-            window.removeEventListener("transitionstart", throttle);
+            sliderElement.removeEventListener("transitionstart", throttle);
 
             // thay đổi kích thước trình duyệt
-            window.removeEventListener("resize", resize);
+            window.removeEventListener("resize", onResize);
         };
     }, []);
 
@@ -84,13 +88,14 @@ const SliderImg = (props) => {
             if (times) clearInterval(interval);
         };
     }, [times, activeIndex]);
+
     useEffect(() => {
         if (transition === 0) setState({ ...state, transition: 0.45 });
-    }, [transition, state]);
+    }, [transition]);
 
     const handleResize = () => {
         // khi thay đổi trình duyệt thì gán gias trị chuyển đổi bằng 0
-        setState({ ...state, translate: getWidth, transition: 0 });
+        // setState({ ...state, translate: getWidth, transition: 0 });
     };
 
     const throttleArrows = () => {
@@ -110,11 +115,13 @@ const SliderImg = (props) => {
             });
         }
         // Cách 2: Web
-        //     setState({
+        // if (transitioning) return;
+        // setState({
         //     ...state,
         //     translate: 0,
-        //     activeIndex: activeIndex === 0 ? slides.length - 1 : activeIndex - 1
-        //   })
+        //     activeIndex:
+        //         activeIndex === 0 ? slides.length - 1 : activeIndex - 1,
+        // });
     };
 
     //Click vào nút next
@@ -128,32 +135,33 @@ const SliderImg = (props) => {
                 translate: (activeIndex + 2) * getWidth,
             });
         }
+        // WEB
+
+        // if (transitioning) return;
+        // setState({
+        //     ...state,
+        //     translate: translate + getWidth,
+        //     activeIndex:
+        //         activeIndex === slides.length - 1 ? 0 : activeIndex + 1,
+        // });
     };
-    // WEB
-    // setState({
-    //     ...state,
-    //     translate: translate + getWidth,
-    //     activeIndex: activeIndex === slides.length - 1 ? 0 : activeIndex + 1
-    // })
     const smoothTransition = () => {
         // THEO SLIDERSHOW OF WEB
-
-        // let _slides = []
-
+        // let _slides = [];
         // // Khi trình duyệt đang hiện thị trang tính cuối
-        // if(activeIndex === slides.length - 1)
-        //     _slides = [slides[slides.length - 2], lastSlide, firstSlide]
-        // else if(activeIndex === 0) _slides = [lastSlide, firstSlide, secondSlide] // Khi đang ở trang tính đầu
-        // else _slides = slides.slice(activeIndex - 1, activeIndex + 2) // khi đang hiện thị các trang tính ở giữa slider
-        // setState ({
+        // if (activeIndex === slides.length - 1)
+        //     _slides = [slides[slides.length - 2], lastSlide, firstSlide];
+        // else if (activeIndex === 0)
+        //     _slides = [lastSlide, firstSlide, secondSlide];
+        // // Khi đang ở trang tính đầu
+        // else _slides = slides.slice(activeIndex - 1, activeIndex + 2); // khi đang hiện thị các trang tính ở giữa slider
+        // setState({
         //     ...state,
         //     _slides,
         //     transition: 0,
         //     translate: getWidth,
-        // })
-
+        // });
         // THEO SLIDERSHOW OF F8
-
         // khi trình duyệt trang tính đang ở cuối trang tính và chuyển slider lên trang tính đầu
         // khi đo activeIndex từ slides.length  -1 về 0 thì ,
         if (activeIndex + slides.length === _slides.length - 2) {
@@ -163,20 +171,22 @@ const SliderImg = (props) => {
                 translate: getWidth,
             });
         }
-
         // khi trình duyệt đang hiển thị trang tính đang ở đầu trang tính(Slider Image vị trí 2), sau đó chuyển động trượt để hiện thị trang tính cuối (Slider Image vị trsi thứ 1),
         // sau khi kết thúc chuyển động sẽ set lại các giá trị của state
         else if (activeIndex + 1 === slides.length) {
-            return setState({
+            setState({
                 ...state,
                 transition: 0,
                 translate: getWidth * slides.length,
             });
         }
     };
+    // console.log(activeIndex + 1 === slides.length);
+    // console.log(activeIndex + slides.length === _slides.length - 2);
+    console.log(activeIndex);
 
     return (
-        <div className="slider">
+        <div className="slider" ref={sliderRef}>
             <SliderContent
                 activeIndex={activeIndex}
                 slides={_slides}

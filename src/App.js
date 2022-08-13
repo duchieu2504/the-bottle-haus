@@ -35,18 +35,37 @@ const App = () => {
                         }}
                     >
                         <Routes>
-                            <Route exact path="/home" element={<Main />} />
                             <Route
-                                path="/"
-                                element={<Navigate replace to="/home" />}
+                                exact
+                                path="/the-bottle-haus/home"
+                                element={<Main />}
                             />
-                            <Route exact path="/" element={<Main />} />
+                            <Route
+                                path="/the-bottle-haus"
+                                element={
+                                    <Navigate
+                                        replace
+                                        to="/the-bottle-haus/home"
+                                    />
+                                }
+                            />
+                            <Route
+                                exact
+                                path="/the-bottle-haus"
+                                element={<Main />}
+                            />
                             <Route
                                 path="/thong_tin"
                                 element={<NavabarInfo />}
                             />
-                            <Route path="/cart" element={<PageCart />} />
-                            <Route path="/checkout" element={<CheckOut />} />
+                            <Route
+                                path="/the-bottle-haus/cart"
+                                element={<PageCart />}
+                            />
+                            <Route
+                                path="/the-bottle-haus/checkout"
+                                element={<CheckOut />}
+                            />
                             <Route path="/:url" element={<Products />} />
                             <Route
                                 path="/:url/:productId"

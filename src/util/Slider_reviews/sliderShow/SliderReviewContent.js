@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { React } from "react";
-import styleSliderReview from "../styleSlider.js";
+import styleSliderReview from "../styleSliderReview.js";
 import styles from "./SliderReview.module.scss";
 
 const SliderReviewContent = ({
