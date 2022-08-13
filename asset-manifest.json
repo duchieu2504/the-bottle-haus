@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/the-bottle-haus/static/css/main.03edca0f.chunk.css",
-    "main.js": "/the-bottle-haus/static/js/main.2af41c86.chunk.js",
-    "main.js.map": "/the-bottle-haus/static/js/main.2af41c86.chunk.js.map",
+    "main.js": "/the-bottle-haus/static/js/main.562e5468.chunk.js",
+    "main.js.map": "/the-bottle-haus/static/js/main.562e5468.chunk.js.map",
     "runtime-main.js": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js",
     "runtime-main.js.map": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js.map",
     "static/css/2.ae1ec601.chunk.css": "/the-bottle-haus/static/css/2.ae1ec601.chunk.css",
@@ -26,6 +26,6 @@
     "static/css/2.ae1ec601.chunk.css",
     "static/js/2.ecc10063.chunk.js",
     "static/css/main.03edca0f.chunk.css",
-    "static/js/main.2af41c86.chunk.js"
+    "static/js/main.562e5468.chunk.js"
   ]
 }
