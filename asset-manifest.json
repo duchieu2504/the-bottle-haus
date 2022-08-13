@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/duchieu2504/the-bottle-haus.git/static/css/main.d3736220.chunk.css",
+    "main.js": "/duchieu2504/the-bottle-haus.git/static/js/main.a89b1f48.chunk.js",
+    "main.js.map": "/duchieu2504/the-bottle-haus.git/static/js/main.a89b1f48.chunk.js.map",
+    "runtime-main.js": "/duchieu2504/the-bottle-haus.git/static/js/runtime-main.31a648e1.js",
+    "runtime-main.js.map": "/duchieu2504/the-bottle-haus.git/static/js/runtime-main.31a648e1.js.map",
+    "static/css/2.fd2dacd2.chunk.css": "/duchieu2504/the-bottle-haus.git/static/css/2.fd2dacd2.chunk.css",
+    "static/js/2.04c2ff86.chunk.js": "/duchieu2504/the-bottle-haus.git/static/js/2.04c2ff86.chunk.js",
+    "static/js/2.04c2ff86.chunk.js.map": "/duchieu2504/the-bottle-haus.git/static/js/2.04c2ff86.chunk.js.map",
+    "index.html": "/duchieu2504/the-bottle-haus.git/index.html",
+    "static/css/2.fd2dacd2.chunk.css.map": "/duchieu2504/the-bottle-haus.git/static/css/2.fd2dacd2.chunk.css.map",
+    "static/css/main.d3736220.chunk.css.map": "/duchieu2504/the-bottle-haus.git/static/css/main.d3736220.chunk.css.map",
+    "static/js/2.04c2ff86.chunk.js.LICENSE.txt": "/duchieu2504/the-bottle-haus.git/static/js/2.04c2ff86.chunk.js.LICENSE.txt",
+    "static/media/cart.2b340a39.svg": "/duchieu2504/the-bottle-haus.git/static/media/cart.2b340a39.svg",
+    "static/media/delete.4801f250.svg": "/duchieu2504/the-bottle-haus.git/static/media/delete.4801f250.svg",
+    "static/media/done.5a58c8da.svg": "/duchieu2504/the-bottle-haus.git/static/media/done.5a58c8da.svg",
+    "static/media/all.min.css": "/duchieu2504/the-bottle-haus.git/static/media/fa-solid-900.eeccf4f6.woff",
+    "static/media/facebook_icon.df74ea7b.svg": "/duchieu2504/the-bottle-haus.git/static/media/facebook_icon.df74ea7b.svg",
+    "static/media/mobile_phone.06a36781.svg": "/duchieu2504/the-bottle-haus.git/static/media/mobile_phone.06a36781.svg",
+    "static/media/momo.92cda268.svg": "/duchieu2504/the-bottle-haus.git/static/media/momo.92cda268.svg",
+    "static/media/zalo_icon.d90ba1e4.svg": "/duchieu2504/the-bottle-haus.git/static/media/zalo_icon.d90ba1e4.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.31a648e1.js",
+    "static/css/2.fd2dacd2.chunk.css",
+    "static/js/2.04c2ff86.chunk.js",
+    "static/css/main.d3736220.chunk.css",
+    "static/js/main.a89b1f48.chunk.js"
+  ]
+}
