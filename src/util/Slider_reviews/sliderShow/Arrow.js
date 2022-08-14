@@ -1,9 +1,9 @@
 import { React } from "react";
 
 const rightArrow =
-    "https://raw.githubusercontent.com/DZuz14/react-hooks-image-slider/651b4ef7f435c923bbadb1452481bae4f7f4d5f5/src/img/right-arrow.svg";
+    "https://img.icons8.com/ios-glyphs/30/000000/chevron-right.png";
 const leftArrow =
-    "https://raw.githubusercontent.com/DZuz14/react-hooks-image-slider/651b4ef7f435c923bbadb1452481bae4f7f4d5f5/src/img/left-arrow.svg";
+    "https://img.icons8.com/ios-glyphs/30/000000/chevron-left.png";
 
 const ArrowReview = ({ direction, handleClick, activeArrow }) => {
     const displayArrow =

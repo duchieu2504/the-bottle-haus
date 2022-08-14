@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 // import PropTypes from 'prop-types';
 import styles from "./CheckOut.module.scss";
 import clsx from "clsx";
@@ -13,9 +13,11 @@ import { useDispatch, useSelector } from "react-redux";
 import UserFormik from "../User/UserFormik/UserFormik";
 import { addUser } from "redux/userInfo";
 
-import "./Notics.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import CartItem from "../ShoppingCart/CartItem";
+import { TotalContext } from "Context/TotalProvider";
+import { Notice } from "util/NoticeOfPurchase/Notice";
+import Image from "assets/image";
 
 CheckOut.propTypes = {};
 
@@ -28,17 +30,10 @@ function CheckOut() {
     // các sản phẩm trong giỏ hàng
     const data = useSelector((state) => state.productsCart);
     const dataProdcuts = useMemo(() => [...data], [data]);
-    const [total, setTotal] = useState(0);
     const [shipper, setShipper] = useState(0);
     const userRef = useRef();
 
-    useEffect(() => {
-        const total = dataProdcuts.reduce((acc, k) => {
-            const t = Number(k.price) * Number(k.quantily);
-            return acc + t;
-        }, 0);
-        setTotal(total);
-    }, [dataProdcuts]);
+    const total = useContext(TotalContext);
 
     // hành động submit
     const [activeSubmit, setActiveSubmit] = useState(false);
@@ -74,23 +69,23 @@ function CheckOut() {
         setActiveSubmit(!activeSubmit);
 
         // tạo bảng thông tin khách Hàng
-        const a = document.createElement("div");
-        a.classList.add("notice");
-        a.innerHTML = `
-            <div class='notice_icon'>
-                <img src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-info-hotel-services-flatarticons-blue-flatarticons.png" alt='Info'/>
-            </div>
-            <div class='notice_body'>
-                <h3 class='notice_title'>Thông tin khách hàng:</h3>
-                <p>Họ tên: ${values.fullname}</p>
-                <p>Số điện thoại: ${values.billing_address_phone}</p>
-                <p>Địa chỉ gửi hàng: ${values.province}</p>
-                <p>Mô tả số đường, tên đường: ${values.billing_address}</p>
-            </div>
-            <div class='notice_close'>
-                <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-delete-user-interface-flatart-icons-flat-flatarticons.png" alt='close'/>
-            </div>
-        `;
+        // const a = document.createElement("div");
+        // a.classList.add("notice");
+        // a.innerHTML = `
+        //     <div class='notice_icon'>
+        //         <img src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-info-hotel-services-flatarticons-blue-flatarticons.png" alt='Info'/>
+        //     </div>
+        //     <div class='notice_body'>
+        //         <h3 class='notice_title'>Thông tin khách hàng:</h3>
+        //         <p>Họ tên: ${values.fullname}</p>
+        //         <p>Số điện thoại: ${values.billing_address_phone}</p>
+        //         <p>Địa chỉ gửi hàng: ${values.province}</p>
+        //         <p>Mô tả số đường, tên đường: ${values.billing_address}</p>
+        //     </div>
+        //     <div class='notice_close'>
+        //         <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-delete-user-interface-flatart-icons-flat-flatarticons.png" alt='close'/>
+        //     </div>
+        // `;
 
         if (typeof userRef.current === "object" && !activeSubmit) {
             setTimeout(function () {
@@ -102,7 +97,7 @@ function CheckOut() {
             //         clearTimeout(autoRemoveId);
             //     }
             // };
-            userRef.current.appendChild(a);
+            userRef.current.appendChild(Notice(values));
         }
     };
 
@@ -213,7 +208,7 @@ function CheckOut() {
                                                 className={clsx(
                                                     styles.banking_logo
                                                 )}
-                                                src="https://img.icons8.com/external-itim2101-lineal-itim2101/40/000000/external-banking-finance-itim2101-lineal-itim2101-1.png"
+                                                src="https://img.icons8.com/ios/50/ffffff/merchant-account.png"
                                                 alt="Banking"
                                             />
                                         </div>
@@ -231,7 +226,7 @@ function CheckOut() {
                                         alt='MOMO' />
                                 </div>
                             </div> */}
-                                    <div
+                                    {/* <div
                                         className={clsx(
                                             styles.checkout_method_item,
                                             {
@@ -244,15 +239,18 @@ function CheckOut() {
                                         data-index="3"
                                     >
                                         <p>Thanh toán khi nhận hàng</p>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div></div>
                             </div>
                             <div className={clsx(styles.checkout_method_qr)}>
-                                <img
-                                    src="./../../../assets/image/qr.jpg"
-                                    alt="QR"
-                                />
+                                <div
+                                    className={clsx(
+                                        styles.checkout_method_qr_img
+                                    )}
+                                >
+                                    <img src={Image.QrImage} alt="QR" />
+                                </div>
                                 <p>Scan QR code for faster payment</p>
                             </div>
                             <div
@@ -337,12 +335,24 @@ function CheckOut() {
                                 </p>
                                 <p>Cảm ơn khách hàng</p>
                             </div>
-                            <div className={clsx(styles.btn_submit)}>
+                            <div className={clsx(styles.btn_submit_return)}>
+                                <NavLink
+                                    to="/the-bottle-haus/cart"
+                                    className={clsx(styles.button_return)}
+                                >
+                                    <img src="https://img.icons8.com/ios-glyphs/30/757575/return.png" />
+                                    <button
+                                        type="button"
+                                        className={clsx(styles.btn_return)}
+                                    >
+                                        Return
+                                    </button>
+                                </NavLink>
                                 <button
-                                    className={clsx(styles.btn)}
+                                    className={clsx(styles.btn_submit)}
                                     onClick={handleSubmit}
                                 >
-                                    Xác nhận
+                                    Confirm
                                 </button>
                             </div>
                         </div>
@@ -383,7 +393,9 @@ function CheckOut() {
                         >
                             <div className={clsx(styles.product_cart_list)}>
                                 {dataProdcuts.map((item) => {
-                                    return <CartItem item={item} />;
+                                    return (
+                                        <CartItem key={item.id} item={item} />
+                                    );
                                 })}
                             </div>
                             <div className={clsx(styles.product_cart_heading)}>

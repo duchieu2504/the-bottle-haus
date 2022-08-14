@@ -138,8 +138,6 @@ const products = createSlice({
     initialState: init,
     reducers: {
         addPhoto: (state, action) => {
-            // const newPhoto = action.payload
-            // state.push(newPhoto)
             return state;
         },
     },

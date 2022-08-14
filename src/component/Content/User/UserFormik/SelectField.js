@@ -108,7 +108,6 @@ function SelectField(props) {
         };
         field.onChange(changeEvent);
     };
-    console.log(loadingDis);
 
     return (
         <div className={clsx(styles.form_group)}>
@@ -130,7 +129,7 @@ function SelectField(props) {
                 >
                     <option value="">City</option>
                     {dataCity.length === 0 ? (
-                        <div> Chưa có dữ liệu </div>
+                        <option> Chưa có dữ liệu </option>
                     ) : (
                         dataCity.map((i) => {
                             return (

@@ -1,9 +1,12 @@
+import Image from "assets/image";
+import RightArrow from "assets/image/rightArrow.png";
 import { React } from "react";
 
 const rightArrow =
-    "https://raw.githubusercontent.com/DZuz14/react-hooks-image-slider/651b4ef7f435c923bbadb1452481bae4f7f4d5f5/src/img/right-arrow.svg";
+    "https://img.icons8.com/ios-filled/50/ffffff/chevron-right.png";
+
 const leftArrow =
-    "https://raw.githubusercontent.com/DZuz14/react-hooks-image-slider/651b4ef7f435c923bbadb1452481bae4f7f4d5f5/src/img/left-arrow.svg";
+    "https://img.icons8.com/ios-filled/50/ffffff/chevron-left.png";
 
 const Arrow = ({ direction, handleClick, activeArrow }) => {
     const displayArrow =
@@ -16,13 +19,13 @@ const Arrow = ({ direction, handleClick, activeArrow }) => {
             ? { transform: "translateX: 2px" }
             : { transform: "translateX: -2px" };
     const styleArrow = { ...displayArrow, ...distance };
+
     return (
-        // <div className="slider__arrow">
         <div
             className={
                 direction === "right"
-                    ? "slider__arrow slider__arrow-right"
-                    : "slider__arrow slider__arrow-left"
+                    ? "slider_arrow slider_arrow-right"
+                    : "slider_arrow slider_arrow-left"
             }
             style={styleArrow}
             onClick={handleClick}
@@ -33,7 +36,6 @@ const Arrow = ({ direction, handleClick, activeArrow }) => {
                 <img style={styleImg} src={leftArrow} alt="ArrowLeft" />
             )}
         </div>
-        // </div>
     );
 };
 

@@ -22,7 +22,7 @@ function CartItem({ item }) {
             </div>
             <div className={clsx(styles.cart_item_content)}>
                 <p className={clsx(styles.cart_item_price)}>
-                    {convertPrice(product.price)}
+                    $ {convertPrice(product.price)}
                 </p>
                 <p className={clsx(styles.cart_item_title)}>{product.title}</p>
             </div>

@@ -11,6 +11,7 @@ import * as Yup from "yup";
 UserFormik.propTypes = {};
 
 function UserFormik(props) {
+    const { handleSubmit } = props;
     const initialValues = {
         fullname: "",
         email: "",
@@ -24,24 +25,20 @@ function UserFormik(props) {
         /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)?$/;
 
     const validationSchema = Yup.object().shape({
-        fullname: Yup.string()
-            .trim()
-            .required("Vui lòng nhập tên của khách hàng"),
+        fullname: Yup.string().trim().required("Please enter this field name"),
         billing_address_phone: Yup.string()
-            .matches(rePhoneNumber, "Vui lòng nhập số điện thoại")
-            .required("Vui lòng nhập số điện thoại"),
+            .matches(rePhoneNumber, "Please enter this field name")
+            .required("Please enter this field name"),
         billing_address: Yup.string()
             .trim()
-            .required("Vui lòng chọn địa chỉ gửi hàng"),
-        province: Yup.string()
-            .trim()
-            .required("Vui lòng thêm mô tả số nhà, tên đường"),
+            .required("Please enter this field name"),
+        province: Yup.string().trim().required("Please enter this field name"),
     });
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={props.handleSubmit}
+            onSubmit={handleSubmit}
         >
             {(formikProps) => {
                 return (

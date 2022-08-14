@@ -335,7 +335,6 @@ const Main = () => {
                                     style={{ flex: "1" }}
                                     data-aos="fade-down-right"
                                     data-aos-delay="50"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="500"
                                 >
@@ -367,7 +366,6 @@ const Main = () => {
                                         className={clsx(styles.content_item_2)}
                                         data-aos="fade-down-right"
                                         data-aos-delay="100"
-                                        data-aos-offset="0"
                                         data-aos-easing="linear"
                                         data-aos-duration="800"
                                     >
@@ -394,7 +392,6 @@ const Main = () => {
                                         className={clsx(styles.content_item_2)}
                                         data-aos="fade-down-right"
                                         data-aos-delay="400"
-                                        data-aos-offset="0"
                                         data-aos-easing="linear"
                                         data-aos-duration="900"
                                     >
@@ -425,7 +422,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="150"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
@@ -450,7 +446,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="400"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
@@ -475,7 +470,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="450"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
@@ -513,7 +507,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-right"
                                     data-aos-delay="100"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="700"
                                 >
@@ -538,7 +531,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_4)}
                                     data-aos="fade-down-right"
                                     data-aos-delay="200"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="650"
                                 >
@@ -563,7 +555,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-right"
                                     data-aos-delay="150"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="600"
                                 >
@@ -601,7 +592,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_2)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="200"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="800"
                                 >
@@ -626,7 +616,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_3)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="100"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="700"
                                 >
@@ -651,7 +640,6 @@ const Main = () => {
                                     className={clsx(styles.content_item_4)}
                                     data-aos="fade-down-left"
                                     data-aos-delay="150"
-                                    data-aos-offset="0"
                                     data-aos-easing="linear"
                                     data-aos-duration="800"
                                 >

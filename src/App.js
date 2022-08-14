@@ -17,6 +17,7 @@ import ScrollToTop from "util/ScrollToTop.js";
 import AOS from "aos";
 import PageCart from "component/Content/PageCart/PageCart.js";
 import CheckOut from "component/Content/PageCheckOut/CheckOut.js";
+import TotalProvider from "Context/TotalProvider";
 
 const App = () => {
     useEffect(() => {
@@ -24,59 +25,61 @@ const App = () => {
     }, []);
     return (
         <GlobalStyles>
-            <div className="shop_demo" style={{ overflow: "hidden" }}>
-                <Router>
-                    <ScrollToTop />
-                    <Header />
-                    <main
-                        style={{
-                            marginTop: "100px",
-                            background: "#fff",
-                        }}
-                    >
-                        <Routes>
-                            <Route
-                                exact
-                                path="/the-bottle-haus/home"
-                                element={<Main />}
-                            />
-                            <Route
-                                path="/the-bottle-haus"
-                                element={
-                                    <Navigate
-                                        replace
-                                        to="/the-bottle-haus/home"
-                                    />
-                                }
-                            />
-                            <Route
-                                exact
-                                path="/the-bottle-haus"
-                                element={<Main />}
-                            />
-                            <Route
-                                path="/thong_tin"
-                                element={<NavabarInfo />}
-                            />
-                            <Route
-                                path="/the-bottle-haus/cart"
-                                element={<PageCart />}
-                            />
-                            <Route
-                                path="/the-bottle-haus/checkout"
-                                element={<CheckOut />}
-                            />
-                            <Route path="/:url" element={<Products />} />
-                            <Route
-                                path="/:url/:productId"
-                                element={<ProductDetail />}
-                            />
-                        </Routes>
-                        <PageLogin />
-                    </main>
-                    <Footer />
-                </Router>
-            </div>
+            <TotalProvider>
+                <div className="shop_demo" style={{ overflow: "hidden" }}>
+                    <Router>
+                        <ScrollToTop />
+                        <Header />
+                        <main
+                            style={{
+                                marginTop: "100px",
+                                background: "#fff",
+                            }}
+                        >
+                            <Routes>
+                                <Route
+                                    exact
+                                    path="/the-bottle-haus/home"
+                                    element={<Main />}
+                                />
+                                <Route
+                                    path="/the-bottle-haus"
+                                    element={
+                                        <Navigate
+                                            replace
+                                            to="/the-bottle-haus/home"
+                                        />
+                                    }
+                                />
+                                <Route
+                                    exact
+                                    path="/the-bottle-haus"
+                                    element={<Main />}
+                                />
+                                <Route
+                                    path="/thong_tin"
+                                    element={<NavabarInfo />}
+                                />
+                                <Route
+                                    path="/the-bottle-haus/cart"
+                                    element={<PageCart />}
+                                />
+                                <Route
+                                    path="/the-bottle-haus/checkout"
+                                    element={<CheckOut />}
+                                />
+                                <Route path="/:url" element={<Products />} />
+                                <Route
+                                    path="/:url/:productId"
+                                    element={<ProductDetail />}
+                                />
+                            </Routes>
+                            <PageLogin />
+                        </main>
+                        <Footer />
+                    </Router>
+                </div>
+            </TotalProvider>
         </GlobalStyles>
     );
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 // import PropTypes from 'prop-types';
 import clsx from "clsx";
 import styles from "./PageCart.module.scss";
@@ -9,6 +9,7 @@ import convertPrice from "util/convertNumber";
 import { NavLink } from "react-router-dom";
 
 import "aos/dist/aos.css";
+import { TotalContext } from "Context/TotalProvider";
 
 PageCart.propTypes = {};
 
@@ -17,15 +18,7 @@ function PageCart(props) {
     const data = useSelector((state) => state.productsCart);
     const dataProdcuts = useMemo(() => [...data], [data]);
 
-    const [total, setTotal] = useState(0);
-
-    useEffect(() => {
-        const total = dataProdcuts.reduce((acc, k) => {
-            const t = Number(k.price) * Number(k.quantily);
-            return acc + t;
-        }, 0);
-        setTotal(total);
-    }, [dataProdcuts]);
+    const total = useContext(TotalContext);
 
     // Xóa sản phẩm ra khỏi giỏ Hàng
     const handleDeleteProduct = (id) => {
@@ -122,7 +115,7 @@ function PageCart(props) {
                             <div className={clsx(styles.checkout_total)}>
                                 <p>SUBTOTAL</p>
                                 <span>
-                                    ${convertPrice(total.toString())} USD
+                                    {convertPrice(total.toString())} USD
                                 </span>
                             </div>
                             <div className={clsx(styles.checkout_warning)}>
@@ -154,7 +147,7 @@ function PageCart(props) {
                                         Number(total) === 0 &&
                                         e.preventDefault()
                                     }
-                                    to="/checkout"
+                                    to="/the-bottle-haus/checkout"
                                 >
                                     Check out
                                 </NavLink>

@@ -23,7 +23,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding-top: 12px;
+        padding-top: 30px;
     }
     &_arrow {
         height: 50px;
@@ -37,6 +37,7 @@
             transform: scale(1.1);
         }
         img {
+            width: 30px;
             &:focus {
                 outline: 0;
             }

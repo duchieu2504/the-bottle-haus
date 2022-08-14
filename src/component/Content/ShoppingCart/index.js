@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useContext } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import styles from "./ShoppingCart.module.scss";
@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import CartItem from "./CartItem";
 import { useSelector } from "react-redux";
 import convertPrice from "util/convertNumber";
+import { TotalContext } from "Context/TotalProvider";
 
 Cart.propTypes = {
     activeCart: PropTypes.bool,
@@ -17,20 +18,17 @@ Cart.defaultProps = {
 };
 
 function Cart({ activeCart, handleClickAllCart }) {
+    // const [total, setTotal] = useState(0);
+
     const data = useSelector((state) => state.productsCart);
-
     const dataArray = useMemo(() => [...data], [data]);
-    const [total, setTotal] = useState(0);
 
-    const dataReverse = dataArray.reverse().slice(0, 2);
+    const dataCategory = useSelector((state) => state.products);
+    const dataProdcuts = [...dataCategory];
 
-    useEffect(() => {
-        const total = dataArray.reduce((acc, k) => {
-            const t = Number(k.price) * Number(k.quantily);
-            return acc + t;
-        }, 0);
-        setTotal(total);
-    }, [dataArray]);
+    const dataShow = dataArray.reverse().slice(0, 2);
+
+    const total = useContext(TotalContext);
 
     return (
         <div className={clsx(styles.cart, { [styles.active]: activeCart })}>
@@ -45,7 +43,7 @@ function Cart({ activeCart, handleClickAllCart }) {
                         <p>You don't have any products in your store yet</p>
                     </div>
                 ) : (
-                    dataReverse.map((item) => {
+                    dataShow.map((item) => {
                         return (
                             <div key={item.id}>
                                 <CartItem item={item} />
@@ -58,22 +56,17 @@ function Cart({ activeCart, handleClickAllCart }) {
             {dataArray.length > 2 ? (
                 <div
                     className={clsx(styles.title)}
-                >{`Bạn có tất cả ${dataArray.length} sản phẩm trong giỏ hàng`}</div>
+                >{`You have all ${dataArray.length} products in your cart`}</div>
             ) : (
                 <div></div>
             )}
 
             <div className={clsx(styles.cart_total)}>
                 <p>TOTAL</p>
-                <span>{convertPrice(total.toString())}</span>
+                <span>$ {convertPrice(total.toString())}</span>
             </div>
             <div className={clsx(styles.cart_footer)}>
-                {/* <button 
-                    className={clsx(styles.btn)}
-                >
-                    Tiếp tục với cửa hàng
-                </button> */}
-                <NavLink to="/cart">
+                <NavLink to="/the-bottle-haus/cart">
                     <button
                         onClick={handleClickAllCart}
                         className={clsx(styles.btn)}

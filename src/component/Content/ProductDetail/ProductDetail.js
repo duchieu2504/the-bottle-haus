@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import ProductCard from "../ProductCard/ProductCard";
 import { buyProduct } from "redux/productsCart";
-import "./Notice.css";
 import "./ProductImg.css";
 import convertPrice from "util/convertNumber";
 import ProductReview from "./ProductReview";
+import { Notice } from "util/NoticeOfPurchase/Notice";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const ProductDetail = () => {
     // div product description
     const desProductRef = useRef();
     const textDesProductRef = useRef();
-    const [activeMore, setActiveMore] = useState(false);
+    const [activeMore, setActiveMore] = useState(true);
 
     // Tạo chuyển động của hình ảnh khi khách hàng bấm vào thẻ 'thêm hàng'
     const [animation, setAnimation] = useState({
@@ -66,15 +66,6 @@ const ProductDetail = () => {
         return () => document.removeEventListener("scroll", handleScroll);
     }, []);
 
-    //
-    useEffect(() => {
-        if (
-            textDesProductRef.current.clientHeight >
-            desProductRef.current.clientHeight
-        )
-            // console.log(textDesProductRef.current.clientHeight);
-            setActiveMore(true);
-    }, []);
     //kiểm tra xem đã có sản phẩm trong cửa hàng chưa
     let isCheckIdCart = dataProdcutsCart.filter(
         (item) => item.id_product === id
@@ -93,33 +84,19 @@ const ProductDetail = () => {
 
     // sự kiện click vào mua hàng
     const handleClickAddProduct = () => {
-        // Tạo thông báo khi đã có sản phẩm và kích thước đã có trong giở hàng
-        const a = document.createElement("div");
-        a.classList.add("notice");
-        a.innerHTML = `
-            <div class='notice_icon'>
-                <img src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-info-hotel-services-flatarticons-blue-flatarticons.png" alt='Info'/>
-            </div>
-            <div class='notice_body'>
-                <h3 class='notice_title'>Thông tin</h3>
-                <p class='notice_msg'>Bạn đã có sản phẩm và kích thước này trong giỏ hàng vui lòng xem thông tin chi tiết trong giỏ hàng</p>
-            </div>
-            <div class='notice_close'>
-                <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-delete-user-interface-flatart-icons-flat-flatarticons.png" alt='close'/>
-            </div>
-        `;
-
         if (typeof toastRef.current === "object" && isCheckSizeCart) {
             setTimeout(function () {
-                if (toastRef.current) toastRef.current.removeChild(a);
-            }, 4000);
+                const notice_element = document.querySelector("div .notice");
+                if (toastRef.current && notice_element)
+                    toastRef.current.removeChild(notice_element);
+            }, 3400);
             // a.onclick = function (e) {
             //     if (e.target.closest(".notice_close")) {
             //         toastRef.current.removeChild(a);
             //         clearTimeout(autoRemoveId);
             //     }
             // };
-            toastRef.current.appendChild(a);
+            toastRef.current.appendChild(Notice());
         }
 
         // Sự kiện khi click vào thêm vào giỏ hàng sẽ có hình ảnh sản phẩm chuyển động
@@ -140,9 +117,9 @@ const ProductDetail = () => {
         }
 
         if (typeof productImgRef.current === "object" && !isCheckSizeCart) {
-            // setTimeout(function () {
-            //     productImgRef.current.removeChild(b);
-            // }, 1000);
+            setTimeout(function () {
+                productImgRef.current.removeChild(b);
+            }, 1000);
             productImgRef.current.appendChild(b);
         }
 
@@ -403,7 +380,9 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 </div>
-                <div ref={toastRef} id={clsx(styles.notice)}></div>
+                <div ref={toastRef} id={clsx(styles.notice)}>
+                    {/* <Notice activeNotice={activeNotice} /> */}
+                </div>
             </div>
         </div>
     );
