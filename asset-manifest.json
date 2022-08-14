@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/the-bottle-haus/static/css/main.03edca0f.chunk.css",
-    "main.js": "/the-bottle-haus/static/js/main.562e5468.chunk.js",
-    "main.js.map": "/the-bottle-haus/static/js/main.562e5468.chunk.js.map",
+    "main.css": "/the-bottle-haus/static/css/main.db903ee8.chunk.css",
+    "main.js": "/the-bottle-haus/static/js/main.17d9a2ae.chunk.js",
+    "main.js.map": "/the-bottle-haus/static/js/main.17d9a2ae.chunk.js.map",
     "runtime-main.js": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js",
     "runtime-main.js.map": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js.map",
     "static/css/2.ae1ec601.chunk.css": "/the-bottle-haus/static/css/2.ae1ec601.chunk.css",
-    "static/js/2.ecc10063.chunk.js": "/the-bottle-haus/static/js/2.ecc10063.chunk.js",
-    "static/js/2.ecc10063.chunk.js.map": "/the-bottle-haus/static/js/2.ecc10063.chunk.js.map",
+    "static/js/2.6749e11b.chunk.js": "/the-bottle-haus/static/js/2.6749e11b.chunk.js",
+    "static/js/2.6749e11b.chunk.js.map": "/the-bottle-haus/static/js/2.6749e11b.chunk.js.map",
     "index.html": "/the-bottle-haus/index.html",
     "static/css/2.ae1ec601.chunk.css.map": "/the-bottle-haus/static/css/2.ae1ec601.chunk.css.map",
-    "static/css/main.03edca0f.chunk.css.map": "/the-bottle-haus/static/css/main.03edca0f.chunk.css.map",
-    "static/js/2.ecc10063.chunk.js.LICENSE.txt": "/the-bottle-haus/static/js/2.ecc10063.chunk.js.LICENSE.txt",
+    "static/css/main.db903ee8.chunk.css.map": "/the-bottle-haus/static/css/main.db903ee8.chunk.css.map",
+    "static/js/2.6749e11b.chunk.js.LICENSE.txt": "/the-bottle-haus/static/js/2.6749e11b.chunk.js.LICENSE.txt",
     "static/media/cart.2b340a39.svg": "/the-bottle-haus/static/media/cart.2b340a39.svg",
     "static/media/delete.4801f250.svg": "/the-bottle-haus/static/media/delete.4801f250.svg",
     "static/media/done.5a58c8da.svg": "/the-bottle-haus/static/media/done.5a58c8da.svg",
@@ -19,13 +19,14 @@
     "static/media/facebook_icon.df74ea7b.svg": "/the-bottle-haus/static/media/facebook_icon.df74ea7b.svg",
     "static/media/mobile_phone.06a36781.svg": "/the-bottle-haus/static/media/mobile_phone.06a36781.svg",
     "static/media/momo.92cda268.svg": "/the-bottle-haus/static/media/momo.92cda268.svg",
+    "static/media/qr.61b39d52.jpg": "/the-bottle-haus/static/media/qr.61b39d52.jpg",
     "static/media/zalo_icon.d90ba1e4.svg": "/the-bottle-haus/static/media/zalo_icon.d90ba1e4.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.f79f2d81.js",
     "static/css/2.ae1ec601.chunk.css",
-    "static/js/2.ecc10063.chunk.js",
-    "static/css/main.03edca0f.chunk.css",
-    "static/js/main.562e5468.chunk.js"
+    "static/js/2.6749e11b.chunk.js",
+    "static/css/main.db903ee8.chunk.css",
+    "static/js/main.17d9a2ae.chunk.js"
   ]
 }
