@@ -399,7 +399,7 @@ function Products() {
                                             className={clsx(styles.apply)}
                                             onClick={handleClickApply}
                                         >
-                                            Áp dụng
+                                            Apply
                                         </button>
                                     </ul>
                                 </div>

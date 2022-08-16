@@ -17,7 +17,7 @@ ShoppingCart.defaultProps = {
     handleClickAllCart: null,
 };
 
-function ShoppingCart({ activeCart, handleClickAllCart }) {
+function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
     // const [total, setTotal] = useState(0);
 
     const data = useSelector((state) => state.productsCart);
@@ -28,7 +28,9 @@ function ShoppingCart({ activeCart, handleClickAllCart }) {
     const total = useContext(TotalContext);
 
     return (
-        <div className={clsx(styles.cart, { [styles.active]: activeCart })}>
+        <div
+            className={clsx(styles.cart, { [styles.active]: showShoppingCart })}
+        >
             <h1>SHOPPING CART</h1>
             <div className={clsx(styles.cart_list)}>
                 {dataArray.length === 0 ? (
@@ -41,11 +43,7 @@ function ShoppingCart({ activeCart, handleClickAllCart }) {
                     </div>
                 ) : (
                     dataShow.map((item) => {
-                        return (
-                            <div key={item.id}>
-                                <CartItem item={item} />
-                            </div>
-                        );
+                        return <CartItem item={item} key={item.id} />;
                     })
                 )}
             </div>

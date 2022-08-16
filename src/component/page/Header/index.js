@@ -9,7 +9,7 @@ import { clickLogin, clickNavbar } from "redux/Login";
 import ShoppingCart from "component/Content/ShoppingCart";
 
 const Header = (props) => {
-    const [activeCart, setActiveCart] = useState(false);
+    const [showShoppingCart, setShowShoppingCart] = useState(false);
     const [activeSearch, setActiveSearch] = useState(false);
     const [showHeader, setShowHeader] = useState(false);
 
@@ -28,7 +28,7 @@ const Header = (props) => {
             if (cartRef.current) {
                 const isCheck = cartRef.current.contains(e.target);
                 if (!isCheck) {
-                    setActiveCart(false);
+                    setShowShoppingCart(false);
                 }
             }
         };
@@ -72,14 +72,14 @@ const Header = (props) => {
 
     //Bấm vào cart sẽ hiện bảng giỏ hàng
     const handleClickCart = () => {
-        setActiveCart(!activeCart);
+        setShowShoppingCart(!showShoppingCart);
     };
 
     //Bấm vào xem tất cả giỏ hàng
     const handleClickAllCart = () => {
         const action = clickNavbar(8);
         dispatch(action);
-        setActiveCart(!activeCart);
+        setShowShoppingCart(!showShoppingCart);
     };
 
     // Bấm icon login hiện thị trang login
@@ -174,7 +174,7 @@ const Header = (props) => {
                                 <img src={SvgIcon.CART_ICON} alt="Cart" />
                             </div>
                             <ShoppingCart
-                                activeCart={activeCart}
+                                showShoppingCart={showShoppingCart}
                                 handleClickAllCart={handleClickAllCart}
                             />
                         </div>
