@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from "react";
-import Slider from "../../../util/Slider/index.js";
+import Slider from "../../../util/Slider";
 import ProductsFeatured from "../../Content/ProductsFeatured/ProductsFeatured.js";
 import clsx from "clsx";
 import styles from "./Main.module.scss";
 import "aos/dist/aos.css";
 import AOS from "aos";
 import "./Main.css";
-import Slider_3d from "util/Slider_3d/Slider_3d.js";
+import Slider_3d from "util/Slider_3d";
 import ProductCard from "component/Content/ProductCard/ProductCard.js";
 import { useSelector } from "react-redux";
-import SliderDow from "util/Slider_dow/index.js";
-import SliderReviews from "util/Slider_reviews/index.js";
+import SliderDow from "util/Slider_dow";
+import SliderReviews from "util/Slider_reviews";
 import { NavLink } from "react-router-dom";
 
 const Main = () => {

@@ -5,17 +5,17 @@ import Arrow from "./sliderShow/Arrow.js";
 
 //https://betterprogramming.pub/react-hooks-slider-how-to-build-an-image-slider-with-smooth-transitions-automatic-resizing-8a99859ac471
 // fake 1.1.1.1
-const getWidth = () => window.innerWidth;
+// const getWidth = () => window.innerWidth;
 const SliderImg = (props) => {
     const { slides, times } = props;
     const firstSlide = slides[0];
     const lastSlide = slides[slides.length - 1];
     // const secondSlide = slides[[1]];
     const slidesCopy = [lastSlide, ...slides, firstSlide]; //WEB
-    // const [getWidth, setgetWidth] = useState();
+    const [getWidth, setgetWidth] = useState();
 
     const [state, setState] = useState({
-        translate: getWidth(),
+        translate: getWidth,
         transition: 0.45,
         activeIndex: 0,
         transitioning: false,
@@ -30,10 +30,14 @@ const SliderImg = (props) => {
     const resizeRef = useRef();
     const sliderRef = useRef();
 
-    // useEffect(() => {
-    //     const width = document.querySelector(".slider").clientWidth;
-    //     setgetWidth(width);
-    // }, []);
+    useEffect(() => {
+        const width = document.querySelector(".slider_horizontal").clientWidth;
+        setgetWidth(width);
+    }, []);
+
+    useEffect(() => {
+        setState({ ...state, translate: getWidth });
+    }, [getWidth]);
 
     useEffect(() => {
         autoPlayRef.current = nextSlide;
@@ -46,18 +50,21 @@ const SliderImg = (props) => {
     useEffect(() => {
         const sliderElement = sliderRef.current;
         const smooth = (e) => {
-            if (e.target.className.includes("slider")) transitionRef.current();
+            console.log(e.target.className.includes("slider"));
+            if (e.target.className.includes("slider_horizontal_list"))
+                transitionRef.current();
         };
 
         const throttle = (e) => {
-            if (e.target.className.includes("slider")) throttleRef.current();
+            if (e.target.className.includes("slider_horizontal_list"))
+                throttleRef.current();
         };
 
         const resize = () => {
             resizeRef.current();
         };
         // khi hiệu ứng bắt đầu
-        const transitionStart = window.addEventListener(
+        const transitionStart = sliderElement.addEventListener(
             "transitionstart",
             throttle
         );
@@ -103,7 +110,7 @@ const SliderImg = (props) => {
 
     const handleResize = () => {
         // khi thay đổi trình duyệt thì gán gias trị chuyển đổi bằng 0
-        setState({ ...state, translate: getWidth(), transition: 0 });
+        setState({ ...state, translate: getWidth, transition: 0 });
     };
 
     const throttleArrows = () => {
@@ -118,7 +125,7 @@ const SliderImg = (props) => {
             ...state,
             activeIndex:
                 activeIndex === 0 ? slides.length - 1 : activeIndex - 1,
-            translate: activeIndex * getWidth(),
+            translate: activeIndex * getWidth,
         });
         // Cách 2: Web
         // if (transitioning) return;
@@ -136,14 +143,14 @@ const SliderImg = (props) => {
             ...state,
             activeIndex:
                 activeIndex === slides.length - 1 ? 0 : activeIndex + 1,
-            translate: (activeIndex + 2) * getWidth(),
+            translate: (activeIndex + 2) * getWidth,
         });
         // WEB
 
         // if (transitioning) return;
         // setState({
         //     ...state,
-        //     translate: translate + getWidth(),
+        //     translate: translate + getWidth,
         //     activeIndex:
         //         activeIndex === slides.length - 1 ? 0 : activeIndex + 1,
         // });
@@ -162,7 +169,7 @@ const SliderImg = (props) => {
         //     ...state,
         //     _slides,
         //     transition: 0,
-        //     translate: getWidth(),
+        //     translate: getWidth,
         // });
         // THEO SLIDERSHOW OF F8
         // khi trình duyệt trang tính đang ở cuối trang tính và chuyển slider lên trang tính đầu
@@ -171,7 +178,7 @@ const SliderImg = (props) => {
             setState({
                 ...state,
                 transition: 0,
-                translate: getWidth(),
+                translate: getWidth,
             });
         }
         // khi trình duyệt đang hiển thị trang tính đang ở đầu trang tính(Slider Image vị trí 2), sau đó chuyển động trượt để hiện thị trang tính cuối (Slider Image vị trsi thứ 1),
@@ -180,32 +187,32 @@ const SliderImg = (props) => {
             setState({
                 ...state,
                 transition: 0,
-                translate: getWidth() * slides.length,
+                translate: getWidth * slides.length,
             });
         }
     };
 
     return (
-        <div className="slider" ref={sliderRef}>
+        <div className="slider_horizontal" ref={sliderRef}>
             <SliderContent
                 activeIndex={activeIndex}
                 slides={_slides}
                 translate={translate}
                 transition={transition}
-                width={getWidth() * slidesCopy.length}
+                width={getWidth * slidesCopy.length}
             />
-            <div className="slider_wrap">
-                <div className="slider_length">
-                    <span className="slider_length_current">
+            <div className="slider_horizontal_wrap">
+                <div className="slider_horizontal_length">
+                    <span className="slider_horizontal_length_current">
                         {`0${activeIndex + 1}`}
                     </span>
                     <img
                         src="//cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/legend_slider-nav.svg?v=87690718743178373891642089726"
                         alt="length Slider"
                     ></img>
-                    <span className="slider_length_last">04</span>
+                    <span className="slider_horizontal_length_last">04</span>
                 </div>
-                <div className="slider_buttons">
+                <div className="slider_horizontal_buttons">
                     <Arrow
                         direction="left"
                         activeArrow="active"

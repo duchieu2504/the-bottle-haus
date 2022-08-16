@@ -13,6 +13,7 @@ import AOS from "aos";
 import removeVN from "util/removeVN";
 import { getParent } from "util/RandomProduct";
 import SvgIcon from "svg";
+import Classify from "./Classify";
 
 function Products() {
     const { url } = useParams();
@@ -26,52 +27,68 @@ function Products() {
     );
     // const [ data, setData ] = useState(dataUrl)
 
-    // hiện bảng sắp xếp lại
-    const [activeSort, setActiveSort] = useState(false);
-
     // dữ liệu sản phẩm để lọc theo từng phân loại nhỏ
     const [dataClassify, setDataClassify] = useState([]);
 
     // dữ liệu sản phẩm sắp xếp theo giá
-    const [dataArranging, setDataArranging] = useState([]);
+    const [dataSort, setDataSort] = useState([]);
 
+    //dữ liệu phân trang
+    const [dataProductPage, setDataProductPage] = useState([]);
     // active các phân loại nhỏ ~ classify
     const [index, setIndex] = useState(-1);
 
     // active classify
     const [indexPrev, setIndexPrev] = useState(0);
 
+    // hiện bảng sắp xếp lại
+    const [showModalSort, setShowModalSort] = useState(false);
     // index sort
     const [indexSort, setIndexSort] = useState(0);
     const [activeApply, setActiveApply] = useState(false);
 
-    const classify = [
-        // {
-        //     title: "All Products",
-        //     image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-        // },
-        // {
-        //     title: "Whiskey",
-        //     image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-        // },
-        // {
-        //     title: "Vokda",
-        //     image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-        // },
-        // {
-        //     title: "Scotch",
-        //     image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-        // },
-        // {
-        //     title: "Teqwuila",
-        //     image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-        // },
-        "All Products",
-        "Whiskey",
-        "Vokda",
-        "Scotch",
-    ];
+    //Number page
+    const [numTotalPage, setNumTotalPage] = useState(1);
+    const [pageActive, setPageActive] = useState(1);
 
+    const classifyCollection = [
+        {
+            title: "All Products",
+            image: null,
+        },
+        {
+            title: "Whiskey",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
+        },
+        {
+            title: "American",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k2.png?v=1637735255",
+        },
+        {
+            title: "Scotch",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k3.png?v=1637735519",
+        },
+        {
+            title: "Tequila",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k4.png?v=1637735519",
+        },
+        {
+            title: "Cognac",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k6.png?v=1637735520",
+        },
+        {
+            title: "Gin",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k7.png?v=1637735519",
+        },
+        {
+            title: "Liqueur",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k8.png?v=1637735519",
+        },
+        {
+            title: "Champagne",
+            image: "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/kk10.png?v=1637735519",
+        },
+    ];
     const listRef = useRef();
     const sortRef = useRef();
     const sortUlRef = useRef();
@@ -87,6 +104,54 @@ function Products() {
         setIndex(0);
         setIndexSort(0);
     }, [url]);
+
+    // Gắn dữ liệu khi thay đổi sự sắp xếp
+    useEffect(() => {
+        setDataSort(dataClassify);
+    }, [dataClassify]);
+
+    // Khi thay đổi sự sắp xếp thì render lại dữ liệu sản phẩm
+    useEffect(() => {
+        const d = [...dataSort];
+
+        switch (indexSort) {
+            case 0:
+                d.sort((a, b) => +a.id - +b.id);
+                setDataSort(d);
+                break;
+            case 1:
+                d.sort((a, b) => +a.price - +b.price);
+                setDataSort(d);
+                break;
+
+            case 2:
+                d.sort((a, b) => +b.price - +a.price);
+                setDataSort(d);
+                break;
+            default:
+                console.log("default");
+                break;
+        }
+    }, [activeApply]);
+
+    // set số page
+    useEffect(() => {
+        const num = Math.ceil(dataSort.length / 4);
+        setNumTotalPage(num);
+    }, [dataSort]);
+
+    useEffect(() => {
+        const start = (pageActive - 1) * 4;
+        const end = pageActive * 4;
+        const dataPage = dataSort.slice(start, end);
+        setDataProductPage(dataPage);
+    }, [dataSort, pageActive]);
+
+    useEffect(() => {
+        const dataPage = dataSort.slice(0, 4);
+        setDataProductPage(dataPage);
+    }, [dataClassify]);
+
     // Render hiệu ứng AOs tránh mất hiệu ứng khi click vào từng classify
     useEffect(() => {
         // danh sách các thẻ có class filter_item
@@ -112,30 +177,6 @@ function Products() {
         return () => clearTimeout(time);
     }, [index]);
 
-    // Khi thay đổi sự sắp xếp thì render lại dữ liệu sản phẩm
-    useEffect(() => {
-        if (indexSort === +0) {
-            const d = [...dataArranging];
-            d.sort((a, b) => +a.id - +b.id);
-            setDataArranging(d);
-        }
-        if (indexSort === 1) {
-            const d = [...dataArranging];
-            d.sort((a, b) => +a.price - +b.price);
-            setDataArranging(d);
-        }
-        if (indexSort === 2) {
-            const d = [...dataArranging];
-            d.sort((a, b) => +b.price - +a.price);
-            setDataArranging(d);
-        }
-    }, [activeApply]);
-
-    // Gắn dữ liệu khi thay đổi sự sắp xếp
-    useEffect(() => {
-        setDataArranging(dataClassify);
-    }, [dataClassify]);
-
     // Khi click bên ngoài thẻ  bảng giỏ hàng
     useEffect(() => {
         // khởi chạy aniamation
@@ -147,7 +188,7 @@ function Products() {
             if (sortRef.current) {
                 const isCheckSort = sortRef.current.contains(e.target);
                 if (!isCheckSort) {
-                    setActiveSort(false);
+                    setShowModalSort(false);
                 }
             }
         };
@@ -158,7 +199,7 @@ function Products() {
 
     // Click vào button 'sắp xếp theo' sẽ hiện bảng lựa chọn sắp xếp theo j đó.
     const handleClickSort = () => {
-        setActiveSort(!activeSort);
+        setShowModalSort(!showModalSort);
     };
 
     // Lựa chọn sự sắp xếp giá theo cái gì
@@ -185,7 +226,7 @@ function Products() {
     // Thay đổi dữ liệu sắp xếp sản phẩm theo giá
     const handleClickApply = () => {
         setActiveApply(!activeApply);
-        setActiveSort(!activeSort);
+        setShowModalSort(!showModalSort);
     };
 
     // lọc sản phẩm theo phân loại nhỏ
@@ -199,45 +240,38 @@ function Products() {
         const dataClass = dataClassify.filter(
             (i) => removeVN(i.classify) === removeVN(titleConvert)
         );
+        const titleAllProduct =
+            classifyCollection[0].title.charAt(0).toLocaleLowerCase() +
+            classifyCollection[0].title.slice(1);
+
         switch (titleConvert) {
-            case classify[0].charAt(0).toLocaleLowerCase() +
-                classify[0].slice(1):
-                setDataArranging(dataClassify);
+            case titleAllProduct:
+                setDataSort(dataClassify);
                 break;
             default:
-                setDataArranging(dataClass);
+                setDataSort(dataClass);
                 break;
         }
 
         const isCheck = getParent(e.target, ".aos-init");
         if (isCheck) setIndex(+isCheck.dataset.index);
         if (!isCheck) setIndex(+e.target.dataset.index);
+
+        // gán lại giá trị num page = 1
+        setPageActive(1);
     };
     return (
         <div className={clsx(styles.main_product)}>
             <div className="grid wide">
                 <div className="row">
-                    <div className="col l-2">
+                    <div className="col l-2-4">
                         <div className={clsx(styles.filter_panel)}>
-                            {/* <div
-                            data-aos="fade-down-right"
-                            data-aos-delay="300"
-                            className={clsx(styles.filter_heading)}
-                        >
-                            <p>Khuôn sắt</p>
-                        </div> */}
                             <div
                                 ref={filterRef}
                                 className={clsx(styles.filter_facet)}
                             >
-                                {classify.map((i, k) => {
+                                {classifyCollection.map((i, k) => {
                                     const timeDelay = (k + 7) * 50;
-                                    const img = [
-                                        "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-                                        "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-                                        "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-                                        "https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1.png?v=1637735185",
-                                    ];
                                     return (
                                         <div
                                             key={k}
@@ -264,25 +298,27 @@ function Products() {
                                                     styles.filter_item_label
                                                 )}
                                             >
-                                                {i
+                                                {i.title
                                                     .charAt(0)
                                                     .toLocaleUpperCase() +
-                                                    i.slice(1)}
+                                                    i.title.slice(1)}
                                             </p>
-                                            <img
-                                                src={img[k]}
-                                                className={clsx(
-                                                    styles.filter_item_img
-                                                )}
-                                                alt={i}
-                                            />
+                                            {i.image && (
+                                                <img
+                                                    src={i.image}
+                                                    className={clsx(
+                                                        styles.filter_item_img
+                                                    )}
+                                                    alt={i}
+                                                />
+                                            )}
                                         </div>
                                     );
                                 })}
                             </div>
                         </div>
                     </div>
-                    <div className="col l-10">
+                    <div className="col l-9-4">
                         <div className={clsx(styles.header)}>
                             <div
                                 data-aos="fade-down-right"
@@ -290,7 +326,10 @@ function Products() {
                                 className={clsx(styles.header_text)}
                             >
                                 <div className={clsx(styles.heading)}>
-                                    <p>{classify[index]}</p>
+                                    <p>
+                                        {index !== -1 &&
+                                            classifyCollection[index].title}
+                                    </p>
                                 </div>
                             </div>
 
@@ -312,7 +351,7 @@ function Products() {
                                     <ul
                                         ref={sortUlRef}
                                         className={clsx(styles.sort_list, {
-                                            [styles.active]: activeSort,
+                                            [styles.active]: showModalSort,
                                         })}
                                     >
                                         <li
@@ -370,16 +409,13 @@ function Products() {
                         <div className={clsx(styles.product)}>
                             <div className={clsx(styles.product_list)}>
                                 <div className="row" style={{ width: "100%" }}>
-                                    {dataArranging.map((item) => {
+                                    {dataProductPage.map((item) => {
                                         return (
                                             <div
                                                 className="col l-3"
                                                 key={item.id}
                                             >
-                                                <ProductCard
-                                                    item={item}
-                                                    col="col l-4"
-                                                />
+                                                <ProductCard item={item} />
                                             </div>
                                         );
                                     })}
@@ -389,7 +425,11 @@ function Products() {
                     </div>
                 </div>
             </div>
-            <Pagination />
+            <Pagination
+                numTotalPage={numTotalPage}
+                pageActive={pageActive}
+                setPageActive={setPageActive}
+            />
         </div>
     );
 }

@@ -14,6 +14,7 @@ const Header = (props) => {
     const [showHeader, setShowHeader] = useState(false);
 
     const activeLogin = useSelector((state) => state.activeLogin.activeLogin);
+    const dataProductsCart = useSelector((state) => state.productsCart);
     // const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
     const dispatch = useDispatch();
 
@@ -87,7 +88,6 @@ const Header = (props) => {
         const action = clickLogin(activeLogin);
         dispatch(action);
     };
-
     return (
         <header>
             <div
@@ -129,7 +129,7 @@ const Header = (props) => {
                                     className={clsx(
                                         styles.header_wrap_search_input_btn
                                     )}
-                                    placeholder="Tìm kiếm"
+                                    placeholder="Search"
                                     type="text"
                                 />
                             </div>
@@ -148,7 +148,7 @@ const Header = (props) => {
                         </div>
 
                         <NavLink
-                            to="/user_name"
+                            to="/the-bottle-haus/user_name"
                             onClick={handleClickLogin}
                             className={clsx(styles.header_wrap_signIn)}
                         >
@@ -161,7 +161,12 @@ const Header = (props) => {
                             </div>
                         </NavLink>
 
-                        <div ref={cartRef} className={clsx(styles.cart)}>
+                        <div
+                            ref={cartRef}
+                            className={clsx(styles.cart, {
+                                [styles.hasCart]: dataProductsCart.length > 0,
+                            })}
+                        >
                             <div
                                 onClick={handleClickCart}
                                 className={clsx(styles.cart_icon)}
@@ -175,300 +180,393 @@ const Header = (props) => {
                         </div>
                     </div>
                     <div className={clsx(styles.navbar_container)}>
-                        <div className="">
-                            <ul className={clsx(styles.navbar_list)}>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/all_product"
+                        <ul className={clsx(styles.navbar_list)}>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/all_product"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         All Products
-                                    </NavLink>
-                                </li>
-                                <li
-                                    className={clsx(
-                                        styles.navbar_item,
-                                        styles.navbar_item_tabs_nav
-                                    )}
-                                >
-                                    <NavLink
-                                        to="/whiskey"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        All Products
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li
+                                className={clsx(
+                                    styles.navbar_item,
+                                    styles.navbar_item_tabs_nav
+                                )}
+                            >
+                                <NavLink
+                                    to="/the-bottle-haus/whiskey"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Whiskey
-                                    </NavLink>
-                                    <ul
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_tabs_list
+                                            styles.navbar_item_link_text_first
                                         )}
                                     >
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/all_whisley"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1_a35b83b1-6e4e-4494-a6ca-d61f4fc6c043.png?v=1638542303)",
-                                                    }}
-                                                ></div>
-                                                <span>All Whiskey</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/american"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/American_2fddd5e7-0e4d-4cd8-96ba-d75032ea2586.png?v=1641907102)",
-                                                    }}
-                                                ></div>
-                                                <span>American</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/bourbon"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Bourbon.png?v=1641907102)",
-                                                    }}
-                                                ></div>
-                                                <span>Bourbon</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/canadian"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Canadian.png?v=1641907103)",
-                                                    }}
-                                                ></div>
-                                                <span>Canadian</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/irish"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Irish.png?v=1641907102)",
-                                                    }}
-                                                ></div>
-                                                <span>Irish</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/japanese"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Japanese.png?v=1641907102)",
-                                                    }}
-                                                ></div>
-                                                <span>Japanese</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/canadian"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Canadian.png?v=1641907103)",
-                                                    }}
-                                                ></div>
-                                                <span>Canadian</span>
-                                            </NavLink>
-                                        </li>
-                                        <li
-                                            className={clsx(
-                                                styles.navbar_tabs_item
-                                            )}
-                                        >
-                                            <NavLink
-                                                to="/rye"
-                                                className={clsx(
-                                                    styles.navbar_tabs_item_link
-                                                )}
-                                            >
-                                                <div
-                                                    className={clsx(
-                                                        styles.navbar_tabs_item_link_img
-                                                    )}
-                                                    style={{
-                                                        backgroundImage:
-                                                            "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Rye.png?v=1641907102)",
-                                                    }}
-                                                ></div>
-                                                <span>Rye</span>
-                                            </NavLink>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li
-                                    className={clsx(
-                                        styles.navbar_item,
-                                        styles.navbar_item_tabs_nav
-                                    )}
-                                >
-                                    <NavLink
-                                        to="/shop_alcohol"
+                                        Whiskey
+                                    </p>
+                                </NavLink>
+                                <ul className={clsx(styles.navbar_tabs_list)}>
+                                    <li
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/all_whisley"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/k1_a35b83b1-6e4e-4494-a6ca-d61f4fc6c043.png?v=1638542303)",
+                                                }}
+                                            ></div>
+                                            <span>All Whiskey</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/american"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/American_2fddd5e7-0e4d-4cd8-96ba-d75032ea2586.png?v=1641907102)",
+                                                }}
+                                            ></div>
+                                            <span>American</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/bourbon"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Bourbon.png?v=1641907102)",
+                                                }}
+                                            ></div>
+                                            <span>Bourbon</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/canadian"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Canadian.png?v=1641907103)",
+                                                }}
+                                            ></div>
+                                            <span>Canadian</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/irish"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Irish.png?v=1641907102)",
+                                                }}
+                                            ></div>
+                                            <span>Irish</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/japanese"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Japanese.png?v=1641907102)",
+                                                }}
+                                            ></div>
+                                            <span>Japanese</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/canadian"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Canadian.png?v=1641907103)",
+                                                }}
+                                            ></div>
+                                            <span>Canadian</span>
+                                        </NavLink>
+                                    </li>
+                                    <li
+                                        className={clsx(
+                                            styles.navbar_tabs_item
+                                        )}
+                                    >
+                                        <NavLink
+                                            to="/the-bottle-haus/rye"
+                                            className={clsx(
+                                                styles.navbar_tabs_item_link
+                                            )}
+                                        >
+                                            <div
+                                                className={clsx(
+                                                    styles.navbar_tabs_item_link_img
+                                                )}
+                                                style={{
+                                                    backgroundImage:
+                                                        "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/files/Rye.png?v=1641907102)",
+                                                }}
+                                            ></div>
+                                            <span>Rye</span>
+                                        </NavLink>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li
+                                className={clsx(
+                                    styles.navbar_item,
+                                    styles.navbar_item_tabs_nav
+                                )}
+                            >
+                                <NavLink
+                                    to="/the-bottle-haus/shop_alcohol"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Shop Alcohol
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/shop_wine"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Shop Alcohol
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/shop_wine"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Shop Wine
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/celebrity_spritis"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Shop Wine
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/celebrity_spritis"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Celebrity Spritis
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/barrel_pick"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Celebrity Spritis
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/barrel_pick"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Barrel Pick
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/huas_barrel"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Barrel Pick
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/huas_barrel"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Haus Barrel
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/corporate_gifting"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Haus Barrel
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/corporate_gifting"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Corporate Gifting
-                                    </NavLink>
-                                </li>
-                                <li className={clsx(styles.navbar_item)}>
-                                    <NavLink
-                                        to="/clearance"
+                                    </p>
+                                    <p
                                         className={clsx(
-                                            styles.navbar_item_link
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Corporate Gifting
+                                    </p>
+                                </NavLink>
+                            </li>
+                            <li className={clsx(styles.navbar_item)}>
+                                <NavLink
+                                    to="/the-bottle-haus/clearance"
+                                    className={clsx(styles.navbar_item_link)}
+                                >
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_last
                                         )}
                                     >
                                         Clearance
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        </div>
+                                    </p>
+                                    <p
+                                        className={clsx(
+                                            styles.navbar_item_link_text_first
+                                        )}
+                                    >
+                                        Clearance
+                                    </p>
+                                </NavLink>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>

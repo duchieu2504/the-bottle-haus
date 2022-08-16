@@ -13,7 +13,11 @@ const ProductReview = (props) => {
             <div className={clsx(styles.product_reviews_customers)}>
                 <div className="row">
                     <div className="col l-4">
-                        <div className={clsx(styles.customers_reviews_item)}>
+                        <div
+                            className={clsx(styles.customers_reviews_item)}
+                            data-aos="fade-left"
+                            data-aos-delay="50"
+                        >
                             <div
                                 className={clsx(
                                     styles.customers_reviews_item_rating
@@ -56,7 +60,11 @@ const ProductReview = (props) => {
                         </div>
                     </div>
                     <div className="col l-4">
-                        <div className={clsx(styles.customers_reviews_item)}>
+                        <div
+                            className={clsx(styles.customers_reviews_item)}
+                            data-aos="fade-left"
+                            data-aos-delay="100"
+                        >
                             <div
                                 className={clsx(
                                     styles.customers_reviews_item_rating
@@ -99,7 +107,11 @@ const ProductReview = (props) => {
                         </div>
                     </div>
                     <div className="col l-4">
-                        <div className={clsx(styles.customers_reviews_item)}>
+                        <div
+                            className={clsx(styles.customers_reviews_item)}
+                            data-aos="fade-left"
+                            data-aos-delay="150"
+                        >
                             <div
                                 className={clsx(
                                     styles.customers_reviews_item_rating
@@ -144,7 +156,12 @@ const ProductReview = (props) => {
                 </div>
             </div>
 
-            <div className={clsx(styles.product_reviews_graph)}>
+            <div
+                className={clsx(styles.product_reviews_graph)}
+                data-aos="fade-up"
+                data-aos-easing="linear"
+                data-aos-duration="700"
+            >
                 <div className={clsx(styles.product_reviews_graph_text)}>
                     <h2> Customer Reviews</h2>
                     <div

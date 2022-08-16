@@ -11,16 +11,16 @@ const SliderContent = ({
     // const [img, setImg] = useState('')
     const data = { transition, translate, width };
     return (
-        <div className="slider__list" style={styleSlide(data)}>
+        <div className="slider_horizontal_list" style={styleSlide(data)}>
             {slides.map((slide, i) => (
                 <div
-                    className="slider__item"
+                    className="slider_horizontal_item"
                     key={i}
                     data-index={i - 1}
                     aria-hidden={activeIndex === i - 1 ? "false" : "true"}
                 >
                     <div
-                        className="slider__item__img"
+                        className="slider_horizontal_item_img"
                         style={{ backgroundImage: `url(${slide})` }}
                     ></div>
                 </div>

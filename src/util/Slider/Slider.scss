@@ -1,19 +1,19 @@
-.slider {
+.slider_horizontal {
     position: relative;
     height: 70vh;
     // width: 100vw;
     margin: 0 auto;
     overflow: hidden;
     border-radius: 60px;
-    &__list {
+    &_list {
         height: 100%;
         display: flex;
     }
-    &__item {
+    &_item {
         height: 70vh;
         width: 100%;
         //   background-image: url('${content}');
-        &__img {
+        &_img {
             padding-top: 44%;
 
             background-size: cover;

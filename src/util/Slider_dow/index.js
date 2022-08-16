@@ -21,12 +21,14 @@ const SliderImg = (props) => {
     const transitionRef = useRef();
     const throttleRef = useRef();
     const resizeRef = useRef();
-    const sliderRef = useRef();
-
+    const sliderDowRef = useRef();
     useEffect(() => {
         const height = document.querySelector(".slider_dow").clientHeight;
         setGetHeight(height);
     }, []);
+    useEffect(() => {
+        setState({ ...state, translate: getHeight });
+    }, [getHeight]);
 
     useEffect(() => {
         autoPlayRef.current = nextSlide;
@@ -37,12 +39,14 @@ const SliderImg = (props) => {
 
     //ComponentDidMount
     useEffect(() => {
-        const sliderDowElement = sliderRef.current;
-        const smooth = () => {
-            transitionRef.current();
+        const sliderDowElement = sliderDowRef.current;
+        const smooth = (e) => {
+            if (e.target.className.includes("slider_dow_list"))
+                transitionRef.current();
         };
         const throttle = (e) => {
-            throttleRef.current();
+            if (e.target.className.includes("slider_dow_list"))
+                throttleRef.current();
         };
         const resize = () => {
             resizeRef.current();
@@ -103,14 +107,12 @@ const SliderImg = (props) => {
     // click vào nút prev
     const prevSlide = () => {
         // Cách 1: F8
-        if (transitioning) {
-            setState({
-                ...state,
-                activeIndex:
-                    activeIndex === 0 ? slides.length - 1 : activeIndex - 1,
-                translate: activeIndex * getHeight,
-            });
-        }
+        setState({
+            ...state,
+            activeIndex:
+                activeIndex === 0 ? slides.length - 1 : activeIndex - 1,
+            translate: activeIndex * getHeight,
+        });
     };
 
     //Click vào nút next
@@ -142,7 +144,7 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <div className="slider_dow" ref={sliderRef}>
+        <div className="slider_dow" ref={sliderDowRef}>
             <SliderDowContent
                 activeIndex={activeIndex}
                 slides={_slides}

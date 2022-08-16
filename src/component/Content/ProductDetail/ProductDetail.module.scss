@@ -23,19 +23,6 @@
     }
 }
 
-@keyframes imgFake {
-    0% {
-        visibility: visible;
-        opacity: 1;
-        transform: translate(0px, -0px) scale(1);
-    }
-    100% {
-        transform: translate(897px, -250px) scale(0.1);
-        opacity: 0.5;
-        visibility: hidden;
-    }
-}
-
 .product_detail {
     padding: 60px 0 0px;
 }
@@ -63,32 +50,60 @@
         min-height: 320px;
         .img {
             width: 100%;
-            background-size: contain;
-            background-repeat: repeat;
-            background-position: top center;
-            border-radius: 24px;
+            height: 100%;
+            overflow: hidden;
+        }
+        .img_fake {
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
         }
 
         &_fake {
+            $imgFake50: translate(897px, -350px) scale(0.1);
+            $imgFakeTo: translate(0px, 0px) scale(1);
+            $imgFake100: translate(0px, 0px) scale(1);
             width: 100%;
-            background-size: contain;
-            background-repeat: repeat;
-            background-position: top center;
-            border-radius: 24px;
-
+            padding: 0 16px;
             position: absolute;
             top: 0;
             left: 0;
-            // z-index: 2;
+            bottom: 0;
+            // transform: translate(0px, 0px) scale(1);
+            opacity: 11;
             // visibility: visible;
             // transform :translate(897px, -278px) scale(0.1);
             transition: all 0.75s linear 0.5s;
-
             transition-property: visibility, opacity, transform;
-            // animation: imgFake 1s ease-in-out;
+            // animation: imgFake 1.5s linear;
             z-index: 11;
+            @keyframes imgFake {
+                0% {
+                    visibility: visible;
+                    opacity: 1;
+                    transform: $imgFakeTo;
+                }
+                50% {
+                    transform: $imgFake50;
+                    opacity: 0.5;
+                    visibility: hidden;
+                }
+                100% {
+                    visibility: hidden;
+                    opacity: 0;
+                    transform: $imgFake100;
+                }
+            }
+            &.active {
+                // transform: translate(847px, -350px) scale(0.1);
+                opacity: 0.1;
+                transition: all 0.75s linear 0.5s;
+                transition-property: opacity, transform;
+                animation: imgFake 1.5s linear;
+            }
         }
     }
+
     .product_content {
         padding: 20px 30px;
         // margin: auto;

@@ -9,6 +9,8 @@ import "./ProductImg.css";
 import convertPrice from "util/convertNumber";
 import ProductReview from "./ProductReview";
 import { Notice } from "util/NoticeOfPurchase/Notice";
+import styleImageDetail from "./styleImage";
+import { randomProduct } from "util/RandomProduct";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -16,23 +18,30 @@ const ProductDetail = () => {
     const toastRef = useRef();
     const productImgRef = useRef();
 
-    // Lấy data sản phẩm
+    // Lấy tất cả dữ liệu sản phẩm
     const data = useSelector((state) => state.products);
     const dataProdcuts = [...data];
-    const product = dataProdcuts.find((item) => item.id === Number(productId));
-    const { img, description, size, price, category, title, id } = product;
 
-    // Lấy data sản phẩm đã có trong cửa hàng tr
+    //dữ liệu chi tiết sản phẩm đang hiện thị
+    const product = dataProdcuts.find((item) => item.id === Number(productId));
+    const { img, description, price, category, title, id } = product;
+
+    // Lấy tất cả dữ liệu sản phẩm đã có trong cửa hàng
     const dataProdcutsCart = useSelector((state) => state.productsCart);
     const [quanti, setQuanti] = useState(1);
     const [sizeIndex, setSizeIndex] = useState(0);
-    const [sizeText, setSizeText] = useState(size[0]);
+    // const [sizeText, setSizeText] = useState(size[0]);
 
     // div product description
     const desProductRef = useRef();
     const textDesProductRef = useRef();
     const [activeMore, setActiveMore] = useState(true);
 
+    //dataSimilarProducts
+    const [dataSimilarProducts, setDataSimilarProducts] = useState([]);
+
+    // aactiveImageFake
+    const [activeImageFake, setActiveImageFake] = useState(false);
     // Tạo chuyển động của hình ảnh khi khách hàng bấm vào thẻ 'thêm hàng'
     const [animation, setAnimation] = useState({
         transform: "translate(897px, -250px) scale(0.1)",
@@ -67,24 +76,19 @@ const ProductDetail = () => {
     }, []);
 
     //kiểm tra xem đã có sản phẩm trong cửa hàng chưa
-    let isCheckIdCart = dataProdcutsCart.filter(
-        (item) => item.id_product === id
-    );
-    let isCheckSizeCart = isCheckIdCart.find((i) => i.size === sizeText);
+    let isCheckIdCart = dataProdcutsCart.find((item) => item.id_product === id);
 
     // lựa chọn kích thước sản phẩm
     const handleClickSize = (e) => {
-        const i = e.target.dataset.index;
-        setSizeIndex(i);
-        setQuanti(1);
-        setSizeText(e.target.innerHTML);
+        // const i = e.target.dataset.index;
+        // setSizeIndex(i);
+        // setQuanti(1);
+        // setSizeText(e.target.innerHTML);
     };
 
-    const { transform } = animation;
-
-    // sự kiện click vào mua hàng
+    // sự kiện click vào mua hàng --kiểm tra xem đã có sản phẩm chưa -- sẽ hiện thông báo đã có sản phẩm
     const handleClickAddProduct = () => {
-        if (typeof toastRef.current === "object" && isCheckSizeCart) {
+        if (typeof toastRef.current === "object" && isCheckIdCart) {
             setTimeout(function () {
                 const notice_element = document.querySelector("div .notice");
                 if (toastRef.current && notice_element)
@@ -100,30 +104,23 @@ const ProductDetail = () => {
         }
 
         // Sự kiện khi click vào thêm vào giỏ hàng sẽ có hình ảnh sản phẩm chuyển động
-        const b = document.createElement("div");
-        b.classList.add("product_img_fake");
-        b.innerHTML = `
-            <img class='${clsx(styles.img_fake)}' src='${img}' alt='${title}' />
-        `;
-        if (typeof productImgRef.current === "object") {
+
+        if (typeof productImgRef.current === "object" && !isCheckIdCart) {
             setTimeout(() => {
                 const check =
                     productImgRef.current.querySelector(".product_img_fake");
-                // console.log(transform, opacity, visibility);
-                // console.log(check);
-                if (check) check.style.imgFakeFrom = transform;
-                // check.style.fontSize = '2px'
             }, 500);
         }
 
-        if (typeof productImgRef.current === "object" && !isCheckSizeCart) {
+        if (typeof productImgRef.current === "object" && !isCheckIdCart) {
             setTimeout(function () {
-                productImgRef.current.removeChild(b);
+                setActiveImageFake(false);
             }, 1000);
-            productImgRef.current.appendChild(b);
+            setActiveImageFake(true);
         }
 
-        if (!isCheckSizeCart) {
+        //action add product in cart
+        if (!isCheckIdCart) {
             //
             const dataProductLength = dataProdcutsCart.length;
 
@@ -140,18 +137,31 @@ const ProductDetail = () => {
                 id_product: id,
                 id: `${idP}`,
                 quantily: `${quanti}`,
-                size: `${sizeText}`,
+                // size: `${sizeText}`,
             };
             // console.log(productCart);
             const action = buyProduct(productCart);
             dispatch(action);
         }
     };
+    // random product similar product
 
-    // hiệu ứng của hình ảnh khi 'thêm hàng'
-    // const styleAnimationImg = !isCheckSizeCart ? {} : transform
-    // console.log({...transform});
+    // const dataSimilarProduct = () => {
 
+    useEffect(() => {
+        // const c = [];
+        // let b;
+        // do {
+        //     b = Math.floor(Math.random() * 10);
+        //     if (!c.includes(b) && b !== id) c.push(b);
+        // } while (c.length < 5);
+        const c = randomProduct(5, 10, id);
+        const dataSimilar = c.map((i) => {
+            const dataItemProduct = dataProdcuts.find((k) => k.id === i);
+            return { ...dataItemProduct };
+        });
+        setDataSimilarProducts(dataSimilar);
+    }, []);
     return (
         <div className={clsx(styles.product_detail)}>
             <div className="grid wide">
@@ -166,7 +176,18 @@ const ProductDetail = () => {
                                 src={img}
                                 alt={title}
                             />
-                            {/* <div className={styles.product_img_fake}></div> */}
+                            <div
+                                className={clsx(styles.product_img_fake, {
+                                    [styles.active]: activeImageFake,
+                                })}
+                                style={styleImageDetail()}
+                            >
+                                <img
+                                    className={clsx(styles.img_fake)}
+                                    src={img}
+                                    alt={title}
+                                />
+                            </div>
                         </div>
                         <div
                             data-aos="fade-left"
@@ -223,7 +244,7 @@ const ProductDetail = () => {
                                     >
                                         Kích thước:
                                     </h1>
-                                    {size.map((i, k) => {
+                                    {/* {size.map((i, k) => {
                                         return (
                                             <div
                                                 key={k}
@@ -242,7 +263,7 @@ const ProductDetail = () => {
                                                 {i}
                                             </div>
                                         );
-                                    })}
+                                    })} */}
                                 </div>
 
                                 <div className={clsx(styles.product_rating)}>
@@ -359,24 +380,11 @@ const ProductDetail = () => {
 
                     <div className={clsx(styles.recommendation_products_list)}>
                         <div className="row">
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
-                            <div className="col l-3">
-                                <ProductCard item={product} />
-                            </div>
+                            {dataSimilarProducts.map((i) => (
+                                <div key={i.id} className="col l-3">
+                                    <ProductCard item={i} />
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

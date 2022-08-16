@@ -24,8 +24,8 @@ const Arrow = ({ direction, handleClick, activeArrow }) => {
         <div
             className={
                 direction === "right"
-                    ? "slider_arrow slider_arrow-right"
-                    : "slider_arrow slider_arrow-left"
+                    ? "slider_horizontal_arrow slider_arrow-right"
+                    : "slider_horizontal_arrow slider_arrow-left"
             }
             style={styleArrow}
             onClick={handleClick}

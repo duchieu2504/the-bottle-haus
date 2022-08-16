@@ -41,7 +41,7 @@ const SliderImg = (props) => {
     const transitionRef = useRef();
     const throttleRef = useRef();
     const resizeRef = useRef();
-    const sliderRef = useRef();
+    const sliderReviewRef = useRef();
 
     useEffect(() => {
         setState({ ...state, translate: getWidth * 3 });
@@ -62,13 +62,15 @@ const SliderImg = (props) => {
 
     //ComponentDidMount
     useEffect(() => {
-        const sliderElement = sliderRef.current;
-        const smooth = () => {
-            transitionRef.current();
+        const sliderElement = sliderReviewRef.current;
+        const smooth = (e) => {
+            if (e.target.className.includes("slider_reviews_list"))
+                transitionRef.current();
         };
 
         const throttle = (e) => {
-            throttleRef.current();
+            if (e.target.className.includes("slider_reviews_list"))
+                throttleRef.current();
         };
 
         const resize = () => {
@@ -174,7 +176,7 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <div className="slider_reviews" ref={sliderRef}>
+        <div className="slider_reviews" ref={sliderReviewRef}>
             <SliderReviewContent
                 activeIndex={activeIndex}
                 slides={_slides}

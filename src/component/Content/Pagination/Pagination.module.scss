@@ -3,22 +3,40 @@
     justify-content: center;
     align-items: center;
     .page {
-        font-size: 1.4rem;
-        color: #222222;
-        background-color: rgba(34, 34, 34, 0.4);
+        font-size: 1.8rem;
+        font-weight: bold;
         text-decoration: none;
-        padding: 10px 16px;
-        border-radius: 50%;
+        padding: 14px 18px;
+        color: #105a58;
+        border-radius: 16px;
+        border: 1px solid #105a58;
+        margin: 0 6px;
+        cursor: pointer;
+        &.active {
+            background-color: #105a58;
+            color: #fff;
+        }
         &_icon {
             font-size: 1.4rem;
             color: #000;
         }
     }
     .button {
-        padding: 0px 22px;
-        font-size: 1.2rem;
-        color: #acacac;
+        // padding: 0px 22px;
+        // font-size: 1.4rem;
+        padding: 11px 14px;
+        border-radius: 16px;
+        margin: 0 6px;
+        background-color: #105a58;
         border: none;
         cursor: pointer;
+        img {
+            width: 20px;
+        }
+        &:disabled {
+            background-color: #105a58;
+            opacity: 0.7;
+            cursor: no-drop;
+        }
     }
 }

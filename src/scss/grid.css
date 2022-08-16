@@ -316,6 +316,7 @@
     .l-7,
     .l-8,
     .l-9,
+    .l-9-4,
     .l-10,
     .l-11,
     .l-12 {
@@ -370,6 +371,10 @@
     .l-9 {
         flex: 0 0 75%;
         max-width: 75%;
+    }
+    .l-9-4 {
+        flex: 0 0 80%;
+        max-width: 80%;
     }
 
     .l-10 {
@@ -472,6 +477,7 @@
     .wide .l-7,
     .wide .l-8,
     .wide .l-9,
+    .wide .l-9-4,
     .wide .l-10,
     .wide .l-11,
     .wide .l-12 {
@@ -526,6 +532,10 @@
     .wide .l-9 {
         flex: 0 0 75%;
         max-width: 75%;
+    }
+    .wide .l-9-4 {
+        flex: 0 0 80%;
+        max-width: 80%;
     }
 
     .wide .l-10 {

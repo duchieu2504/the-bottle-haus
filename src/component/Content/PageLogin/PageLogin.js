@@ -82,7 +82,7 @@ const PageLogin = () => {
                                     </g>
                                 </svg>
                             </div>
-                            <p>Đăng nhập</p>
+                            <p>Login</p>
                         </a>
                     </div>
                     <div className={clsx(styles.pageLogin_content_divider)}>
@@ -120,7 +120,7 @@ const PageLogin = () => {
                                     className={clsx(styles.form_control)}
                                 />
                                 <label className={clsx(styles.form_label)}>
-                                    Mật khẩu
+                                    Password
                                 </label>
                                 {/* <span className={clsx(styles.form_border)}>
                                     <i></i>

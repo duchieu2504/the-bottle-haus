@@ -38,41 +38,37 @@ const App = () => {
                         >
                             <Routes>
                                 <Route
-                                    exact
-                                    path="/the-bottle-haus/home"
+                                    path="/the-bottle-haus/"
                                     element={<Main />}
-                                />
-                                <Route
-                                    path="/the-bottle-haus"
-                                    element={
-                                        <Navigate
-                                            replace
-                                            to="/the-bottle-haus/home"
-                                        />
-                                    }
-                                />
-                                <Route
-                                    exact
-                                    path="/the-bottle-haus"
-                                    element={<Main />}
-                                />
-                                <Route
-                                    path="/thong_tin"
-                                    element={<NavabarInfo />}
-                                />
-                                <Route
-                                    path="/the-bottle-haus/cart"
-                                    element={<PageCart />}
-                                />
-                                <Route
-                                    path="/the-bottle-haus/checkout"
-                                    element={<CheckOut />}
-                                />
-                                <Route path="/:url" element={<Products />} />
-                                <Route
-                                    path="/:url/:productId"
-                                    element={<ProductDetail />}
-                                />
+                                ></Route>
+                                <Route path="/the-bottle-haus/">
+                                    <Route
+                                    // path="/the-bottle-haus/home"
+                                    // element={
+                                    //     <Navigate replace to="/home" />
+                                    // }
+                                    // element={<Main /> }
+                                    />
+                                    <Route
+                                        exact
+                                        path="home"
+                                        element={<Main />}
+                                    />
+                                    <Route
+                                        path="thong_tin"
+                                        element={<NavabarInfo />}
+                                    />
+                                    <Route path="cart" element={<PageCart />} />
+                                    <Route
+                                        path="checkout"
+                                        element={<CheckOut />}
+                                    />
+                                    <Route path=":url" element={<Products />} />
+                                    <Route
+                                        path=":url/:productId"
+                                        element={<ProductDetail />}
+                                    />
+                                </Route>
                             </Routes>
                             <PageLogin />
                         </main>

@@ -2,18 +2,18 @@
 
 .header {
     &_container {
-        background-color: #f0f0f0;
+        background-color: #ededed;
         position: fixed;
         width: 100%;
         top: 0;
         height: 100px;
-        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
         z-index: 10;
         transition: height 0.25s linear;
         &.active {
-            height: 36px;
-            transition: height 0.25s linear;
-            .header_wrap {
+            height: 64px;
+            transition: height 0.25s linear 0.1s;
+            .navbar_container {
                 height: 0;
                 opacity: 0;
                 transition: height 0.25s linear, opacity 0.25s linear;
@@ -185,6 +185,21 @@
     margin-right: 20px;
     position: relative;
     cursor: pointer;
+    &.hasCart {
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transform: translate(4px, -4px);
+            border: 3px solid #ededed;
+            transition: all 0.25s linear;
+            background-color: #fe7c22;
+        }
+    }
     &_icon {
         height: 40px;
         transform: translateY(-1px);
@@ -243,6 +258,7 @@
 //NAvbar -
 .navbar {
     &_container {
+        transition: height 0.25s linear 0.1s, opacity 0.25s linear 0.1s;
     }
     &_list {
         display: flex;
@@ -306,14 +322,33 @@
         &_link {
             text-decoration: none;
             display: block;
-            padding: 8px 0;
             text-align: center;
             font-family: $font-gilroy;
             font-size: 1.4rem;
             letter-spacing: 1px;
             font-weight: 400;
             color: #000;
-            line-height: 2rem;
+            line-height: 3.6rem;
+            max-height: 3.6rem;
+            position: relative;
+            overflow: hidden;
+            p {
+                line-height: 3.6rem;
+                transition: transform 0.3s ease-in-out;
+            }
+            &_text_first {
+                opacity: 1;
+            }
+            &:hover {
+                .navbar_item_link_text_last {
+                    transform: translateY(-100%);
+                    transition: transform 0.3s ease-in-out;
+                }
+                .navbar_item_link_text_first {
+                    transform: translateY(-100%);
+                    transition: transform 0.3s ease-in-out;
+                }
+            }
             &::after {
                 content: "";
                 position: absolute;

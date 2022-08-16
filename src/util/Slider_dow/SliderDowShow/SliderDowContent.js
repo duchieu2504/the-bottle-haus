@@ -12,18 +12,18 @@ const SliderDowContent = ({
     // const [img, setImg] = useState('')
     const data = { transition, translate, height };
     return (
-        <div className="slider_list" style={styleSliderDow(data)}>
+        <div className="slider_dow_list" style={styleSliderDow(data)}>
             {slides.map((slide, i) => (
                 <div
-                    className="slider_item"
+                    className="slider_dow_item"
                     key={i}
                     data-index={i - 1}
                     aria-hidden={activeIndex === i - 1 ? "false" : "true"}
                 >
-                    <div className="slider_item_text">
+                    <div className="slider_dow_item_text">
                         <h2>{slide.name}</h2>
                         <h1>{slide.title}</h1>
-                        <span className="slider_item_text_stroke">
+                        <span className="slider_dow_item_text_stroke">
                             in Stock
                         </span>
                         <p>{slide.description}</p>
@@ -38,7 +38,7 @@ const SliderDowContent = ({
                         </div>
                     </div>
 
-                    <div className="slider_item_img">
+                    <div className="slider_dow_item_img">
                         <div
                             className="img"
                             style={{

@@ -7,9 +7,9 @@ import "aos/dist/aos.css";
 import removeVN from "util/removeVN";
 import convertPrice from "util/convertNumber";
 
-const ProductCard = ({ item, itemRef, col }) => {
+const ProductCard = ({ item, itemRef }) => {
     const { id, price, title, img, category } = item;
-    const num = (Number(item.id) - 1) % 3;
+    const num = Number(item.id) % 4;
     const url = removeVN(category);
     return (
         <div
@@ -19,7 +19,10 @@ const ProductCard = ({ item, itemRef, col }) => {
             data-aos-delay={(num + 1) * 50}
             className={clsx(styles.product_card)}
         >
-            <NavLink className={clsx(styles.product_link)} to={`/${url}/${id}`}>
+            <NavLink
+                className={clsx(styles.product_link)}
+                to={`/the-bottle-haus/${url}/${id}`}
+            >
                 <div className={clsx(styles.product_card_img)}>
                     <div
                         className={clsx(styles.img)}

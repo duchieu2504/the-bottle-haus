@@ -133,7 +133,7 @@ function CheckOut() {
                 <div className={clsx(styles.checkout_details)}>
                     <div className={clsx(styles.checkout_details_main)}>
                         <NavLink
-                            to="/home"
+                            to="/the-bottle-haus/home"
                             className={clsx(styles.checkout_details_logo)}
                         >
                             <img
@@ -159,7 +159,9 @@ function CheckOut() {
                                 <h1>Contact information</h1>
                                 <span>
                                     Already have an account?
-                                    <NavLink to="/login">Login</NavLink>
+                                    <NavLink to="/the-bottle-haus/login">
+                                        Login
+                                    </NavLink>
                                 </span>
                             </div>
                             <UserFormik handleSubmit={handleSubmitContinue} />
