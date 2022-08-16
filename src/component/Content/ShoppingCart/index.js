@@ -8,23 +8,20 @@ import { useSelector } from "react-redux";
 import convertPrice from "util/convertNumber";
 import { TotalContext } from "Context/TotalProvider";
 
-Cart.propTypes = {
+ShoppingCart.propTypes = {
     activeCart: PropTypes.bool,
     handleClickAllCart: PropTypes.func,
 };
-Cart.defaultProps = {
+ShoppingCart.defaultProps = {
     activeCart: "",
     handleClickAllCart: null,
 };
 
-function Cart({ activeCart, handleClickAllCart }) {
+function ShoppingCart({ activeCart, handleClickAllCart }) {
     // const [total, setTotal] = useState(0);
 
     const data = useSelector((state) => state.productsCart);
     const dataArray = useMemo(() => [...data], [data]);
-
-    const dataCategory = useSelector((state) => state.products);
-    const dataProdcuts = [...dataCategory];
 
     const dataShow = dataArray.reverse().slice(0, 2);
 
@@ -79,4 +76,4 @@ function Cart({ activeCart, handleClickAllCart }) {
     );
 }
 
-export default Cart;
+export default ShoppingCart;

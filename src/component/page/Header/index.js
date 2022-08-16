@@ -6,7 +6,7 @@ import clsx from "clsx";
 import SvgIcon from "svg";
 import { useDispatch, useSelector } from "react-redux";
 import { clickLogin, clickNavbar } from "redux/Login";
-import Cart from "component/Content/ShoppingCart";
+import ShoppingCart from "component/Content/ShoppingCart";
 
 const Header = (props) => {
     const [activeCart, setActiveCart] = useState(false);
@@ -173,7 +173,7 @@ const Header = (props) => {
                             >
                                 <img src={SvgIcon.CART_ICON} alt="Cart" />
                             </div>
-                            <Cart
+                            <ShoppingCart
                                 activeCart={activeCart}
                                 handleClickAllCart={handleClickAllCart}
                             />
