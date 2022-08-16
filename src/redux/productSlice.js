@@ -37,7 +37,7 @@ const init = [
         description:
             "Buffalo Trace Kentucky Straight Bourbon Whiskey is distilled, aged and bottled at the most award-winning distillery in the world. Made from the finest corn, rye and barley malt, this whiskey ages in new oak barrels for years in century old warehouses until the peak of maturity. The taste is rich and complex, with hints of vanilla, toffee and candied fruit. The smooth finish lingers on the palate. This will never change. Ancient buffalo carved paths through the wilderness that led American pioneers and explorers to new frontiers. One such trail led to the banks of the Kentucky River where Buffalo Trace Distillery has been making bourbon whiskey the same way for more than 200 years. In tribute to the mighty buffalo and the rugged, independent spirit of the pioneers who followed them, we created our signature Buffalo Trace Kentucky Straight Bourbon Whiskey.",
         price: "93",
-        img: "https://cdn.shopify.com/s/files/1/0313/6228/5699/products/image_66b6ae86-dc90-4513-beba-60096926ec91.jpg?v=1631990192",
+        img: "https://cdn.shopify.com/s/files/1/0313/6228/5699/products/image_71ef106d-7577-4b48-91c2-c5af3b7b311a_533x.png?v=1631989951",
         rating: {
             rate: "3.9",
             count: "124",

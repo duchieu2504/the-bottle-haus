@@ -50,7 +50,6 @@ const SliderImg = (props) => {
     useEffect(() => {
         const sliderElement = sliderRef.current;
         const smooth = (e) => {
-            console.log(e.target.className.includes("slider"));
             if (e.target.className.includes("slider_horizontal_list"))
                 transitionRef.current();
         };

@@ -325,27 +325,29 @@ const Main = () => {
                         </div>
                     </div>
                     <div className={clsx(styles.content_link)}>
-                        <div
-                            className={clsx(styles.float_height)}
-                            style={{ width: "70%" }}
-                        >
-                            <div className="flex" style={{ height: "50%" }}>
+                        <div className={clsx(styles.float_height_one)}>
+                            <div
+                                className={clsx(
+                                    styles.float_height_one_above,
+                                    "flex"
+                                )}
+                            >
                                 <div
-                                    className={clsx(styles.content_item_1)}
-                                    style={{ flex: "1" }}
+                                    className={clsx(
+                                        styles.content_item_2,
+                                        styles.content_item
+                                    )}
                                     data-aos="fade-down-right"
                                     data-aos-delay="50"
                                     data-aos-easing="linear"
                                     data-aos-duration="500"
                                 >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
-                                        </p>
+                                    <NavLink
+                                        to="/"
+                                        className={clsx(
+                                            styles.content_item_link
+                                        )}
+                                    >
                                         <div
                                             className={clsx(styles.content_img)}
                                             style={{
@@ -353,30 +355,37 @@ const Main = () => {
                                                     "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Champane.png?v=9858192519269513351642089687)",
                                             }}
                                         ></div>
+                                        <div
+                                            className={clsx(
+                                                styles.content_title
+                                            )}
+                                        >
+                                            <p className={clsx(styles.last)}>
+                                                Gin
+                                            </p>
+                                            <p className={clsx(styles.first)}>
+                                                Gin
+                                            </p>
+                                        </div>
                                     </NavLink>
                                 </div>
                                 <div
-                                    className="flex"
-                                    style={{
-                                        flexWrap: "wrap",
-                                        flexDirection: "column",
-                                    }}
+                                    className={clsx(
+                                        styles.float_height_one_above_right,
+                                        "flex"
+                                    )}
                                 >
                                     <div
-                                        className={clsx(styles.content_item_2)}
+                                        className={clsx(
+                                            styles.content_item_2,
+                                            styles.content_item
+                                        )}
                                         data-aos="fade-down-right"
                                         data-aos-delay="100"
                                         data-aos-easing="linear"
                                         data-aos-duration="800"
                                     >
                                         <NavLink to="/">
-                                            <p
-                                                className={clsx(
-                                                    styles.content_heading
-                                                )}
-                                            >
-                                                Facebook
-                                            </p>
                                             <div
                                                 className={clsx(
                                                     styles.content_img
@@ -386,6 +395,26 @@ const Main = () => {
                                                         "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Liqueuer.png?v=4349399019452901951642089726)",
                                                 }}
                                             ></div>
+                                            <div
+                                                className={clsx(
+                                                    styles.content_title
+                                                )}
+                                            >
+                                                <p
+                                                    className={clsx(
+                                                        styles.last
+                                                    )}
+                                                >
+                                                    Liqueuer
+                                                </p>
+                                                <p
+                                                    className={clsx(
+                                                        styles.first
+                                                    )}
+                                                >
+                                                    Liqueuer
+                                                </p>
+                                            </div>
                                         </NavLink>
                                     </div>
                                     <div
@@ -396,43 +425,49 @@ const Main = () => {
                                         data-aos-duration="900"
                                     >
                                         <NavLink to="/">
-                                            <p
-                                                className={clsx(
-                                                    styles.content_heading
-                                                )}
-                                            >
-                                                Facebook
-                                            </p>
                                             <div
                                                 className={clsx(
-                                                    styles.content_img
+                                                    styles.content_item_title
                                                 )}
-                                                style={{
-                                                    backgroundImage:
-                                                        "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)",
-                                                }}
-                                            ></div>
+                                            >
+                                                <p
+                                                    className={clsx(
+                                                        styles.title_last
+                                                    )}
+                                                >
+                                                    Liqueuer
+                                                </p>
+                                                <p
+                                                    className={clsx(
+                                                        styles.title_first
+                                                    )}
+                                                >
+                                                    Liqueuer
+                                                </p>
+                                            </div>
                                         </NavLink>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="flex" style={{ height: "50%" }}>
+                            <div
+                                className={clsx(
+                                    styles.float_height_one_below,
+                                    "flex"
+                                )}
+                                style={{ height: "50%" }}
+                            >
                                 <div
-                                    className={clsx(styles.content_item_2)}
+                                    className={clsx(
+                                        styles.content_item_2,
+                                        styles.content_item
+                                    )}
                                     data-aos="fade-down-left"
                                     data-aos-delay="150"
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
                                     <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
-                                        </p>
                                         <div
                                             className={clsx(styles.content_img)}
                                             style={{
@@ -440,6 +475,18 @@ const Main = () => {
                                                     "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Cognac.png?v=65697864465483199331642089689)",
                                             }}
                                         ></div>
+                                        <div
+                                            className={clsx(
+                                                styles.content_title
+                                            )}
+                                        >
+                                            <p className={clsx(styles.last)}>
+                                                Cognac & Brandy
+                                            </p>
+                                            <p className={clsx(styles.first)}>
+                                                Cognac & Brandy
+                                            </p>
+                                        </div>
                                     </NavLink>
                                 </div>
                                 <div
@@ -450,37 +497,40 @@ const Main = () => {
                                     data-aos-duration="1100"
                                 >
                                     <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
-                                        </p>
                                         <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)",
-                                            }}
-                                        ></div>
+                                            className={clsx(
+                                                styles.content_item_title
+                                            )}
+                                            style={{ background: "#EBAD99" }}
+                                        >
+                                            <p
+                                                className={clsx(
+                                                    styles.title_last
+                                                )}
+                                            >
+                                                Tequila
+                                            </p>
+                                            <p
+                                                className={clsx(
+                                                    styles.title_first
+                                                )}
+                                            >
+                                                Tequila
+                                            </p>
+                                        </div>
                                     </NavLink>
                                 </div>
                                 <div
-                                    className={clsx(styles.content_item_2)}
+                                    className={clsx(
+                                        styles.content_item_2,
+                                        styles.content_item
+                                    )}
                                     data-aos="fade-down-left"
                                     data-aos-delay="450"
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
                                     <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
-                                        </p>
                                         <div
                                             className={clsx(styles.content_img)}
                                             style={{
@@ -488,178 +538,184 @@ const Main = () => {
                                                     "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Rum.png?v=59420678705492364741642089739)",
                                             }}
                                         ></div>
+                                        <div
+                                            className={clsx(
+                                                styles.content_title
+                                            )}
+                                        >
+                                            <p className={clsx(styles.last)}>
+                                                Rum
+                                            </p>
+                                            <p className={clsx(styles.first)}>
+                                                Rum
+                                            </p>
+                                        </div>
                                     </NavLink>
                                 </div>
                             </div>
                         </div>
-                        <div
-                            className={clsx(styles.float_height)}
-                            style={{ width: "15%" }}
-                        >
+                        <div className={clsx(styles.float_height_two)}>
                             <div
-                                className="flex"
-                                style={{
-                                    flexDirection: "column",
-                                    height: "100%",
-                                }}
+                                className={clsx(
+                                    styles.content_item_2,
+                                    styles.content_item
+                                )}
+                                data-aos="fade-down-right"
+                                data-aos-delay="100"
+                                data-aos-easing="linear"
+                                data-aos-duration="700"
                             >
-                                <div
-                                    className={clsx(styles.content_item_2)}
-                                    data-aos="fade-down-right"
-                                    data-aos-delay="100"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="700"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(styles.content_img)}
+                                        style={{
+                                            backgroundImage:
+                                                "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Wine.png?v=147209919728934386821642089765)",
+                                        }}
+                                    ></div>
+                                    <div className={clsx(styles.content_title)}>
+                                        <p className={clsx(styles.last)}>
+                                            Wine
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Wine.png?v=147209919728934386821642089765)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
-                                <div
-                                    className={clsx(styles.content_item_4)}
-                                    data-aos="fade-down-right"
-                                    data-aos-delay="200"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="650"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                        <p className={clsx(styles.first)}>
+                                            Wine
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Vodka.png?v=6157743395413032501642089764)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
-                                <div
-                                    className={clsx(styles.content_item_2)}
-                                    data-aos="fade-down-right"
-                                    data-aos-delay="150"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="600"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div
+                                className={clsx(
+                                    styles.content_item_2,
+                                    styles.content_item
+                                )}
+                                data-aos="fade-down-right"
+                                data-aos-delay="200"
+                                data-aos-easing="linear"
+                                data-aos-duration="650"
+                            >
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(styles.content_img)}
+                                        style={{
+                                            backgroundImage:
+                                                "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Vodka.png?v=6157743395413032501642089764)",
+                                        }}
+                                    ></div>
+                                    <div className={clsx(styles.content_title)}>
+                                        <p className={clsx(styles.last)}>
+                                            Vodka
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Whiskey.png?v=30541173243483273651642089765)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
+                                        <p className={clsx(styles.first)}>
+                                            Vodka
+                                        </p>
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div
+                                className={clsx(
+                                    styles.content_item_2,
+                                    styles.content_item
+                                )}
+                                data-aos="fade-down-right"
+                                data-aos-delay="150"
+                                data-aos-easing="linear"
+                                data-aos-duration="600"
+                            >
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(styles.content_img)}
+                                        style={{
+                                            backgroundImage:
+                                                "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Whiskey.png?v=30541173243483273651642089765)",
+                                        }}
+                                    ></div>
+                                    <div className={clsx(styles.content_title)}>
+                                        <p className={clsx(styles.last)}>
+                                            Whiskey
+                                        </p>
+                                        <p className={clsx(styles.first)}>
+                                            Whiskey
+                                        </p>
+                                    </div>
+                                </NavLink>
                             </div>
                         </div>
-                        <div
-                            className={clsx(styles.float_height)}
-                            style={{ width: "15%" }}
-                        >
+                        <div className={clsx(styles.float_height_three)}>
                             <div
-                                className="flex"
-                                style={{
-                                    flexDirection: "column",
-                                    height: "100%",
-                                }}
+                                className={clsx(styles.content_item_2)}
+                                data-aos="fade-down-left"
+                                data-aos-delay="200"
+                                data-aos-easing="linear"
+                                data-aos-duration="800"
                             >
-                                <div
-                                    className={clsx(styles.content_item_2)}
-                                    data-aos="fade-down-left"
-                                    data-aos-delay="200"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="800"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(
+                                            styles.content_item_title
+                                        )}
+                                        style={{ background: "#94c4c8" }}
+                                    >
+                                        <p className={clsx(styles.title_last)}>
+                                            More
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
-                                <div
-                                    className={clsx(styles.content_item_3)}
-                                    data-aos="fade-down-left"
-                                    data-aos-delay="100"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="700"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                        <p className={clsx(styles.title_first)}>
+                                            More
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Haus.png?v=142052691175864194651642089723)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
-                                <div
-                                    className={clsx(styles.content_item_4)}
-                                    data-aos="fade-down-left"
-                                    data-aos-delay="150"
-                                    data-aos-easing="linear"
-                                    data-aos-duration="800"
-                                >
-                                    <NavLink to="/">
-                                        <p
-                                            className={clsx(
-                                                styles.content_heading
-                                            )}
-                                        >
-                                            Facebook
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div
+                                className={clsx(
+                                    styles.content_item_2,
+                                    styles.content_item
+                                )}
+                                data-aos="fade-down-left"
+                                data-aos-delay="100"
+                                data-aos-easing="linear"
+                                data-aos-duration="700"
+                            >
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(styles.content_img)}
+                                        style={{
+                                            backgroundImage:
+                                                "url(https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/Haus.png?v=142052691175864194651642089723)",
+                                        }}
+                                    ></div>
+                                    <div className={clsx(styles.content_title)}>
+                                        <p className={clsx(styles.last)}>
+                                            Haus Bundle
                                         </p>
-                                        <div
-                                            className={clsx(styles.content_img)}
-                                            style={{
-                                                backgroundImage:
-                                                    "url(https://images.unsplash.com/photo-1449034446853-66c86144b0ad?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2100&q=80)",
-                                            }}
-                                        ></div>
-                                    </NavLink>
-                                </div>
+                                        <p className={clsx(styles.first)}>
+                                            Haus Bundle
+                                        </p>
+                                    </div>
+                                </NavLink>
+                            </div>
+                            <div
+                                className={clsx(styles.content_item_2)}
+                                data-aos="fade-down-left"
+                                data-aos-delay="150"
+                                data-aos-easing="linear"
+                                data-aos-duration="800"
+                            >
+                                <NavLink to="/">
+                                    <div
+                                        className={clsx(
+                                            styles.content_item_title
+                                        )}
+                                        style={{ background: "#124e5c" }}
+                                    >
+                                        <p className={clsx(styles.title_last)}>
+                                            Rare & <br />
+                                            Hard To Find
+                                        </p>
+                                        <p className={clsx(styles.title_first)}>
+                                            Rare & <br />
+                                            Hard To Find
+                                        </p>
+                                    </div>
+                                </NavLink>
                             </div>
                         </div>
                     </div>
