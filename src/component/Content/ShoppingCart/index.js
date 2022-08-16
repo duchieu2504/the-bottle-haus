@@ -21,7 +21,8 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
     // const [total, setTotal] = useState(0);
 
     const data = useSelector((state) => state.productsCart);
-    const dataArray = useMemo(() => [...data], [data]);
+
+    const dataArray = [...data];
 
     const dataShow = dataArray.reverse().slice(0, 2);
 
