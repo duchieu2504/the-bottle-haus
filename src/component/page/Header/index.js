@@ -7,6 +7,7 @@ import SvgIcon from "svg";
 import { useDispatch, useSelector } from "react-redux";
 import { clickLogin, clickNavbar } from "redux/Login";
 import ShoppingCart from "component/Content/ShoppingCart";
+import { useMemo } from "react";
 
 const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
@@ -28,7 +29,7 @@ const Header = (props) => {
             if (cartRef.current) {
                 const isCheck = cartRef.current.contains(e.target);
                 if (!isCheck) {
-                    setShowShoppingCart(false);
+                    setShowShoppingCart(isCheck);
                 }
             }
         };
@@ -36,7 +37,7 @@ const Header = (props) => {
             if (searchRef.current) {
                 const isCheck = searchRef.current.contains(e.target);
                 if (!isCheck) {
-                    setActiveSearch(false);
+                    setActiveSearch(isCheck);
                 }
             }
         };

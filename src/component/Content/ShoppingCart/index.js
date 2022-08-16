@@ -9,11 +9,11 @@ import convertPrice from "util/convertNumber";
 import { TotalContext } from "Context/TotalProvider";
 
 ShoppingCart.propTypes = {
-    activeCart: PropTypes.bool,
+    showShoppingCart: PropTypes.bool,
     handleClickAllCart: PropTypes.func,
 };
 ShoppingCart.defaultProps = {
-    activeCart: "",
+    showShoppingCart: false,
     handleClickAllCart: null,
 };
 
@@ -24,7 +24,11 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
 
     const dataArray = [...data];
 
-    const dataShow = dataArray.reverse().slice(0, 2);
+    const dataShow = useMemo(() => {
+        dataArray.reverse().slice(0, 2);
+        return dataArray;
+    }, [dataArray]);
+    console.log(dataShow);
 
     const total = useContext(TotalContext);
 
