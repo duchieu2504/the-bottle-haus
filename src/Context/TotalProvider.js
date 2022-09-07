@@ -1,26 +1,51 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { AuthContext } from "./AuthProvider";
 
 export const TotalContext = createContext();
 
 const TotalProvider = ({ children }) => {
     //tất cả sản phẩm
-    const dataCategory = useSelector((state) => state.products);
+    const dataCategory = useSelector((state) => state.products.items);
+    const loading = useSelector((state) => state.products.loading);
+    const [totalProduct, setTotalProduct] = useState(0);
+    const [totalProduct1, setTotalProduct1] = useState(0);
     const dataCategoryArray = [...dataCategory];
 
-    // sản phẩm trong giỏ hàng
-    const dataProductCart = useSelector((state) => state.productsCart);
-    const dataProductCartArray = [...dataProductCart];
+    const dataSession = JSON.parse(sessionStorage.getItem("productIds")) || [];
 
-    // chi tiết sản phẩm lấy từ id_product trong giỏ hàng
+    useEffect(() => {
+        const dataSession1 = () => {
+            window.addEventListener("storage", () => {
+                console.log(dataSession);
+            });
+        };
+        return () => {
+            dataSession1();
+        };
+    }, [dataSession]);
+    const dataProductCartArray = [...dataSession];
     const productCart = dataProductCartArray.map((item) => {
-        const data = dataCategoryArray.find((i) => i.id === item.id_product);
-        return { quantily: item.quantily, price: data.price };
+        const data = dataCategoryArray.find((i) => i._id === item.productId);
+        if (data) {
+            return { quantily: item.quantily, price: data.price };
+        } else {
+            return null;
+        }
     });
-    const totalProduct = productCart.reduce((acc, item) => {
-        const t = Number(item.price) * Number(item.quantily);
-        return acc + t;
-    }, 0);
+    useEffect(() => {
+        if (dataCategory.length > 0) {
+            const totalProduct = productCart.reduce((acc, item) => {
+                const t = Number(item.price) * Number(item.quantily);
+                return acc + t;
+            }, 0);
+            setTotalProduct(totalProduct);
+            return;
+        } else {
+            return;
+        }
+    }, [loading, dataCategory]);
+
     return (
         <TotalContext.Provider value={totalProduct}>
             {children}

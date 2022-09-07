@@ -2,14 +2,108 @@ import clsx from "clsx";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import { clickLogin } from "redux/Login";
+import { showPageLogin } from "redux/Login";
 import styles from "./PageLogin.module.scss";
+
+import firebase, { auth, db } from "firebase/config";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    sendEmailVerification,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
+import { addDoc, collection } from "firebase/firestore";
+import SvgIcon from "svg";
+import { useState } from "react";
+import FormSignUp from "./FormSignUp";
+
+const fbProvider = new firebase.auth.FacebookAuthProvider();
+
 const PageLogin = () => {
+    const [showPageSignUp, setShowPageSignUp] = useState(false);
     const dispatch = useDispatch();
     const activeLogin = useSelector((state) => state.activeLogin.active);
     const handleClickClose = () => {
-        const action = clickLogin(activeLogin);
+        const action = showPageLogin(activeLogin);
         dispatch(action);
+    };
+
+    const handleLoginFace = async () => {
+        const { additionalUserInfo, user } = await auth.signInWithPopup(
+            fbProvider
+        );
+
+        // Nếu là người dùng mới thì sẽ lưu vào firestore database
+        if (additionalUserInfo?.isNewUser) {
+            await addDoc(collection(db, "users"), {
+                displayName: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                uid: user.uid,
+                providerId: additionalUserInfo.providerId,
+                date: null, // ngày sinh khách hàng
+                //     // lastOnline: firebase.firestore.FieldValue.serverTimestamp(),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            });
+            return;
+        }
+    };
+
+    const handleClickAction = async (id, values) => {
+        if (id === 1) {
+            try {
+                let email = "zero250401@gmail.com";
+                let password = "123456";
+                const res = await signInWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+                console.log(res);
+                const user = res.user;
+                if (user.emailVerified) {
+                } else {
+                    console.log("Verified email");
+                }
+                // login
+            } catch (error) {
+                console.log("Lỗi ");
+            }
+        } else if (id === 2) {
+            //  đăng ký
+            try {
+                const { email_signUp, password_signUp, fullName_signUp } =
+                    values;
+                let email = email_signUp;
+                let password = password_signUp;
+                const response = await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+                const user = response.user;
+                await sendEmailVerification(user);
+                if (user.emailVerified) {
+                    await addDoc(collection(db, "users"), {
+                        displayName: fullName_signUp,
+                        email: email_signUp,
+                        photoURL: null,
+                        uid: user.uid,
+                        providerId: user.providerData.providerId,
+                        date: null,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    });
+                    return response;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.log("Error");
+            }
+        } else {
+            return;
+        }
     };
     return (
         <div
@@ -18,7 +112,11 @@ const PageLogin = () => {
             })}
         >
             <div className={clsx(styles.pageLogin_overlay)}></div>
-            <div className={clsx(styles.pageLogin_wrap)}>
+            <div
+                className={clsx(styles.pageLogin_wrap, {
+                    [styles.showPageSignUp]: showPageSignUp === true,
+                })}
+            >
                 <div className={clsx(styles.pageLogin_wrap_img)}>
                     <img
                         className={clsx(styles.img)}
@@ -31,59 +129,44 @@ const PageLogin = () => {
                         </h4>
                     </div>
                 </div>
-                <div className={clsx(styles.pageLogin_content)}>
+                {/* // SIgn IN */}
+
+                <div className={clsx(styles.pageLogin_content_signIn)}>
                     <div className={clsx(styles.pageLogin_content_header)}>
                         <h1>Sign in</h1>
                         <p>
-                            Don't have an account yet?
-                            <a href="/"> Sign up here</a>
+                            Don't have an account yet?{" "}
+                            <button
+                                type="button"
+                                className={clsx(
+                                    styles.pageLogin_content_header_btn
+                                )}
+                                onClick={() => setShowPageSignUp(true)}
+                            >
+                                Sign up here
+                            </button>
                         </p>
                     </div>
                     <div className={clsx(styles.pageLogin_content_social)}>
-                        <a
-                            href="/"
+                        <button
+                            type="button"
                             className={clsx(
                                 styles.pageLogin_content_social_link
                             )}
+                            onClick={handleLoginFace}
                         >
                             <div
                                 className={clsx(
                                     styles.pageLogin_content_social_logo
                                 )}
                             >
-                                <svg
-                                    version="1.1"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width="18px"
-                                    height="18px"
-                                    viewBox="0 0 48 48"
-                                >
-                                    <g>
-                                        <path
-                                            fill="#EA4335"
-                                            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"
-                                        ></path>
-                                        <path
-                                            fill="#4285F4"
-                                            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"
-                                        ></path>
-                                        <path
-                                            fill="#FBBC05"
-                                            d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"
-                                        ></path>
-                                        <path
-                                            fill="#34A853"
-                                            d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"
-                                        ></path>
-                                        <path
-                                            fill="none"
-                                            d="M0 0h48v48H0z"
-                                        ></path>
-                                    </g>
-                                </svg>
+                                <img
+                                    src={SvgIcon.FACEBOOK_ICON2}
+                                    alt="facebook icon"
+                                />
                             </div>
                             <p>Login</p>
-                        </a>
+                        </button>
                     </div>
                     <div className={clsx(styles.pageLogin_content_divider)}>
                         <span>OR</span>
@@ -135,8 +218,49 @@ const PageLogin = () => {
                         <a href="/">Forgot Password</a>
                     </div>
                     <div className={clsx(styles.footer)}>
-                        <button type="submit">Sign in</button>
+                        <button
+                            type="submit"
+                            onClick={(values) => handleClickAction(1, values)}
+                        >
+                            Sign in
+                        </button>
                     </div>
+                    <div
+                        className={clsx(styles.close, {
+                            [styles.open]: !activeLogin,
+                        })}
+                        onClick={handleClickClose}
+                    ></div>
+                </div>
+
+                {/* // SIgn UP */}
+                <div className={clsx(styles.pageLogin_content_signUp)}>
+                    <div className={clsx(styles.pageLogin_content_header)}>
+                        <h1>Sign up</h1>
+                        <p>
+                            You have an account yet?
+                            <button
+                                type="button"
+                                className={clsx(
+                                    styles.pageLogin_content_header_btn
+                                )}
+                                onClick={() =>
+                                    setShowPageSignUp(!showPageSignUp)
+                                }
+                            >
+                                Sign in here
+                            </button>
+                        </p>
+                    </div>
+
+                    <div className={clsx(styles.pageLogin_content_form_signUp)}>
+                        <FormSignUp
+                            handleSubmit={(values) =>
+                                handleClickAction(2, values)
+                            }
+                        />
+                    </div>
+
                     <div
                         className={clsx(styles.close, {
                             [styles.open]: !activeLogin,

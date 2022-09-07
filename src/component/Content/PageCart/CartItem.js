@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import SvgIcon from "svg";
@@ -8,58 +8,188 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeQuantity } from "redux/productsCart";
 import "aos/dist/aos.css";
 import "./CartItem.css";
+import { AuthContext } from "Context/AuthProvider";
+import {
+    getOrderUnpaid,
+    patchOrderUnpaidDeleteProductId,
+    patchOrderUnpaidProductIds,
+} from "apiServices/orderServices";
+import { setItems, setLoading } from "redux/orderUnpaid";
 
 CartItem.propTypes = {
     item: PropTypes.object,
-    handleDeleteProduct: PropTypes.func,
     timeDelay: PropTypes.number,
 };
 CartItem.defaultProps = {
     item: {},
-    handleDeleteProduct: null,
     timeDelay: "",
 };
 
 function CartItem(props) {
-    const { item, handleDeleteProduct, timeDelay } = props;
+    const { item, totalSessionLoading, setTotalSessionLoading } = props;
+    const {
+        user: { uid },
+    } = useContext(AuthContext);
 
     const dispatch = useDispatch();
 
-    const { id, quantily, id_product } = item;
+    const { quantily, productId } = item;
 
     // lấy thông tin sản phẩm
-    const dataCategory = useSelector((state) => state.products);
+    const dataCategory = useSelector((state) => state.products.items);
     const dataProdcuts = [...dataCategory];
-    const product = dataProdcuts.find((item) => item.id === id_product);
+
+    const product = dataProdcuts.find((item) => item._id === productId) || 0;
 
     const [quanti, setQuanti] = useState(Number(quantily));
     const totalPrice = (product.price * quanti).toString();
+
     // Thay đổi số lượng khi click vào nút giảm
-    const handlePrevQuantity = () => {
+    const handlePrevQuantity = async () => {
         setQuanti(quanti - 1);
-        const newP = { ...item, quantily: `${quanti - 1}` };
-        const action = changeQuantity(newP);
-        dispatch(action);
+
+        if (uid) {
+            const data = {
+                productId: productId,
+                quantily: Number(quanti) - 1,
+            };
+            await patchOrderUnpaidProductIds(uid, data);
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrde = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrde);
+            return;
+
+            //  TH có tài khoản
+        } else {
+            // TH chua co  tài khoản
+            const dataSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const dataSessionCopy = [...dataSession];
+            const resultDataSession = dataSessionCopy.map((item) => {
+                if (item.productId === productId) {
+                    return { productId, quantily: `${Number(quanti) - 1}` };
+                } else {
+                    return { ...item };
+                }
+            });
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(resultDataSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) - Number(product.price)}`
+                )
+            );
+            return;
+        }
     };
 
     // Thay đổi số lượng khi click vào nút tăng
-    const handleNextQuantity = () => {
+    const handleNextQuantity = async () => {
         setQuanti(quanti + 1);
-        const newP = { ...item, quantily: `${quanti + 1}` };
-        const action = changeQuantity(newP);
-        dispatch(action);
+
+        if (uid) {
+            const data = {
+                productId: productId,
+                quantily: Number(quanti) + 1,
+            };
+
+            await patchOrderUnpaidProductIds(uid, data);
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrder = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrder);
+            return;
+        } else {
+            const productIdsSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const dataSessionCopy = [...productIdsSession];
+            const resultDataSession = dataSessionCopy.map((item) => {
+                if (item.productId === productId) {
+                    return { productId, quantily: `${Number(quanti) + 1}` };
+                } else {
+                    return { ...item };
+                }
+            });
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(resultDataSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) + Number(product.price)}`
+                )
+            );
+
+            return;
+        }
+    };
+
+    const handleDeleteProduct = async () => {
+        if (uid) {
+            //th: có tài khoản
+            await patchOrderUnpaidDeleteProductId(uid, {
+                productId: productId,
+            });
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrder = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrder);
+        } else {
+            // không có tài khoản
+            const productIdsSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const item = productIdsSession.find(
+                (i) => i.productId === productId
+            );
+            const index = productIdsSession.indexOf(item);
+            productIdsSession.splice(index, 1);
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(productIdsSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) - Number(product.price) * quanti}`
+                )
+            );
+        }
     };
 
     return (
-        <div
-            className={clsx(styles.product_item)}
-            data-aos="fade-up"
-            data-aos-delay={timeDelay}
-            data-aos-easing="ease-out"
-        >
+        <div className={clsx(styles.product_item)}>
             <div className={clsx(styles.product_item_wrap)}>
                 <img
-                    src={product.img}
+                    src={product.image}
                     alt="img"
                     className={clsx(styles.product_item_img)}
                 />
@@ -91,7 +221,7 @@ function CartItem(props) {
             </p>
             <div
                 className={clsx(styles.product_delete)}
-                onClick={() => handleDeleteProduct(id)}
+                onClick={handleDeleteProduct}
             >
                 <img
                     className={clsx(styles.product_delete_img)}

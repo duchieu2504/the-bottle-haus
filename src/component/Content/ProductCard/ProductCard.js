@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import styles from "./ProductCard.module.scss";
@@ -7,13 +7,14 @@ import "aos/dist/aos.css";
 import removeVN from "util/removeVN";
 import convertPrice from "util/convertNumber";
 
-const ProductCard = ({ item, itemRef }) => {
-    const { id, price, title, img, category } = item;
-    const num = Number(item.id) % 4;
+const ProductCard = ({ item, itemRef, index }) => {
+    const { _id, price, title, category, image } = item;
+    const num = Number(index) % 4 || 0;
     const url = removeVN(category);
+
     return (
         <div
-            key={id}
+            key={_id}
             data-aos="fade-up"
             ref={itemRef}
             data-aos-delay={(num + 1) * 50}
@@ -21,12 +22,12 @@ const ProductCard = ({ item, itemRef }) => {
         >
             <NavLink
                 className={clsx(styles.product_link)}
-                to={`/the-bottle-haus/${url}/${id}`}
+                to={`/the-bottle-haus/${url}/${_id}`}
             >
                 <div className={clsx(styles.product_card_img)}>
                     <div
                         className={clsx(styles.img)}
-                        style={{ backgroundImage: `url(${img})` }}
+                        style={{ backgroundImage: `url(${image})` }}
                     >
                         {/* <img src={img} alt={title} /> */}
                     </div>

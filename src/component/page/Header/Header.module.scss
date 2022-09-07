@@ -132,28 +132,19 @@
             margin-right: 16px;
             background-color: #fff;
             border-radius: 12px;
-            .user {
+            overflow: hidden;
+            cursor: pointer;
+            .user_image {
+                width: 100%;
+            }
+            .icon_login {
                 height: 100%;
                 text-align: center;
                 line-height: 3.9rem;
-
                 i {
                     font-size: 1.6rem;
                     color: #484848;
                     transform: translateY(3px);
-                }
-                &_name {
-                    text-decoration: none;
-                    display: none;
-                    font-size: 1.6rem;
-                    padding: 12px;
-                    color: $black-color;
-                }
-                span {
-                    text-decoration: none;
-                    font-size: 1.6rem;
-                    padding: 12px;
-                    color: $black-color;
                 }
             }
         }

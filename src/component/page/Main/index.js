@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Slider from "../../../util/Slider";
 import ProductsFeatured from "../../Content/ProductsFeatured/ProductsFeatured.js";
 import clsx from "clsx";
@@ -12,14 +12,30 @@ import { useSelector } from "react-redux";
 import SliderDow from "util/Slider_dow";
 import SliderReviews from "util/Slider_reviews";
 import { NavLink } from "react-router-dom";
+import { randomProduct } from "util/RandomProduct";
+import { AuthContext } from "Context/AuthProvider";
 
 const Main = () => {
     const h1Ref = useRef();
 
-    const data = useSelector((state) => state.products);
-
+    const data = useSelector((state) => state.products.items);
     const dataProdcut = [...data];
-    const dataProdcuts = dataProdcut.slice(0, dataProdcut.length - 5);
+
+    const [dataSimilarProducts, setDataSimilarProducts] = useState([]);
+    // const [state, setState] = useState({});
+
+    //Random products
+    const dataSimilar = useMemo(() => {
+        const d = randomProduct(6, 10);
+        const data = d.map((i) => {
+            const dataItemProduct = dataProdcut.find((k, index) => index === i);
+            return { ...dataItemProduct };
+        });
+        return data;
+    });
+    useEffect(() => {
+        setDataSimilarProducts(dataSimilar);
+    }, [data]);
 
     useEffect(() => {
         AOS.init();
@@ -265,10 +281,13 @@ const Main = () => {
 
                     <div className={clsx(styles.rare_products_list)}>
                         <div className="row">
-                            {dataProdcuts.map((item) => {
+                            {dataSimilarProducts.map((item, index) => {
                                 return (
                                     <div className="col l-3" key={item.id}>
-                                        <ProductCard item={item} />
+                                        <ProductCard
+                                            item={item}
+                                            index={index}
+                                        />
                                     </div>
                                 );
                             })}

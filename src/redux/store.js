@@ -1,18 +1,20 @@
-import { configureStore } from '@reduxjs/toolkit'
-import productReducer from './productSlice'
-import productsCart from './productsCart'
-import activeLogin from './Login'
-import usersInfo from './userInfo'
+import { configureStore } from "@reduxjs/toolkit";
+import productReducer from "./productSlice";
+import productsCart from "./productsCart";
+import activeLogin from "./Login";
+import orderUnpaid from "./orderUnpaid";
+import orderProducts from "./orderProducts";
 
 const rootReducer = {
     products: productReducer,
     activeLogin: activeLogin,
     productsCart: productsCart,
-    usersInfo: usersInfo
-}
+    orderProducts: orderProducts,
+    orderUnpaid: orderUnpaid,
+};
 
 const store = configureStore({
-    reducer: rootReducer
-})
+    reducer: rootReducer,
+});
 
-export default store
+export default store;

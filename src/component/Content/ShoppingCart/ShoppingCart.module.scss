@@ -34,6 +34,8 @@
     &_list {
         color: #000;
         min-height: 140px;
+        max-height: 160px;
+        overflow: hidden;
         .no_product {
             text-align: center;
             padding-top: 20px;

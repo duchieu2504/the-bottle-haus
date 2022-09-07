@@ -1,7 +1,7 @@
 import React from "react";
-import "./Loading1.scss";
+import "./Loading.scss";
 
-function Loading1(props) {
+function Loading(props) {
     return (
         <div className="showbox">
             <div className="loader">
@@ -21,4 +21,4 @@ function Loading1(props) {
     );
 }
 
-export default Loading1;
+export default Loading;

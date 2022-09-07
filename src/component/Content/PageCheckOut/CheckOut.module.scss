@@ -53,6 +53,7 @@
     }
     &_notice {
         // position: relative;
+        flex: 1;
 
         .checkout_warning {
             display: none;
@@ -94,7 +95,23 @@
         }
         .product_cart {
             padding: 12px 24px;
+            height: 100%;
+            &_list {
+                overflow-y: scroll;
+                padding: 12px 0px;
+                height: 60%;
+            }
             &_heading {
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    width: 50%;
+                    height: 3px;
+                    background-color: #000;
+                }
                 &_title {
                     display: flex;
                     align-items: center;

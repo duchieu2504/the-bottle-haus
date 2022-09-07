@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 // import PropTypes from 'prop-types';
 
@@ -16,24 +16,29 @@ import { randomProduct } from "util/RandomProduct";
 ProductsFeatured.propTypes = {};
 
 function ProductsFeatured(props) {
-    const data = useSelector((state) => state.products);
+    const data = useSelector((state) => state.products.items);
     const dispatch = useDispatch();
 
     const dataProdcut = [...data];
 
     const [dataSimilarProducts, setDataSimilarProducts] = useState([]);
     // const [state, setState] = useState({});
-    // console.log( dataProdcuts);
 
     //Random products
-    useState(() => {
+    const dataSimilar = useMemo(() => {
         const d = randomProduct(6, 10);
-        const dataSimilar = d.map((i) => {
-            const dataItemProduct = dataProdcut.find((k) => k.id === i);
+        const data = d.map((i) => {
+            const dataItemProduct = dataProdcut.find(
+                (k, index) => Number(index) === Number(i)
+            );
             return { ...dataItemProduct };
         });
-        setDataSimilarProducts(dataSimilar);
+        return data;
     });
+    useEffect(() => {
+        setDataSimilarProducts(dataSimilar);
+    }, [data]);
+
     useEffect(() => {
         AOS.init({
             once: true,
@@ -119,10 +124,13 @@ function ProductsFeatured(props) {
                 <div className="grid wide">
                     <div className={clsx(styles.product_list)}>
                         <div className="row">
-                            {dataSimilarProducts.map((item) => {
+                            {dataSimilarProducts.map((item, index) => {
                                 return (
                                     <div className="col l-3" key={item.id}>
-                                        <ProductCard item={item} />
+                                        <ProductCard
+                                            item={item}
+                                            index={index}
+                                        />
                                     </div>
                                 );
                             })}

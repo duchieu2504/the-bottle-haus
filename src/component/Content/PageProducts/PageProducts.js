@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useMemo } from "react";
 import Pagination from "../Pagination/Pagination";
 import styles from "./Products.module.scss";
 import "./PageProduct.css";
@@ -14,17 +14,18 @@ import removeVN from "util/removeVN";
 import { getParent } from "util/RandomProduct";
 import SvgIcon from "svg";
 import Classify from "./Classify";
+import Loading from "util/Loading";
 
 function Products() {
     const { url } = useParams();
-    const dataCategory = useSelector((state) => state.products);
+    const dataCategory = useSelector((state) => state.products.items);
+    const loading = useSelector((state) => state.products.loading);
     const dataProdcuts = [...dataCategory];
 
-    // const [ loading, setLoading ] = useState(false)
+    const dataUrl = useMemo(() => {
+        return dataProdcuts.filter((item) => removeVN(item.category) === url);
+    }, [dataProdcuts]);
 
-    const dataUrl = dataProdcuts.filter(
-        (item) => removeVN(item.category) === url
-    );
     // const [ data, setData ] = useState(dataUrl)
 
     // dữ liệu sản phẩm để lọc theo từng phân loại nhỏ
@@ -99,12 +100,11 @@ function Products() {
     // Thay đổi data khi chuyển sang mặt hàng khác
     useEffect(() => {
         setDataClassify(dataUrl);
-        // setLoading(true)
+
         // tạo giá trị khởi tạo cho index mỗi khi thay đổi url
         setIndex(0);
         setIndexSort(0);
-    }, [url]);
-
+    }, [loading, url]);
     // Gắn dữ liệu khi thay đổi sự sắp xếp
     useEffect(() => {
         setDataSort(dataClassify);
@@ -409,16 +409,23 @@ function Products() {
                         <div className={clsx(styles.product)}>
                             <div className={clsx(styles.product_list)}>
                                 <div className="row" style={{ width: "100%" }}>
-                                    {dataProductPage.map((item) => {
-                                        return (
-                                            <div
-                                                className="col l-3"
-                                                key={item.id}
-                                            >
-                                                <ProductCard item={item} />
-                                            </div>
-                                        );
-                                    })}
+                                    {loading ? (
+                                        <Loading />
+                                    ) : (
+                                        dataProductPage.map((item, index) => {
+                                            return (
+                                                <div
+                                                    className="col l-3"
+                                                    key={item.id}
+                                                >
+                                                    <ProductCard
+                                                        item={item}
+                                                        index={index}
+                                                    />
+                                                </div>
+                                            );
+                                        })
+                                    )}
                                 </div>
                             </div>
                         </div>

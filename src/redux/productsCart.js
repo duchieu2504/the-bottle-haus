@@ -22,9 +22,14 @@ const products = createSlice({
             state[index] = newProduct;
             // return state
         },
+        resetCartProduct: (state, action) => {
+            state = action.payload;
+            return state;
+        },
     },
 });
 
 const { reducer, actions } = products;
-export const { buyProduct, removeProduct, changeQuantity } = actions;
+export const { buyProduct, removeProduct, changeQuantity, resetCartProduct } =
+    actions;
 export default reducer;

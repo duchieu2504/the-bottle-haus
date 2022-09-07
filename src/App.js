@@ -2,12 +2,7 @@ import React, { useEffect } from "react";
 import Header from "./component/page/Header/";
 import Footer from "./component/page/Footer/Footer.js";
 import Main from "./component/page/Main/index.js";
-import {
-    BrowserRouter as Router,
-    Route,
-    Routes,
-    Navigate,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GlobalStyles from "scss/index.js";
 import NavabarInfo from "component/Content/PageInfo/PageInfo.js";
 import Products from "component/Content/PageProducts/PageProducts.js";
@@ -18,64 +13,111 @@ import AOS from "aos";
 import PageCart from "component/Content/PageCart/PageCart.js";
 import CheckOut from "component/Content/PageCheckOut/CheckOut.js";
 import TotalProvider from "Context/TotalProvider";
+import { useDispatch } from "react-redux";
+import { GET_ALL_PRODUCTS, setLoadingProducts } from "redux/productSlice";
+import { productsApi } from "apiServices/productsServices";
+import AuthProvider from "Context/AuthProvider";
+import PageUserInfo from "component/Content/PageUserInfo";
+import FormAddress from "component/Content/FormAddress";
 
 const App = () => {
+    const dispatch = useDispatch();
+
     useEffect(() => {
+        const getData = async () => {
+            await dispatch(setLoadingProducts());
+            const result = await productsApi();
+            const action = GET_ALL_PRODUCTS(result);
+            dispatch(action);
+        };
+
+        getData();
+
         AOS.init();
     }, []);
     return (
         <GlobalStyles>
-            <TotalProvider>
-                <div className="shop_demo" style={{ overflow: "hidden" }}>
-                    <Router>
-                        <ScrollToTop />
-                        <Header />
-                        <main
-                            style={{
-                                marginTop: "100px",
-                                background: "#fff",
-                            }}
+            <BrowserRouter>
+                <AuthProvider>
+                    <TotalProvider>
+                        <div
+                            className="shop_demo"
+                            style={{ overflow: "hidden" }}
                         >
-                            <Routes>
-                                <Route
-                                    path="/the-bottle-haus/"
-                                    element={<Main />}
-                                ></Route>
-                                <Route path="/the-bottle-haus/">
+                            <ScrollToTop />
+                            <Header />
+                            <main
+                                style={{
+                                    marginTop: "100px",
+                                    background: "#fff",
+                                }}
+                            >
+                                <Routes>
                                     <Route
-                                    // path="/the-bottle-haus/home"
-                                    // element={
-                                    //     <Navigate replace to="/home" />
-                                    // }
-                                    // element={<Main /> }
-                                    />
-                                    <Route
-                                        exact
-                                        path="home"
+                                        path="/the-bottle-haus/"
                                         element={<Main />}
-                                    />
-                                    <Route
-                                        path="thong_tin"
-                                        element={<NavabarInfo />}
-                                    />
-                                    <Route path="cart" element={<PageCart />} />
-                                    <Route
-                                        path="checkout"
-                                        element={<CheckOut />}
-                                    />
-                                    <Route path=":url" element={<Products />} />
-                                    <Route
-                                        path=":url/:productId"
-                                        element={<ProductDetail />}
-                                    />
-                                </Route>
-                            </Routes>
-                            <PageLogin />
-                        </main>
-                        <Footer />
-                    </Router>
-                </div>
-            </TotalProvider>
+                                    ></Route>
+                                    <Route path="/the-bottle-haus/">
+                                        <Route
+                                        // path="/the-bottle-haus/home"
+                                        // element={
+                                        //     <Navigate replace to="/home" />
+                                        // }
+                                        // element={<Main /> }
+                                        />
+                                        <Route
+                                            exact
+                                            path="account"
+                                            element={<PageUserInfo />}
+                                        />
+                                        <Route
+                                            exact
+                                            path="account/address"
+                                            element={<FormAddress />}
+                                        />
+                                        <Route
+                                            exact
+                                            path="account/address/:id"
+                                            element={<FormAddress />}
+                                        />
+                                        <Route
+                                            exact
+                                            path="home"
+                                            element={<Main />}
+                                        />
+                                        <Route
+                                            path="login"
+                                            element={<PageLogin />}
+                                        />
+                                        <Route
+                                            path="thong_tin"
+                                            element={<NavabarInfo />}
+                                        />
+                                        <Route
+                                            path="cart"
+                                            element={<PageCart />}
+                                        />
+                                        <Route
+                                            path="checkout"
+                                            element={<CheckOut />}
+                                        />
+                                        <Route
+                                            path=":url"
+                                            element={<Products />}
+                                        />
+                                        <Route
+                                            path=":url/:productId"
+                                            element={<ProductDetail />}
+                                        />
+                                    </Route>
+                                </Routes>
+                                <PageLogin />
+                            </main>
+                            <Footer />
+                        </div>
+                    </TotalProvider>
+                </AuthProvider>
+            </BrowserRouter>
         </GlobalStyles>
     );
 };

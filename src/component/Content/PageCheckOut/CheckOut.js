@@ -11,13 +11,22 @@ import "aos/dist/aos.css";
 import { useDispatch, useSelector } from "react-redux";
 // import User from '../User/User';
 import UserFormik from "../User/UserFormik/UserFormik";
-import { addUser } from "redux/userInfo";
+import { addOrderProduct } from "redux/orderProducts";
 
 import { NavLink, useNavigate } from "react-router-dom";
 import CartItem from "../ShoppingCart/CartItem";
 import { TotalContext } from "Context/TotalProvider";
 import { Notice } from "util/NoticeOfPurchase/Notice";
 import Image from "assets/image";
+import axios from "axios";
+import { AuthContext } from "Context/AuthProvider";
+import { patchOrderUnpaid, postOrder } from "apiServices/orderServices";
+import { resetCartProduct } from "redux/productsCart";
+import {
+    getAddressesDefault,
+    postApiAdress,
+} from "apiServices/addressServices";
+import Loading from "util/Loading";
 
 CheckOut.propTypes = {};
 
@@ -25,12 +34,34 @@ function CheckOut() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    // thông tin khách Hàng
-    const users = useSelector((state) => state.usersInfo);
+    //người dùng
+    const {
+        user: { uid },
+    } = useContext(AuthContext);
+
+    //đon hàng
+    const ordeProduct = useSelector((state) => state.orderProducts.items);
+    const messOrdeProduct = useSelector((state) => state.orderProducts.message);
+    const orderUnpaid = useSelector((state) => state.orderUnpaid.items);
+    const loadingOrder = useSelector((state) => state.orderUnpaid.loading);
+    const [totalUnipad, setTotalUnipad] = useState(0);
+
     // các sản phẩm trong giỏ hàng
-    const data = useSelector((state) => state.productsCart);
-    const dataProdcuts = useMemo(() => [...data], [data]);
+    // const data = useSelector((state) => state.productsCart);
+    const dataSession = JSON.parse(sessionStorage.getItem("productIds")) || [];
+    const totalSession = JSON.parse(sessionStorage.getItem("total")) || 0;
+
+    const dataProdcuts = useMemo(() => {
+        if (uid) {
+            return [...orderUnpaid.productIds];
+        } else {
+            return [...dataSession];
+        }
+    }, [orderUnpaid]);
     const [shipper, setShipper] = useState(0);
+    const [addressDefault, setAddressDefault] = useState();
+    const [loading, setLoading] = useState(false);
+    const [addressNoUid, setAddressNoUid] = useState({});
     const userRef = useRef();
 
     const total = useContext(TotalContext);
@@ -60,32 +91,73 @@ function CheckOut() {
         return () => document.removeEventListener("click", handleClick);
     }, []);
 
-    // Submit
-    const handleSubmitContinue = (values) => {
-        const usersLength = users.length;
-        const user = { ...values, id: usersLength };
-        const action = addUser(user);
-        dispatch(action);
-        setActiveSubmit(!activeSubmit);
+    // tổng tiền phải trả đã có tk
+    useEffect(() => {
+        if (orderUnpaid) {
+            setTotalUnipad(orderUnpaid.totalPrice);
+            return;
+        }
+    }, [loading, orderUnpaid]);
 
-        // tạo bảng thông tin khách Hàng
-        // const a = document.createElement("div");
-        // a.classList.add("notice");
-        // a.innerHTML = `
-        //     <div class='notice_icon'>
-        //         <img src="https://img.icons8.com/external-flatarticons-blue-flatarticons/65/000000/external-info-hotel-services-flatarticons-blue-flatarticons.png" alt='Info'/>
-        //     </div>
-        //     <div class='notice_body'>
-        //         <h3 class='notice_title'>Thông tin khách hàng:</h3>
-        //         <p>Họ tên: ${values.fullname}</p>
-        //         <p>Số điện thoại: ${values.billing_address_phone}</p>
-        //         <p>Địa chỉ gửi hàng: ${values.province}</p>
-        //         <p>Mô tả số đường, tên đường: ${values.billing_address}</p>
-        //     </div>
-        //     <div class='notice_close'>
-        //         <img src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-delete-user-interface-flatart-icons-flat-flatarticons.png" alt='close'/>
-        //     </div>
-        // `;
+    // lấy địa chỉ mặc định nếu có.
+    useEffect(() => {
+        const getAddresses = async () => {
+            const result = await getAddressesDefault(uid);
+            if (result) {
+                await setAddressDefault(result);
+            }
+            await setLoading(true);
+        };
+        getAddresses();
+    }, [uid]);
+
+    // Qay lạ tang home nế ko có san phâm
+    useEffect(() => {
+        if (uid) {
+        } else {
+            const dataSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            if (!dataSession) {
+                navigate("/the-bottle-haus/home");
+                return;
+            }
+        }
+    }, []);
+
+    // nế chua có địa chi mặc định thì thông báo khách hàng đã thêm vào địa chi mặc định và cập nhật laj  addess tong  đon hang
+    // nếu đã có địa chi mặc định mà muốn sưa thì thông báo đã thêm mới 1  địa chỉ. và cập nhật laj  addess tong  đon hang
+
+    // nếu chưa có tài khoản thì lư mới địa chỉ với  userId: null;
+    const handleSubmitContinue = async (values) => {
+        // id sản phẩm
+
+        const code = values.fullName;
+
+        // Submit Th có tài khoản ng dùng
+
+        if (uid) {
+            if (addressDefault) {
+                setActiveSubmit(!activeSubmit);
+
+                return;
+            } else {
+                const addressUser = {
+                    ...values,
+                    userId: uid,
+                };
+                await postApiAdress(addressUser);
+                await setActiveSubmit(!activeSubmit);
+
+                await alert("thêm đại chỉ mới thành công");
+            }
+        } else {
+            const orderProduct = {
+                ...values,
+            };
+            setAddressNoUid(orderProduct);
+            setActiveSubmit(!activeSubmit);
+        }
 
         if (typeof userRef.current === "object" && !activeSubmit) {
             setTimeout(function () {
@@ -119,13 +191,37 @@ function CheckOut() {
         setActiveSubmit(!activeSubmit);
     };
     // xác nhận khi đã thanh toán
-    const handleSubmit = () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                navigate("/cart");
-                resolve(true);
-            }, 1000);
+    const handleSubmit = async () => {
+        const productIds = dataProdcuts.map((item) => {
+            const { productId, quantily } = item;
+            return {
+                productId,
+                quantily,
+            };
         });
+
+        if (uid) {
+            await patchOrderUnpaid(uid, { unpaid: true });
+        } else {
+            const res = await postApiAdress(addressNoUid);
+            const _idAdress = await res._id;
+            const ordeProductNew = {
+                address: _idAdress,
+                productIds,
+                code: "Hello",
+                totalPrice: totalSession.toString(),
+                message: messOrdeProduct,
+                unpaid: true,
+            };
+            await postOrder(ordeProductNew);
+            console.log("Chuyển khoản thành công");
+
+            sessionStorage.removeItem("productIds");
+            sessionStorage.removeItem("total");
+            // const action = resetCartProduct([]);
+            // dispatch(action);
+        }
+        navigate("/the-bottle-haus/home");
     };
     return (
         <div className={clsx(styles.checkout_details_container)}>
@@ -149,10 +245,6 @@ function CheckOut() {
                             data-aos-easing="ease-out-back"
                             data-aos-duration="600"
                         >
-                            {/* <User 
-                    activeSubmit={activeSubmit}
-                    handleSubmit={handleSubmit}    
-                /> */}
                             <div
                                 className={clsx(styles.customer_infor_heading)}
                             >
@@ -164,7 +256,14 @@ function CheckOut() {
                                     </NavLink>
                                 </span>
                             </div>
-                            <UserFormik handleSubmit={handleSubmitContinue} />
+                            {loading ? (
+                                <UserFormik
+                                    adderss={addressDefault}
+                                    handleSubmit={handleSubmitContinue}
+                                />
+                            ) : (
+                                <Loading />
+                            )}
                         </div>
                         <div
                             className={clsx(styles.banking, {
@@ -299,7 +398,9 @@ function CheckOut() {
                                     </p>
                                     <h1 className={clsx(styles.form_title)}>
                                         {convertPrice(
-                                            (shipper + total).toString()
+                                            (
+                                                shipper + Number(totalSession)
+                                            ).toString()
                                         )}
                                     </h1>
                                 </div>
@@ -311,12 +412,6 @@ function CheckOut() {
                                         Mã code (chưa viết api)
                                     </h1>
                                 </div>
-                                {/* <div className={clsx(styles.form_checkbox)}>
-                            <input type='checkbox' name='xacnhan' value='yes' className={clsx(styles.form_checkbox_input)} />
-                            <p>
-                                Khách hàng có thể chọn hình thức chuyển trước 50% tổng số tiền phải thanh toán, sau khi nhận hàng thì thanh toán số tiền còn lại.
-                            </p>
-                        </div> */}
                             </div>
                             <div
                                 className={clsx(styles.payment_method, {
@@ -360,33 +455,6 @@ function CheckOut() {
                         </div>
                     </div>
                     <div className={clsx(styles.checkout_details_notice)}>
-                        {/* <div
-                            className={clsx(styles.checkout_warning)}
-                            data-aos="fade-up"
-                            data-aos-easing="ease-out"
-                            data-aos-duration="600"
-                        >
-                            <div className={clsx(styles.header)}>
-                                <img
-                                    src="https://img.icons8.com/emoji/36/000000/warning-emoji.png"
-                                    alt="Warning"
-                                />
-                                <p> Lưu ý trước khi đặt hàng: </p>
-                            </div>
-                            <p className={clsx(styles.title)}>
-                                - Do các sản phẩm có kích thước lớn nên chi phí
-                                tiền gửi hàng có thể lớn tại một số tỉnh, thành
-                                phố. <br />- Tại một số tỉnh, thành phố cửa hàng
-                                sẽ gửi bằng các xe khách thường xuyên di chuyển
-                                qua khu vực, do vậy khách hàng có thể phải di
-                                chuyển một đoạn đường để nhận hàng.
-                            </p>
-                            <p>
-                                - Thời gian hoàn thành sản phẩm và thời gian
-                                giao hàng có thể lâu hơn dự kiến.
-                            </p>
-                            <p>Mong khách hàng thông cảm</p>
-                        </div> */}
                         <div
                             className={clsx(styles.product_cart)}
                             data-aos="fade-up"
@@ -408,9 +476,11 @@ function CheckOut() {
                                     )}
                                 >
                                     <p>Subtotal: </p>
-                                    <p>{`$${convertPrice(
-                                        total.toString()
-                                    )} `}</p>
+                                    <p>
+                                        USD{" "}
+                                        {convertPrice(totalUnipad) ||
+                                            convertPrice(totalSession)}
+                                    </p>
                                 </div>
                                 <div
                                     className={clsx(
@@ -433,9 +503,16 @@ function CheckOut() {
                                         className={clsx(
                                             styles.product_cart_heading_total
                                         )}
-                                    >{`USD $${convertPrice(
-                                        (shipper + total).toString()
-                                    )}`}</h1>
+                                    >
+                                        USD{" "}
+                                        {convertPrice(shipper + totalUnipad) ||
+                                            convertPrice(
+                                                (
+                                                    shipper +
+                                                    Number(totalSession)
+                                                ).toString()
+                                            )}
+                                    </h1>
                                 </div>
                             </div>
                         </div>

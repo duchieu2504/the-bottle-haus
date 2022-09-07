@@ -4,20 +4,24 @@ import clsx from "clsx";
 import styles from "./CartItem.module.scss";
 import convertPrice from "util/convertNumber";
 import { useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 CartItem.propTypes = {};
 
 function CartItem({ item }) {
-    const { id_product, quantily } = item;
+    const { productId, quantily } = item;
 
     // lấy thông tin sản phẩm
-    const dataCategory = useSelector((state) => state.products);
+    const dataCategory = useSelector((state) => state.products.items);
     const dataProdcuts = [...dataCategory];
-    const product = dataProdcuts.find((item) => item.id === id_product);
+    const product = dataProdcuts.find((item) => item._id === productId) || {};
     return (
-        <div className={clsx(styles.cart_item)}>
+        <NavLink
+            to={`/the-bottle-haus/${product.category}/${productId}`}
+            className={clsx(styles.cart_item)}
+        >
             <div className={clsx(styles.cart_item_img)}>
-                <img src={product.img} alt="img" />
+                <img src={product.image || ""} alt={product.title} />
                 <span>{quantily}</span>
             </div>
             <div className={clsx(styles.cart_item_content)}>
@@ -26,7 +30,7 @@ function CartItem({ item }) {
                 </p>
                 <p className={clsx(styles.cart_item_title)}>{product.title}</p>
             </div>
-        </div>
+        </NavLink>
     );
 }
 

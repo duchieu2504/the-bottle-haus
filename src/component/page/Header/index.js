@@ -1,13 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import clsx from "clsx";
 
 import SvgIcon from "svg";
 import { useDispatch, useSelector } from "react-redux";
-import { clickLogin, clickNavbar } from "redux/Login";
+import { showPageLogin, clickNavbar } from "redux/Login";
 import ShoppingCart from "component/Content/ShoppingCart";
-import { useMemo } from "react";
+import { GetAllProdcts } from "api/apiProduct";
+import { AuthContext } from "Context/AuthProvider";
 
 const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
@@ -23,6 +24,11 @@ const Header = (props) => {
     const searchRef = useRef();
     const scrollYwindow = useRef();
 
+    const {
+        user: { uid, photoURL },
+    } = useContext(AuthContext);
+
+    // dispatch(action);
     // bấm ngoài element cart sẽ tắt tab giỏ hàng
     useEffect(() => {
         const handleOut = (e) => {
@@ -75,18 +81,16 @@ const Header = (props) => {
     const handleClickCart = () => {
         setShowShoppingCart(!showShoppingCart);
     };
-
     //Bấm vào xem tất cả giỏ hàng
     const handleClickAllCart = () => {
-        const action = clickNavbar(8);
-        dispatch(action);
         setShowShoppingCart(!showShoppingCart);
     };
 
     // Bấm icon login hiện thị trang login
     const handleClickLogin = (e) => {
         e.preventDefault();
-        const action = clickLogin(activeLogin);
+        console.log(activeLogin);
+        const action = showPageLogin(activeLogin);
         dispatch(action);
     };
     return (
@@ -148,19 +152,23 @@ const Header = (props) => {
                             </button>
                         </div>
 
-                        <NavLink
-                            to="/the-bottle-haus/user_name"
-                            onClick={handleClickLogin}
-                            className={clsx(styles.header_wrap_signIn)}
-                        >
-                            <div className={clsx(styles.user)}>
-                                <i className="far fa-user"></i>
-                                <p className={clsx(styles.user_name)}>
-                                    Đức Hiếu
-                                </p>
-                                {/* <span>Sign In</span> */}
-                            </div>
-                        </NavLink>
+                        <div className={clsx(styles.header_wrap_signIn)}>
+                            {uid ? (
+                                <NavLink to="/the-bottle-haus/account">
+                                    <img
+                                        src={photoURL}
+                                        alt="Image"
+                                        className={clsx(styles.user_image)}
+                                    />
+                                </NavLink>
+                            ) : (
+                                <div onClick={handleClickLogin}>
+                                    <div className={clsx(styles.icon_login)}>
+                                        <i className="far fa-user"></i>
+                                    </div>
+                                </div>
+                            )}
+                        </div>
 
                         <div
                             ref={cartRef}

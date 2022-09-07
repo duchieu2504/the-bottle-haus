@@ -3,7 +3,13 @@ import axios from "axios";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import styles from "./../User.module.scss";
-import Loading1 from "util/Loading1/Loading1";
+import Loading from "util/Loading";
+import {
+    cityApi,
+    districtApi,
+    getAllDisApi,
+    wardsApi,
+} from "apiServices/provinceServices";
 
 SelectField.propTypes = {
     field: PropTypes.object.isRequired,
@@ -26,6 +32,10 @@ function SelectField(props) {
     const [codeDistrict, setCodeDistrict] = useState(0);
     // const [ codeWards, setCodeWards ] = useState(0)
 
+    const [selectOptionCity, setSelectOptionCity] = useState(0);
+    const [selectOptionDis, setSelectOptionDis] = useState(0);
+    const [selectOptionwards, setSelectOptionWards] = useState(0);
+
     const [loadingCity, setLoadingCity] = useState(false);
     const [loadingDis, setLoadingDis] = useState(true);
     const [loadingWards, setLoadingWards] = useState(true);
@@ -33,11 +43,7 @@ function SelectField(props) {
     // lấy dữ liệu các tỉnh, thành phố
     useEffect(() => {
         const fetchProducts = async () => {
-            const reponse = await axios
-                .get("https://provinces.open-api.vn/api/p")
-                .catch((err) => {
-                    console.log("err:", err);
-                });
+            const reponse = await cityApi();
             reponse && setDataCity(reponse.data);
             setLoadingCity(true);
         };
@@ -48,15 +54,8 @@ function SelectField(props) {
     useEffect(() => {
         if (codeCity > 0) {
             const fetchProducts = async () => {
-                const reponse = await axios
-                    .get(
-                        `https://provinces.open-api.vn/api/p/${codeCity}?depth=2`
-                    )
-                    .catch((err) => {
-                        console.log("err:", err);
-                    });
-                const r = reponse && reponse.data.districts;
-                setDataDistrict(r);
+                const result = await districtApi(codeCity);
+                setDataDistrict(result.data.districts);
                 setLoadingDis(true);
             };
             fetchProducts();
@@ -64,19 +63,11 @@ function SelectField(props) {
     }, [codeCity]);
 
     //lấy dữ liệu các xã phường của 1 huyện
-
     useEffect(() => {
         if (codeDistrict > 0) {
             const fetchProducts = async () => {
-                const reponse = await axios
-                    .get(
-                        `https://provinces.open-api.vn/api/d/${codeDistrict}?depth=2`
-                    )
-                    .catch((err) => {
-                        console.log("err:", err);
-                    });
-                const r = reponse && reponse.data.wards;
-                setDataWards(r);
+                const result = await wardsApi(codeDistrict);
+                setDataWards(result.data.wards);
                 setLoadingWards(true);
             };
             fetchProducts();
@@ -85,11 +76,40 @@ function SelectField(props) {
 
     const { field, form, label } = props;
     const { errors, touched } = form;
-    const { name } = field;
+    const { value, name } = field;
     const showErrors = errors[name] && touched[name];
 
     // console.log(form);
-    // const selectOption = dataCity.find(option => option.code === value)
+
+    // lấy dữ liệu ban đầu nếu có
+    useEffect(() => {
+        if (value) {
+            const getCity = async () => {
+                const res = await cityApi();
+                const result = await res.data.find(
+                    (option) => option.name === value.split(" - ")[0]
+                );
+                setSelectOptionCity(result.code);
+
+                // setOption dữ liệu các huyện
+                const resDisApi = await districtApi(result.code);
+                await setDataDistrict(resDisApi.data.districts);
+                const resultDisApi = await resDisApi.data.districts.find(
+                    (option) => option.name === value.split(" - ")[1]
+                );
+                await setSelectOptionDis(resultDisApi.code);
+
+                // setOption dữ liệu các xã
+                const resWardsApi = await wardsApi(resultDisApi.code);
+                await setDataWards(resWardsApi.data.wards);
+                const resultWardsApi = await resWardsApi.data.wards.find(
+                    (option) => option.name === value.split(" - ")[2]
+                );
+                await setSelectOptionWards(resultWardsApi.code);
+            };
+            getCity();
+        }
+    }, []);
 
     const handleChangleSelect = (e) => {
         setWards(e.target.value);
@@ -108,7 +128,6 @@ function SelectField(props) {
         };
         field.onChange(changeEvent);
     };
-
     return (
         <div className={clsx(styles.form_group)}>
             {label && (
@@ -119,7 +138,7 @@ function SelectField(props) {
             <div className={clsx(styles.form_select)}>
                 <select
                     id="city"
-                    value={city}
+                    value={city || selectOptionCity}
                     className={clsx(styles.form_control)}
                     onChange={(e) => {
                         setCity(e.target.value);
@@ -142,7 +161,7 @@ function SelectField(props) {
                 </select>
                 <select
                     id="district"
-                    value={district}
+                    value={district || selectOptionDis}
                     className={clsx(styles.form_control)}
                     onChange={(e) => {
                         setDistrict(e.target.value);
@@ -165,7 +184,7 @@ function SelectField(props) {
                 </select>
                 <select
                     id="wards"
-                    value={wards}
+                    value={wards || selectOptionwards}
                     onChange={handleChangleSelect}
                     className={clsx(styles.form_control)}
                 >
@@ -183,9 +202,9 @@ function SelectField(props) {
                     )}
                 </select>
             </div>
-            {loadingCity ? <div></div> : <Loading1 />}
-            {loadingDis ? <div></div> : <Loading1 />}
-            {loadingWards ? <div></div> : <Loading1 />}
+            {loadingCity ? <div></div> : <Loading />}
+            {loadingDis ? <div></div> : <Loading />}
+            {loadingWards ? <div></div> : <Loading />}
             {showErrors && (
                 <span className={clsx(styles.form_message)}>
                     {errors[name]}
