@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "firebase/config";
 import { useDispatch, useSelector } from "react-redux";
 import { showPageLogin } from "redux/Login";
+import Loading from "util/Loading";
 
 // Cấu hình Context Api
 export const AuthContext = createContext();
@@ -27,16 +28,21 @@ const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // khi firebase thay đổi kiểm tra xem người dùng đã đăng nhập thành công hay chưa???
-        const unsubscibed = auth.onAuthStateChanged((user) => {
-            console.log(user);
-
+        const unsubscibed = auth.onAuthStateChanged(async (user) => {
             if (user) {
-                // switch (user.providerId) {
-                //     case "firebase": {
-                //     }
-                //     case "facebook.com": {
-                //     }
-                // }
+                switch (user.providerId) {
+                    case "firebase":
+                        console.log("firebase");
+                        break;
+
+                    case "facebook.com":
+                        console.log("facebook.com");
+                        break;
+
+                    default:
+                        console.log(`Orther`);
+                        break;
+                }
                 const { displayName, email, uid, photoURL } = user;
                 const action = showPageLogin(true);
                 setUser({
@@ -48,7 +54,8 @@ const AuthProvider = ({ children }) => {
 
                 dispatch(action);
                 setIsLoading(false);
-                navigate("/the-bottle-haus/home");
+                // navigate("/the-bottle-haus/home");
+                return;
             }
 
             setUser({});
@@ -61,7 +68,9 @@ const AuthProvider = ({ children }) => {
         };
     }, [navigate]);
     return (
-        <AuthContext.Provider value={{ user }}>{children}</AuthContext.Provider>
+        <AuthContext.Provider value={{ user }}>
+            {isLoading ? <Loading /> : children}
+        </AuthContext.Provider>
     );
 };
 

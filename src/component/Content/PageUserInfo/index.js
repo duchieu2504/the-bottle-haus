@@ -100,65 +100,67 @@ const PageUserInfo = () => {
                     </div>
                     <div className={clsx(styles.account_address)}>
                         <div className={clsx(styles.account_address_list)}>
-                            {addressUser.map((address) => (
-                                <div
-                                    className={clsx(
-                                        styles.account_address_item
-                                    )}
-                                    key={address._id}
-                                >
-                                    <p
-                                        className={clsx(
-                                            styles.account_address_item_wrap
-                                        )}
-                                    >
-                                        Full Name:{" "}
-                                        <span>{address.fullName}</span>
-                                    </p>
-                                    <p
-                                        className={clsx(
-                                            styles.account_address_item_wrap
-                                        )}
-                                    >
-                                        Address: <span>{address.province}</span>
-                                    </p>
-                                    <p
-                                        className={clsx(
-                                            styles.account_address_item_wrap
-                                        )}
-                                    >
-                                        Phone Number:{" "}
-                                        <span>{address.phoneNumber}</span>
-                                    </p>
+                            {addressUser.length > 0 &&
+                                addressUser.map((address) => (
                                     <div
                                         className={clsx(
-                                            styles.account_address_item_buttons
+                                            styles.account_address_item
                                         )}
+                                        key={address._id}
                                     >
-                                        <button
-                                            data-index={address._id}
-                                            onClick={handleClickSetDefault}
+                                        <p
                                             className={clsx(
-                                                styles.account_address_item_btn,
-                                                {
-                                                    [styles.default]:
-                                                        address.isDefault,
-                                                }
+                                                styles.account_address_item_wrap
                                             )}
                                         >
-                                            Default
-                                        </button>
-                                        <NavLink
+                                            Full Name:{" "}
+                                            <span>{address.fullName}</span>
+                                        </p>
+                                        <p
                                             className={clsx(
-                                                styles.account_address_item_btn_edit
+                                                styles.account_address_item_wrap
                                             )}
-                                            to={`/the-bottle-haus/account/address/${address._id}`}
                                         >
-                                            Edit
-                                        </NavLink>
+                                            Address:{" "}
+                                            <span>{address.province}</span>
+                                        </p>
+                                        <p
+                                            className={clsx(
+                                                styles.account_address_item_wrap
+                                            )}
+                                        >
+                                            Phone Number:{" "}
+                                            <span>{address.phoneNumber}</span>
+                                        </p>
+                                        <div
+                                            className={clsx(
+                                                styles.account_address_item_buttons
+                                            )}
+                                        >
+                                            <button
+                                                data-index={address._id}
+                                                onClick={handleClickSetDefault}
+                                                className={clsx(
+                                                    styles.account_address_item_btn,
+                                                    {
+                                                        [styles.default]:
+                                                            address.isDefault,
+                                                    }
+                                                )}
+                                            >
+                                                Default
+                                            </button>
+                                            <NavLink
+                                                className={clsx(
+                                                    styles.account_address_item_btn_edit
+                                                )}
+                                                to={`/the-bottle-haus/account/address/${address._id}`}
+                                            >
+                                                Edit
+                                            </NavLink>
+                                        </div>
                                     </div>
-                                </div>
-                            ))}
+                                ))}
                         </div>
                         <div className={clsx(styles.account_address_new)}>
                             <NavLink

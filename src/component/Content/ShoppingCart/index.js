@@ -69,7 +69,7 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
 
     const Item = () => {
         if (uid) {
-            if (orderUnpaid && orderUnpaid.productIds.length > 0) {
+            if (orderUnpaid && !loading && orderUnpaid.productIds.length > 0) {
                 return (
                     <div>
                         <div className={clsx(styles.cart_list)}>

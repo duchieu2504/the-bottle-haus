@@ -4,73 +4,75 @@ import InputField from "./InputField";
 import styles from "./PageLogin.module.scss";
 import * as Yup from "yup";
 import clsx from "clsx";
+import { showPageLogin } from "redux/Login";
+import { useDispatch, useSelector } from "react-redux";
 
-const FormSignUp = (props) => {
-    const { handleSubmit, userSignUp } = props;
+const FormSignIn = (props) => {
+    const { handleSubmit, errorLogin, handleClickClose } = props;
+    const activeLogin = useSelector((state) => state.activeLogin.active);
+
+    const dispatch = useDispatch();
+
+    const errorMessageLogin = {
+        INVALID_PASSWORD: "Invalid password",
+        USER_NOT_FOUND: "Can't locate gmail account, please check again",
+    };
 
     const initialValues = {
-        fullName_signUp: "",
-        email_signUp: "",
-        password_signUp: "",
-        password_confirmation: "",
+        email_signIn: "",
+        password_signIn: "",
     };
 
     const validationSchema = Yup.object().shape({
-        fullName_signUp: Yup.string()
-            .trim()
-            .required("Please enter this field name"),
-        email_signUp: Yup.string()
+        email_signIn: Yup.string()
             .trim()
             .email("Please enter the correct email")
             .required("This field is required"),
-        password_signUp: Yup.string()
+        password_signIn: Yup.string()
             .min(6, "Enter at least 6 characters")
             .required("Please enter this field name"),
-        password_confirmation: Yup.string()
-            .oneOf(
-                [Yup.ref("password_signUp"), null],
-                "Please enter the correct password"
-            )
-            .required("This field is required"),
     });
+    const handleReset = async ({ resetForm }) => {
+        resetForm();
+        // try {
+        //     const action = await showPageLogin(activeLogin);
+        //     await dispatch(action);
+        //     await resetForm;
+        //     console.log("Success");
+        // } catch (err) {
+        //     console.log("Error");
+        // }
+    };
+    console.log(activeLogin);
     return (
         <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
+            // onReset={handleReset}
         >
             {(formikProps) => {
                 return (
                     <form
-                        onReset={formikProps.handleReset}
+                        // onReset={formikProps.handleReset}
                         onSubmit={formikProps.handleSubmit}
                         className={clsx(styles.form_submit)}
-                        {...props}
                     >
                         <FastField
-                            name="fullName_signUp"
-                            component={InputField}
-                            type="text"
-                            label="FullName"
-                        />
-                        <FastField
-                            name="email_signUp"
+                            name="email_signIn"
                             component={InputField}
                             type="text"
                             label="Email"
                         />
                         <FastField
-                            name="password_signUp"
+                            name="password_signIn"
                             component={InputField}
                             type="password"
                             label="Password"
                         />
-                        <FastField
-                            name="password_confirmation"
-                            component={InputField}
-                            type="password"
-                            label="Confirm password"
-                        />
+                        <div className={clsx(styles.errorLogin)}>
+                            {errorLogin && errorMessageLogin[errorLogin]}
+                        </div>
                         <div className={clsx(styles.footer)}>
                             <button
                                 type="submit"
@@ -90,4 +92,4 @@ const FormSignUp = (props) => {
     );
 };
 
-export default FormSignUp;
+export default FormSignIn;

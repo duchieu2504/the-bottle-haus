@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { showPageLogin } from "redux/Login";
@@ -11,16 +11,25 @@ import {
     createUserWithEmailAndPassword,
     sendEmailVerification,
     signInWithEmailAndPassword,
+    updateProfile,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import SvgIcon from "svg";
 import { useState } from "react";
 import FormSignUp from "./FormSignUp";
+import FormSignIn from "./FormSignIn";
 
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 
 const PageLogin = () => {
     const [showPageSignUp, setShowPageSignUp] = useState(false);
+    const [showPageVerify, setShowPageVerify] = useState(false);
+    const [user, setUser] = useState("");
+
+    const [errorLogin, setErrorLogin] = useState("");
+    const [isTimeSendMail, setIsTimeSendMail] = useState(false);
+    const [timeSendMail, setTimeSendMail] = useState(15);
+
     const dispatch = useDispatch();
     const activeLogin = useSelector((state) => state.activeLogin.active);
     const handleClickClose = () => {
@@ -28,6 +37,20 @@ const PageLogin = () => {
         dispatch(action);
     };
 
+    useEffect(() => {
+        const time = setTimeout(() => {
+            if (isTimeSendMail) {
+                setTimeSendMail(timeSendMail - 1);
+                if (timeSendMail === 1) {
+                    setIsTimeSendMail(false);
+                    return;
+                }
+            } else {
+                return;
+            }
+        }, 1000);
+        return () => clearTimeout(time);
+    }, [timeSendMail, isTimeSendMail]);
     const handleLoginFace = async () => {
         const { additionalUserInfo, user } = await auth.signInWithPopup(
             fbProvider
@@ -52,22 +75,51 @@ const PageLogin = () => {
     const handleClickAction = async (id, values) => {
         if (id === 1) {
             try {
-                let email = "zero250401@gmail.com";
-                let password = "123456";
+                const { email_signIn, password_signIn } = values;
+                let email = email_signIn;
+                let password = password_signIn;
                 const res = await signInWithEmailAndPassword(
                     auth,
                     email,
                     password
                 );
-                console.log(res);
                 const user = res.user;
+                setUser(auth.currentUser);
                 if (user.emailVerified) {
+                    return;
                 } else {
-                    console.log("Verified email");
+                    await auth.signOut();
+                    const action = showPageLogin(false);
+                    dispatch(action);
+                    await setShowPageVerify(true);
+                    console.log("No Verified");
+                    return;
                 }
                 // login
             } catch (error) {
-                console.log("Lỗi ");
+                const errorMessageLogin = {
+                    INVALID_PASSWORD: "auth/wrong-password",
+                    USER_NOT_FOUND: "auth/user-not-found",
+                };
+
+                const errorMessage = (error) => {
+                    let errorCode = "";
+                    switch (error.code) {
+                        case errorMessageLogin.INVALID_PASSWORD:
+                            errorCode = "INVALID_PASSWORD";
+                            break;
+
+                        case errorMessageLogin.USER_NOT_FOUND:
+                            errorCode = "USER_NOT_FOUND";
+                            break;
+
+                        default:
+                            console.log(`Orther`);
+                            break;
+                    }
+                    return errorCode;
+                };
+                setErrorLogin(errorMessage(error));
             }
         } else if (id === 2) {
             //  đăng ký
@@ -76,27 +128,43 @@ const PageLogin = () => {
                     values;
                 let email = email_signUp;
                 let password = password_signUp;
+                let displayName = fullName_signUp;
+                let photoURL =
+                    "https://graph.facebook.com/1242173403237473/picture";
                 const response = await createUserWithEmailAndPassword(
                     auth,
                     email,
-                    password
+                    password,
+                    displayName,
+                    photoURL
                 );
                 const user = response.user;
-                await sendEmailVerification(user);
-                if (user.emailVerified) {
-                    await addDoc(collection(db, "users"), {
-                        displayName: fullName_signUp,
-                        email: email_signUp,
-                        photoURL: null,
-                        uid: user.uid,
-                        providerId: user.providerData.providerId,
-                        date: null,
-                        createdAt:
-                            firebase.firestore.FieldValue.serverTimestamp(),
-                    });
-                    return response;
-                } else {
-                    return;
+                setUser(auth.currentUser);
+                await updateProfile(user, {
+                    displayName: fullName_signUp,
+                    photoURL:
+                        "https://graph.facebook.com/1242173403237473/picture",
+                });
+
+                await console.log("Update successful");
+                // Update successful
+                // ...
+
+                await addDoc(collection(db, "users"), {
+                    displayName: fullName_signUp,
+                    email: email,
+                    photoURL:
+                        "https://graph.facebook.com/1242173403237473/picture",
+                    uid: user.uid,
+                    providerId: user.providerData[0].providerId,
+                    date: null,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                });
+                if (!user.emailVerified) {
+                    await auth.signOut();
+                    const action = showPageLogin(false);
+                    dispatch(action);
+                    await setShowPageVerify(true);
                 }
             } catch (error) {
                 console.log("Error");
@@ -104,6 +172,15 @@ const PageLogin = () => {
         } else {
             return;
         }
+    };
+
+    const handleActionVerifyEmail = async () => {
+        const actionCodeSettings = {
+            url: "http://localhost:3000/the-bottle-haus/home",
+            handleCodeInApp: true,
+        };
+        await sendEmailVerification(user, actionCodeSettings);
+        await setIsTimeSendMail(true);
     };
     return (
         <div
@@ -115,6 +192,7 @@ const PageLogin = () => {
             <div
                 className={clsx(styles.pageLogin_wrap, {
                     [styles.showPageSignUp]: showPageSignUp === true,
+                    [styles.showPageVerify]: showPageVerify === true,
                 })}
             >
                 <div className={clsx(styles.pageLogin_wrap_img)}>
@@ -172,65 +250,16 @@ const PageLogin = () => {
                         <span>OR</span>
                     </div>
                     <div className={clsx(styles.pageLogin_content_form)}>
-                        <form className={clsx(styles.form_submit)}>
-                            <div className={clsx(styles.form_group)}>
-                                <input
-                                    id="email_login"
-                                    name="email"
-                                    autoComplete="username"
-                                    placeholder=" "
-                                    type="text"
-                                    className={clsx(styles.form_control)}
-                                />
-                                <label className={clsx(styles.form_label)}>
-                                    Email
-                                </label>
-                                {/* <span className={clsx(styles.form_border)}>
-                                    <i></i>
-                                </span> */}
-                                <span
-                                    className={clsx(styles.form_message)}
-                                ></span>
-                            </div>
-
-                            <div className={clsx(styles.form_group)}>
-                                <input
-                                    id="password"
-                                    name="password"
-                                    autoComplete="current-password"
-                                    placeholder=" "
-                                    type="password"
-                                    className={clsx(styles.form_control)}
-                                />
-                                <label className={clsx(styles.form_label)}>
-                                    Password
-                                </label>
-                                {/* <span className={clsx(styles.form_border)}>
-                                    <i></i>
-                                </span> */}
-                                <span
-                                    className={clsx(styles.form_message)}
-                                ></span>
-                            </div>
-                        </form>
+                        <FormSignIn
+                            handleClickClose={handleClickClose}
+                            handleSubmit={(values) =>
+                                handleClickAction(1, values)
+                            }
+                        />
                     </div>
                     <div className={clsx(styles.pageLogin_content_forgot_pass)}>
                         <a href="/">Forgot Password</a>
                     </div>
-                    <div className={clsx(styles.footer)}>
-                        <button
-                            type="submit"
-                            onClick={(values) => handleClickAction(1, values)}
-                        >
-                            Sign in
-                        </button>
-                    </div>
-                    <div
-                        className={clsx(styles.close, {
-                            [styles.open]: !activeLogin,
-                        })}
-                        onClick={handleClickClose}
-                    ></div>
                 </div>
 
                 {/* // SIgn UP */}
@@ -260,14 +289,46 @@ const PageLogin = () => {
                             }
                         />
                     </div>
-
-                    <div
-                        className={clsx(styles.close, {
-                            [styles.open]: !activeLogin,
-                        })}
-                        onClick={handleClickClose}
-                    ></div>
                 </div>
+
+                {/* Verify Email */}
+                <div
+                    className={clsx(styles.emailVerified, {
+                        [styles.showTimeVerify]: isTimeSendMail === true,
+                    })}
+                >
+                    <div className={clsx(styles.emailVerified_wrap)}>
+                        <p className={clsx(styles.emailVerified_title)}>
+                            For security reasons. Please verify this gmail is
+                            yours. We will send you a gmail for verification,
+                            please check in spam box
+                        </p>
+                        <div>
+                            <img
+                                src="https://img.icons8.com/external-icongeek26-outline-colour-icongeek26/64/000000/external-send-mail-communication-icongeek26-outline-colour-icongeek26.png"
+                                alt="Send mail Verify"
+                            />
+                        </div>
+                        <div className={clsx(styles.emailVerified_btn)}>
+                            <button
+                                type="button"
+                                onClick={handleActionVerifyEmail}
+                            >
+                                Send mail
+                            </button>
+                        </div>
+                        <div className={clsx(styles.emailVerified_time)}>
+                            {timeSendMail}
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    className={clsx(styles.close, {
+                        [styles.open]: !activeLogin,
+                    })}
+                    onClick={handleClickClose}
+                ></div>
             </div>
         </div>
     );
