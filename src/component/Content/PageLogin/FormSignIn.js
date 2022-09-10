@@ -43,7 +43,6 @@ const FormSignIn = (props) => {
         //     console.log("Error");
         // }
     };
-    console.log(activeLogin);
     return (
         <Formik
             initialValues={initialValues}

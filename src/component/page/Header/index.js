@@ -14,9 +14,19 @@ const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
     const [activeSearch, setActiveSearch] = useState(false);
     const [showHeader, setShowHeader] = useState(false);
+    const [dataSession, setDataSession] = useState(false);
 
     const activeLogin = useSelector((state) => state.activeLogin.activeLogin);
-    const dataProductsCart = useSelector((state) => state.productsCart);
+
+    // san phâm trong giỏ hàng
+    const orderUnpaid = useSelector((state) => state.orderUnpaid.items) || [];
+    const dataCartSession =
+        JSON.parse(sessionStorage.getItem("productIds")) || [];
+
+    useEffect(() => {
+        // console.log(dataCartSession);
+    }, [dataCartSession]);
+
     // const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
     const dispatch = useDispatch();
 
@@ -173,7 +183,9 @@ const Header = (props) => {
                         <div
                             ref={cartRef}
                             className={clsx(styles.cart, {
-                                [styles.hasCart]: dataProductsCart.length > 0,
+                                [styles.hasCart]:
+                                    orderUnpaid.length > 0 ||
+                                    dataSession.length > 0,
                             })}
                         >
                             <div

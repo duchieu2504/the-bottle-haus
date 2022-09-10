@@ -13,9 +13,14 @@ import styleImageDetail from "./styleImage";
 import { randomProduct } from "util/RandomProduct";
 import { AuthContext } from "Context/AuthProvider";
 import { getAddressesDefault } from "apiServices/addressServices";
-import { postOrder, postOrderUnpaid } from "apiServices/orderServices";
+import {
+    getOrderUnpaid,
+    postOrder,
+    postOrderUnpaid,
+} from "apiServices/orderServices";
 import Loading from "util/Loading";
 import ProductsRandom from "../ProductsRandom/ProductsRandom";
+import { setLoading } from "redux/orderUnpaid";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -32,7 +37,10 @@ const ProductDetail = () => {
     const product = dataProdcuts.find((item) => item._id === productId) || {};
     const { descriptions, category, price, title, _id, image } = product;
 
-    // Lấy tất cả dữ liệu sản phẩm đã có trong cửa hàng luu trong redux
+    // Lấy tất cả dữ liệu sản phẩm đã có trong cửa hàng
+    const orderUnpaid = useSelector((state) => state.orderUnpaid.items) || {};
+    const dataSession = JSON.parse(sessionStorage.getItem("productIds")) || [];
+
     const dataProdcutsCart = useSelector((state) => state.productsCart);
     const [quanti, setQuanti] = useState(1);
     const [sizeIndex, setSizeIndex] = useState(0);
@@ -76,7 +84,6 @@ const ProductDetail = () => {
     }, []);
 
     //kiểm tra xem đã có sản phẩm trong cửa hàng chưa
-    let isCheckIdCart = dataProdcutsCart.find((item) => item.productId === _id);
 
     // lựa chọn kích thước sản phẩm
     const handleClickSize = (e) => {
@@ -88,39 +95,93 @@ const ProductDetail = () => {
 
     // sự kiện click vào mua hàng --kiểm tra xem đã có sản phẩm chưa -- sẽ hiện thông báo đã có sản phẩm
     const handleClickAddProduct = async () => {
-        // nếu đã có trong giỏ hàng sẽ tạo thông báo
-        if (typeof toastRef.current === "object" && isCheckIdCart) {
-            setTimeout(function () {
-                const notice_element = document.querySelector("div .notice");
-                if (toastRef.current && notice_element)
-                    toastRef.current.removeChild(notice_element);
-            }, 3400);
-            // a.onclick = function (e) {
-            //     if (e.target.closest(".notice_close")) {
-            //         toastRef.current.removeChild(a);
-            //         clearTimeout(autoRemoveId);
-            //     }
-            // };
-            toastRef.current.appendChild(Notice());
-        }
+        console.log(orderUnpaid);
+        let isCheckIdCart = dataSession.find((item) => item.productId === _id);
+        let isCheckIdCart1 = orderUnpaid.productIds.find(
+            (item) => item.productId === _id
+        );
 
-        if (typeof productImgRef.current === "object" && !isCheckIdCart) {
-            setTimeout(function () {
+        // nếu đã có trong giỏ hàng sẽ tạo thông báo
+        const notice = () => {
+            console.log(1);
+            const time = setTimeout(function () {
                 setActiveImageFake(false);
             }, 1000);
             setActiveImageFake(true);
-        }
-
+            // return clearTimeout(time);
+        };
         //action add product in cart
         if (uid) {
             // TH người dùng đã có tài khoản thì lưu trên database
-            const data = { productId: _id, quantily: quanti };
-            await postOrderUnpaid(uid, data);
+            if (!isCheckIdCart1) {
+                // xư lý hình ảnh chuyển động
+
+                setTimeout(function () {
+                    setActiveImageFake(false);
+                }, 1000);
+                setActiveImageFake(true);
+                // notice();
+
+                setTimeout(function () {
+                    const notice_element =
+                        document.querySelector("div .notice");
+                    if (toastRef.current && notice_element)
+                        toastRef.current.removeChild(notice_element);
+                }, 3400);
+                // a.onclick = function (e) {
+                //     if (e.target.closest(".notice_close")) {
+                //         toastRef.current.removeChild(a);
+                //         clearTimeout(autoRemoveId);
+                //     }
+                // };
+                toastRef.current.appendChild(Notice());
+
+                const data = { productId: _id, quantily: quanti };
+                await postOrderUnpaid(uid, data);
+            }
+
+            // lấy dữ liệu đơn hàng chưa thanh toán
+            // const orderUnpaid = async () => {
+            //     await dispatch(setLoading());
+            //     const resultOrderUnpaid = await getOrderUnpaid(uid);
+
+            //     if (resultOrderUnpaid) {
+            //         const data = await [...resultOrderUnpaid.productIds]
+            //             .reverse()
+            //             .slice(0, 2);
+            //         await setDataOrderUnipadShow(data);
+            //     }
+
+            //     // dispatch lên store orderUnpaid
+            //     const actionGetOrder = await setItems(resultOrderUnpaid);
+            //     await dispatch(actionGetOrder);
+            //     // await setLoading(false);
+            // };
+            // orderUnpaid();
         } else {
             // TH người dùng chưa tạo tài khoản lưu sản phẩm chọn mua vào store redux
             if (!isCheckIdCart) {
                 const dataProductLength = dataProdcutsCart.length;
+                // xư lý hình ảnh chuyển động
 
+                setTimeout(function () {
+                    const notice_element =
+                        document.querySelector("div .notice");
+                    if (toastRef.current && notice_element)
+                        toastRef.current.removeChild(notice_element);
+                }, 3400);
+                // a.onclick = function (e) {
+                //     if (e.target.closest(".notice_close")) {
+                //         toastRef.current.removeChild(a);
+                //         clearTimeout(autoRemoveId);
+                //     }
+                // };
+                toastRef.current.appendChild(Notice());
+
+                setTimeout(function () {
+                    setActiveImageFake(false);
+                }, 1000);
+                setActiveImageFake(true);
                 // Lấy id của sản phẩm cuối cùng trong giỏ hàng
                 // const idPro =
                 //     dataProductLength > 0 &&

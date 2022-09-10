@@ -30,7 +30,7 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
     // const [loading, setLoading] = useState(true);
 
     // const data = useSelector((state) => state.productsCart);
-    const orderUnpaid = useSelector((state) => state.orderUnpaid.items);
+    const orderUnpaid = useSelector((state) => state.orderUnpaid.items) || {};
     const loading = useSelector((state) => state.orderUnpaid.loading);
     const dispatch = useDispatch();
 
@@ -69,7 +69,7 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
 
     const Item = () => {
         if (uid) {
-            if (orderUnpaid && !loading && orderUnpaid.productIds.length > 0) {
+            if (!loading && orderUnpaid.productIds?.length > 0) {
                 return (
                     <div>
                         <div className={clsx(styles.cart_list)}>
