@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import Slider from "../../../util/Slider";
-import ProductsFeatured from "../../Content/ProductsFeatured/ProductsFeatured.js";
 import clsx from "clsx";
 import styles from "./Main.module.scss";
 import "aos/dist/aos.css";
@@ -14,11 +13,13 @@ import SliderReviews from "util/Slider_reviews";
 import { NavLink } from "react-router-dom";
 import { randomProduct } from "util/RandomProduct";
 import { AuthContext } from "Context/AuthProvider";
+import ProductsRandom from "component/Content/ProductsRandom/ProductsRandom";
 
 const Main = () => {
     const h1Ref = useRef();
 
     const data = useSelector((state) => state.products.items);
+    const loading = useSelector((state) => state.products.loading);
     const dataProdcut = [...data];
 
     const [dataSimilarProducts, setDataSimilarProducts] = useState([]);
@@ -26,16 +27,23 @@ const Main = () => {
 
     //Random products
     const dataSimilar = useMemo(() => {
-        const d = randomProduct(6, 10);
-        const data = d.map((i) => {
-            const dataItemProduct = dataProdcut.find((k, index) => index === i);
-            return { ...dataItemProduct };
-        });
-        return data;
-    });
+        if (dataProdcut.length > 0) {
+            const dataLength = dataProdcut.length;
+            const d = randomProduct(6, dataLength);
+            const data = d.map((i) => {
+                const dataItemProduct = dataProdcut.find((k, index) => {
+                    return index === i;
+                });
+                return { ...dataItemProduct };
+            });
+            return data;
+        }
+    }, [loading]);
     useEffect(() => {
-        setDataSimilarProducts(dataSimilar);
-    }, [data]);
+        if (dataProdcut.length > 0) {
+            setDataSimilarProducts(dataSimilar);
+        }
+    }, [dataProdcut]);
 
     useEffect(() => {
         AOS.init();
@@ -197,8 +205,41 @@ const Main = () => {
             {/* catalog_wrap */}
             <div className={clsx(styles.catalog_wrap_container)}>
                 {/* Sản phẩm nổi bật */}
-                <div className="grid wide">
-                    <ProductsFeatured title="Sản phẩm nổi bật" />
+                <div className="grid  wide">
+                    <div className={clsx(styles.products_featured_container)}>
+                        <div
+                            className={clsx(
+                                styles.products_featured_headingWrap
+                            )}
+                        >
+                            <div
+                                className={clsx(styles.products_featured_text)}
+                            >
+                                <div className={clsx(styles.text_fill)}>
+                                    Shop
+                                </div>
+                                <div className={clsx(styles.text_stroke)}>
+                                    Whiskey
+                                </div>
+                            </div>
+                            <span
+                                className={clsx(styles.products_featured_line)}
+                            ></span>
+
+                            <div
+                                className={clsx(styles.btn_show_all)}
+                                // onClick={handleClickAllView}
+                            >
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.btn_show_all_link)}
+                                >
+                                    <p>Show all</p>
+                                </NavLink>
+                            </div>
+                        </div>
+                        <ProductsRandom />
+                    </div>
                 </div>
             </div>
 
@@ -280,18 +321,7 @@ const Main = () => {
                     </div>
 
                     <div className={clsx(styles.rare_products_list)}>
-                        <div className="row">
-                            {dataSimilarProducts.map((item, index) => {
-                                return (
-                                    <div className="col l-3" key={item.id}>
-                                        <ProductCard
-                                            item={item}
-                                            index={index}
-                                        />
-                                    </div>
-                                );
-                            })}
-                        </div>
+                        <ProductsRandom />
                         <h2>
                             Whether you're sending a gift to someone special or
                             simply just adding <br /> to your collection, let

@@ -15,6 +15,7 @@ import { AuthContext } from "Context/AuthProvider";
 import { getAddressesDefault } from "apiServices/addressServices";
 import { postOrder, postOrderUnpaid } from "apiServices/orderServices";
 import Loading from "util/Loading";
+import ProductsRandom from "../ProductsRandom/ProductsRandom";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const ProductDetail = () => {
     const loading = useSelector((state) => state.products.loading);
     const dataProdcuts = [...data];
 
-    console.log(loading);
     //dữ liệu chi tiết sản phẩm đang hiện thị
     const product = dataProdcuts.find((item) => item._id === productId) || {};
     const { descriptions, category, price, title, _id, image } = product;
@@ -39,9 +39,6 @@ const ProductDetail = () => {
 
     // div product description
     const [activeMore, setActiveMore] = useState(true);
-
-    //dataSimilarProducts
-    const [dataSimilarProducts, setDataSimilarProducts] = useState([]);
 
     // hình ảnh sản phẩm
 
@@ -196,17 +193,6 @@ const ProductDetail = () => {
         }
     };
 
-    // tạo random sản phẩm
-    useEffect(() => {
-        const c = randomProduct(5, 10);
-        const dataSimilar = c.map((i) => {
-            const dataItemProduct = dataProdcuts.find(
-                (k, index) => index === i
-            );
-            return { ...dataItemProduct };
-        });
-        setDataSimilarProducts(dataSimilar);
-    }, []);
     return (
         <div className={clsx(styles.product_detail)}>
             <div className="grid wide">
@@ -440,13 +426,7 @@ const ProductDetail = () => {
                     </div>
 
                     <div className={clsx(styles.recommendation_products_list)}>
-                        <div className="row">
-                            {dataSimilarProducts.map((i) => (
-                                <div key={i.id} className="col l-3">
-                                    <ProductCard item={i} />
-                                </div>
-                            ))}
-                        </div>
+                        <ProductsRandom />
                     </div>
                 </div>
                 <div ref={toastRef} id={clsx(styles.notice)}>
