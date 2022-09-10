@@ -12,18 +12,21 @@ import {
     sendEmailVerification,
     signInWithEmailAndPassword,
     updateProfile,
+    sendPasswordResetEmail,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import SvgIcon from "svg";
 import { useState } from "react";
 import FormSignUp from "./FormSignUp";
 import FormSignIn from "./FormSignIn";
+import FormForgot from "./FormForgot";
 
 const fbProvider = new firebase.auth.FacebookAuthProvider();
 
 const PageLogin = () => {
     const [showPageSignUp, setShowPageSignUp] = useState(false);
     const [showPageVerify, setShowPageVerify] = useState(false);
+    const [showPageForgotPassword, setShowPageForgotPassword] = useState(false);
     const [user, setUser] = useState("");
 
     const [errorLogin, setErrorLogin] = useState("");
@@ -73,105 +76,136 @@ const PageLogin = () => {
     };
 
     const handleClickAction = async (id, values) => {
-        if (id === 1) {
-            try {
-                const { email_signIn, password_signIn } = values;
-                let email = email_signIn;
-                let password = password_signIn;
-                const res = await signInWithEmailAndPassword(
-                    auth,
-                    email,
-                    password
-                );
-                const user = res.user;
-                setUser(auth.currentUser);
-                if (user.emailVerified) {
-                    return;
-                } else {
-                    await auth.signOut();
-                    const action = showPageLogin(false);
-                    dispatch(action);
-                    await setShowPageVerify(true);
-                    console.log("No Verified");
-                    return;
-                }
-                // login
-            } catch (error) {
-                const errorMessageLogin = {
-                    INVALID_PASSWORD: "auth/wrong-password",
-                    USER_NOT_FOUND: "auth/user-not-found",
-                };
-
-                const errorMessage = (error) => {
-                    let errorCode = "";
-                    switch (error.code) {
-                        case errorMessageLogin.INVALID_PASSWORD:
-                            errorCode = "INVALID_PASSWORD";
-                            break;
-
-                        case errorMessageLogin.USER_NOT_FOUND:
-                            errorCode = "USER_NOT_FOUND";
-                            break;
-
-                        default:
-                            console.log(`Orther`);
-                            break;
+        switch (id) {
+            //  đăng nhập
+            case 1: {
+                try {
+                    const { email_signIn, password_signIn } = values;
+                    let email = email_signIn;
+                    let password = password_signIn;
+                    const res = await signInWithEmailAndPassword(
+                        auth,
+                        email,
+                        password
+                    );
+                    const user = res.user;
+                    setUser(auth.currentUser);
+                    if (user.emailVerified) {
+                        return;
+                    } else {
+                        await auth.signOut();
+                        const action = showPageLogin(false);
+                        dispatch(action);
+                        await setShowPageVerify(true);
+                        console.log("No Verified");
+                        return;
                     }
-                    return errorCode;
-                };
-                setErrorLogin(errorMessage(error));
-            }
-        } else if (id === 2) {
-            //  đăng ký
-            try {
-                const { email_signUp, password_signUp, fullName_signUp } =
-                    values;
-                let email = email_signUp;
-                let password = password_signUp;
-                let displayName = fullName_signUp;
-                let photoURL =
-                    "https://graph.facebook.com/1242173403237473/picture";
-                const response = await createUserWithEmailAndPassword(
-                    auth,
-                    email,
-                    password,
-                    displayName,
-                    photoURL
-                );
-                const user = response.user;
-                setUser(auth.currentUser);
-                await updateProfile(user, {
-                    displayName: fullName_signUp,
-                    photoURL:
-                        "https://graph.facebook.com/1242173403237473/picture",
-                });
+                    // login
+                } catch (error) {
+                    const errorMessageLogin = {
+                        INVALID_PASSWORD: "auth/wrong-password",
+                        USER_NOT_FOUND: "auth/user-not-found",
+                    };
 
-                await console.log("Update successful");
-                // Update successful
-                // ...
+                    const errorMessage = (error) => {
+                        let errorCode = "";
+                        switch (error.code) {
+                            case errorMessageLogin.INVALID_PASSWORD:
+                                errorCode = "INVALID_PASSWORD";
+                                break;
 
-                await addDoc(collection(db, "users"), {
-                    displayName: fullName_signUp,
-                    email: email,
-                    photoURL:
-                        "https://graph.facebook.com/1242173403237473/picture",
-                    uid: user.uid,
-                    providerId: user.providerData[0].providerId,
-                    date: null,
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-                });
-                if (!user.emailVerified) {
-                    await auth.signOut();
-                    const action = showPageLogin(false);
-                    dispatch(action);
-                    await setShowPageVerify(true);
+                            case errorMessageLogin.USER_NOT_FOUND:
+                                errorCode = "USER_NOT_FOUND";
+                                break;
+
+                            default:
+                                console.log(`Orther`);
+                                break;
+                        }
+                        return errorCode;
+                    };
+                    setErrorLogin(errorMessage(error));
                 }
-            } catch (error) {
-                console.log("Error");
+                break;
             }
-        } else {
-            return;
+            //  đăng ký
+            case 2: {
+                try {
+                    const { email_signUp, password_signUp, fullName_signUp } =
+                        values;
+                    let email = email_signUp;
+                    let password = password_signUp;
+                    let displayName = fullName_signUp;
+                    let photoURL =
+                        "https://graph.facebook.com/1242173403237473/picture";
+                    const response = await createUserWithEmailAndPassword(
+                        auth,
+                        email,
+                        password,
+                        displayName,
+                        photoURL
+                    );
+                    const user = response.user;
+                    setUser(auth.currentUser);
+                    await updateProfile(user, {
+                        displayName: fullName_signUp,
+                        photoURL:
+                            "https://graph.facebook.com/1242173403237473/picture",
+                    });
+
+                    await console.log("Update successful");
+                    // Update successful
+                    // ...
+
+                    await addDoc(collection(db, "users"), {
+                        displayName: fullName_signUp,
+                        email: email,
+                        photoURL:
+                            "https://graph.facebook.com/1242173403237473/picture",
+                        uid: user.uid,
+                        providerId: user.providerData[0].providerId,
+                        date: null,
+                        createdAt:
+                            firebase.firestore.FieldValue.serverTimestamp(),
+                    });
+                    if (!user.emailVerified) {
+                        await auth.signOut();
+                        const action = showPageLogin(false);
+                        dispatch(action);
+                        await setShowPageVerify(true);
+                    }
+                } catch (error) {
+                    const errorCode = error.code;
+                    console.log("Error");
+                }
+            }
+            case 3: {
+                try {
+                    console.log(values);
+                    const actionCodeSettings = {
+                        url: "http://localhost:3000/the-bottle-haus/home",
+                        handleCodeInApp: true,
+                    };
+                    await sendPasswordResetEmail(
+                        auth,
+                        values.email_forgot,
+                        actionCodeSettings
+                    );
+                    await console.log("SUCCESS SEND EMAIL FORGOT PASSWORD");
+                } catch (error) {}
+                break;
+            }
+            default: {
+                console.log("Default");
+                break;
+            }
         }
+        // if (id === 1) {
+        // } else if (id === 2) {
+        //     //  đăng ký
+        // } else {
+        //     return;
+        // }
     };
 
     const handleActionVerifyEmail = async () => {
@@ -182,6 +216,16 @@ const PageLogin = () => {
         await sendEmailVerification(user, actionCodeSettings);
         await setIsTimeSendMail(true);
     };
+
+    const handleActionForgotPassword = async () => {
+        const actionCodeSettings = {
+            url: "http://localhost:3000/the-bottle-haus/home",
+            handleCodeInApp: true,
+        };
+        // await sendPasswordResetEmail(user, email, actionCodeSettings);
+        // await setIsTimeSendMail(true);
+    };
+
     return (
         <div
             className={clsx(styles.pageLogin_container, {
@@ -193,6 +237,8 @@ const PageLogin = () => {
                 className={clsx(styles.pageLogin_wrap, {
                     [styles.showPageSignUp]: showPageSignUp === true,
                     [styles.showPageVerify]: showPageVerify === true,
+                    [styles.showPageForgotPassword]:
+                        showPageForgotPassword === true,
                 })}
             >
                 <div className={clsx(styles.pageLogin_wrap_img)}>
@@ -219,7 +265,10 @@ const PageLogin = () => {
                                 className={clsx(
                                     styles.pageLogin_content_header_btn
                                 )}
-                                onClick={() => setShowPageSignUp(true)}
+                                onClick={() => {
+                                    setShowPageSignUp(true);
+                                    setShowPageForgotPassword(false);
+                                }}
                             >
                                 Sign up here
                             </button>
@@ -258,7 +307,14 @@ const PageLogin = () => {
                         />
                     </div>
                     <div className={clsx(styles.pageLogin_content_forgot_pass)}>
-                        <a href="/">Forgot Password</a>
+                        <button
+                            className={clsx(
+                                styles.pageLogin_content_forgot_btn
+                            )}
+                            onClick={() => setShowPageForgotPassword(true)}
+                        >
+                            Forgot Password
+                        </button>
                     </div>
                 </div>
 
@@ -273,9 +329,10 @@ const PageLogin = () => {
                                 className={clsx(
                                     styles.pageLogin_content_header_btn
                                 )}
-                                onClick={() =>
-                                    setShowPageSignUp(!showPageSignUp)
-                                }
+                                onClick={() => {
+                                    setShowPageSignUp(false);
+                                    setShowPageForgotPassword(false);
+                                }}
                             >
                                 Sign in here
                             </button>
@@ -320,6 +377,35 @@ const PageLogin = () => {
                         <div className={clsx(styles.emailVerified_time)}>
                             {timeSendMail}
                         </div>
+                    </div>
+                </div>
+
+                {/* Forgot Password */}
+                <div className={clsx(styles.pageLogin_content_forgot)}>
+                    <div className={clsx(styles.pageLogin_content_header)}>
+                        <h1>Forgot Password</h1>
+                        <p>
+                            You have an account yet?{" "}
+                            <button
+                                type="button"
+                                className={clsx(
+                                    styles.pageLogin_content_header_btn
+                                )}
+                                onClick={() => {
+                                    setShowPageSignUp(false);
+                                    setShowPageForgotPassword(false);
+                                }}
+                            >
+                                Sign in here
+                            </button>
+                        </p>
+                    </div>
+                    <div className={clsx(styles.pageLogin_content_form_forgot)}>
+                        <FormForgot
+                            handleSubmit={(values) =>
+                                handleClickAction(3, values)
+                            }
+                        />
                     </div>
                 </div>
 

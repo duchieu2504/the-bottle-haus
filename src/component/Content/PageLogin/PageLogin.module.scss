@@ -162,7 +162,7 @@
                 display: none;
             }
             .pageLogin_content_signUp {
-                display: none !important;
+                display: none;
             }
         }
         &.showPageSignUp {
@@ -173,9 +173,20 @@
                 display: block;
             }
         }
+        &.showPageForgotPassword {
+            .pageLogin_content_signIn {
+                display: none;
+            }
+            .pageLogin_content_forgot {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+        }
     }
     &_content {
         &_signIn,
+        &_forgot,
         &_signUp {
             background-color: #fff;
             border-top-right-radius: 18px;
@@ -221,7 +232,8 @@
                 }
             }
         }
-        &_signUp {
+        &_signUp,
+        &_forgot {
             display: none;
         }
         &_header {
@@ -317,7 +329,8 @@
         }
 
         &_form,
-        &_form_signUp {
+        &_form_signUp,
+        &_form_forgot {
             .form_submit {
                 width: 70%;
                 margin: auto;
@@ -454,15 +467,23 @@
             }
         }
         &_forgot_pass {
-            font-weight: 400;
-            font-size: 1.6rem;
-            text-align: center;
-            padding: 6px 0 20px;
-            cursor: pointer;
-            margin-bottom: 23p;
-            a {
-                color: #377dff;
-                text-decoration: none;
+            button {
+                font-weight: 400;
+                font-size: 1.6rem;
+                text-align: center;
+                padding: 6px 0 20px;
+                border-radius: 20px;
+                border: none;
+                background: transparent;
+                cursor: pointer;
+                margin-bottom: 23p;
+                &:hover {
+                    text-decoration: underline;
+                }
+                a {
+                    color: #377dff;
+                    text-decoration: none;
+                }
             }
         }
     }
