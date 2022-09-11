@@ -171,7 +171,7 @@ function CheckOut() {
             //         clearTimeout(autoRemoveId);
             //     }
             // };
-            userRef.current.appendChild(Notice(values));
+            // userRef.current.appendChild(Notice(values));
         }
     };
 
