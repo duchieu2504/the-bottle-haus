@@ -20,7 +20,7 @@ import {
 } from "apiServices/orderServices";
 import Loading from "util/Loading";
 import ProductsRandom from "../ProductsRandom/ProductsRandom";
-import { setLoading } from "redux/orderUnpaid";
+import { setItems, setLoading } from "redux/orderUnpaid";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -94,22 +94,18 @@ const ProductDetail = () => {
     };
 
     // sự kiện click vào mua hàng --kiểm tra xem đã có sản phẩm chưa -- sẽ hiện thông báo đã có sản phẩm
+    let isCheckIdCart = dataSession.find((item) => item.productId === _id);
+    let isCheckIdCart1 =
+        orderUnpaid.productIds?.find((item) => item.productId === _id) || false;
     const handleClickAddProduct = async () => {
-        console.log(orderUnpaid);
-        let isCheckIdCart = dataSession.find((item) => item.productId === _id);
-        let isCheckIdCart1 = orderUnpaid.productIds.find(
-            (item) => item.productId === _id
-        );
-
         // nếu đã có trong giỏ hàng sẽ tạo thông báo
-        const notice = () => {
-            console.log(1);
-            const time = setTimeout(function () {
-                setActiveImageFake(false);
-            }, 1000);
-            setActiveImageFake(true);
-            // return clearTimeout(time);
-        };
+        // const notice = () => {
+        //     const time = setTimeout(function () {
+        //         setActiveImageFake(false);
+        //     }, 1000);
+        //     setActiveImageFake(true);
+        //     // return clearTimeout(time);
+        // };
         //action add product in cart
         if (uid) {
             // TH người dùng đã có tài khoản thì lưu trên database
@@ -122,6 +118,9 @@ const ProductDetail = () => {
                 setActiveImageFake(true);
                 // notice();
 
+                const data = { productId: _id, quantily: quanti };
+                await postOrderUnpaid(uid, data);
+            } else {
                 setTimeout(function () {
                     const notice_element =
                         document.querySelector("div .notice");
@@ -135,29 +134,18 @@ const ProductDetail = () => {
                 //     }
                 // };
                 toastRef.current.appendChild(Notice());
-
-                const data = { productId: _id, quantily: quanti };
-                await postOrderUnpaid(uid, data);
             }
 
-            // lấy dữ liệu đơn hàng chưa thanh toán
-            // const orderUnpaid = async () => {
-            //     await dispatch(setLoading());
-            //     const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const orderUnpaid = async () => {
+                await dispatch(setLoading());
+                const resultOrderUnpaid = await getOrderUnpaid(uid);
 
-            //     if (resultOrderUnpaid) {
-            //         const data = await [...resultOrderUnpaid.productIds]
-            //             .reverse()
-            //             .slice(0, 2);
-            //         await setDataOrderUnipadShow(data);
-            //     }
-
-            //     // dispatch lên store orderUnpaid
-            //     const actionGetOrder = await setItems(resultOrderUnpaid);
-            //     await dispatch(actionGetOrder);
-            //     // await setLoading(false);
-            // };
-            // orderUnpaid();
+                // dispatch lên store orderUnpaid
+                const actionGetOrder = await setItems(resultOrderUnpaid);
+                await dispatch(actionGetOrder);
+                // await setLoading(false);
+            };
+            orderUnpaid();
         } else {
             // TH người dùng chưa tạo tài khoản lưu sản phẩm chọn mua vào store redux
             if (!isCheckIdCart) {
@@ -165,40 +153,9 @@ const ProductDetail = () => {
                 // xư lý hình ảnh chuyển động
 
                 setTimeout(function () {
-                    const notice_element =
-                        document.querySelector("div .notice");
-                    if (toastRef.current && notice_element)
-                        toastRef.current.removeChild(notice_element);
-                }, 3400);
-                // a.onclick = function (e) {
-                //     if (e.target.closest(".notice_close")) {
-                //         toastRef.current.removeChild(a);
-                //         clearTimeout(autoRemoveId);
-                //     }
-                // };
-                toastRef.current.appendChild(Notice());
-
-                setTimeout(function () {
                     setActiveImageFake(false);
                 }, 1000);
                 setActiveImageFake(true);
-                // Lấy id của sản phẩm cuối cùng trong giỏ hàng
-                // const idPro =
-                //     dataProductLength > 0 &&
-                //     dataProdcutsCart[dataProductLength - 1].id;
-                // const idProduct = Number(idPro) + 1;
-
-                // // Tạo mới 1 id cho sản phẩm cần mua bằng cách lấy id của sản phẩm cuối cùng trong giỏ hàng + 1.
-                // // Khi đó, nếu xóa sản phẩm có id ở giữa array sản phẩm trong giỏ hàng và thêm 1 sản phẩm khác vào sẽ không bị trùng id
-                // const idP = dataProductLength === 0 ? 0 : idProduct;
-                // const productCart = {
-                //     productId: _id,
-                //     id: `${idP}`,
-                //     quantily: `${quanti}`,
-                //     // size: `${sizeText}`,
-                // };
-                // const action = buyProduct(productCart);
-                // dispatch(action);
 
                 // lưu vào sessionStorage
                 if (typeof Storage !== "undefined") {
@@ -250,6 +207,20 @@ const ProductDetail = () => {
                     );
                 }
                 return;
+            } else {
+                setTimeout(function () {
+                    const notice_element =
+                        document.querySelector("div .notice");
+                    if (toastRef.current && notice_element)
+                        toastRef.current.removeChild(notice_element);
+                }, 3400);
+                // a.onclick = function (e) {
+                //     if (e.target.closest(".notice_close")) {
+                //         toastRef.current.removeChild(a);
+                //         clearTimeout(autoRemoveId);
+                //     }
+                // };
+                toastRef.current.appendChild(Notice());
             }
         }
     };

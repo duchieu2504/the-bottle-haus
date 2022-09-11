@@ -24,7 +24,7 @@ const Header = (props) => {
         JSON.parse(sessionStorage.getItem("productIds")) || [];
 
     useEffect(() => {
-        // console.log(dataCartSession);
+        console.log(dataCartSession);
     }, [dataCartSession]);
 
     // const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
@@ -185,7 +185,7 @@ const Header = (props) => {
                             className={clsx(styles.cart, {
                                 [styles.hasCart]:
                                     orderUnpaid.length > 0 ||
-                                    dataSession.length > 0,
+                                    dataCartSession.length > 0,
                             })}
                         >
                             <div

@@ -53,7 +53,11 @@ function CheckOut() {
 
     const dataProdcuts = useMemo(() => {
         if (uid) {
-            return [...orderUnpaid.productIds];
+            if (orderUnpaid.productIds) {
+                return [...orderUnpaid.productIds];
+            } else {
+                return [];
+            }
         } else {
             return [...dataSession];
         }
@@ -131,9 +135,7 @@ function CheckOut() {
     // nếu chưa có tài khoản thì lư mới địa chỉ với  userId: null;
     const handleSubmitContinue = async (values) => {
         // id sản phẩm
-
         const code = values.fullName;
-
         // Submit Th có tài khoản ng dùng
 
         if (uid) {
@@ -149,7 +151,7 @@ function CheckOut() {
                 await postApiAdress(addressUser);
                 await setActiveSubmit(!activeSubmit);
 
-                await alert("thêm đại chỉ mới thành công");
+                await alert("Add a new sign of success");
             }
         } else {
             const orderProduct = {
@@ -201,7 +203,19 @@ function CheckOut() {
         });
 
         if (uid) {
-            await patchOrderUnpaid(uid, { unpaid: true });
+            const getAddresses = async () => {
+                const result = await getAddressesDefault(uid);
+                if (result) {
+                    return result;
+                }
+                await setLoading(true);
+            };
+            const addressDefault1 = await getAddresses();
+
+            await patchOrderUnpaid(uid, {
+                unpaid: true,
+                address: addressDefault1._id,
+            });
         } else {
             const res = await postApiAdress(addressNoUid);
             const _idAdress = await res._id;
@@ -314,33 +328,6 @@ function CheckOut() {
                                             />
                                         </div>
                                     </div>
-                                    {/* <div 
-                                className={clsx(styles.checkout_method_item, {[styles.active]: Number(dataSet) === 2})}
-                                onClick={handleClickMethod}
-                                ref={methodItemRef}
-                                data-index='2'
-                            >
-                                <p>Momo</p>
-                                <div className={clsx(styles.checkout_method_logo)}>
-                                    <img 
-                                        className={clsx(styles.momo_logo)} src={SvgIcon.MOMO_ICON} 
-                                        alt='MOMO' />
-                                </div>
-                            </div> */}
-                                    {/* <div
-                                        className={clsx(
-                                            styles.checkout_method_item,
-                                            {
-                                                [styles.active]:
-                                                    Number(dataSet) === 3,
-                                            }
-                                        )}
-                                        onClick={handleClickMethod}
-                                        ref={methodItemRef}
-                                        data-index="3"
-                                    >
-                                        <p>Thanh toán khi nhận hàng</p>
-                                    </div> */}
                                 </div>
                                 <div></div>
                             </div>
@@ -399,7 +386,8 @@ function CheckOut() {
                                     <h1 className={clsx(styles.form_title)}>
                                         {convertPrice(
                                             (
-                                                shipper + Number(totalSession)
+                                                Number(shipper) +
+                                                Number(totalSession)
                                             ).toString()
                                         )}
                                     </h1>
@@ -505,10 +493,15 @@ function CheckOut() {
                                         )}
                                     >
                                         USD{" "}
-                                        {convertPrice(shipper + totalUnipad) ||
+                                        {convertPrice(
+                                            (
+                                                Number(shipper) +
+                                                Number(totalUnipad)
+                                            ).toString()
+                                        ) ||
                                             convertPrice(
                                                 (
-                                                    shipper +
+                                                    Number(shipper) +
                                                     Number(totalSession)
                                                 ).toString()
                                             )}

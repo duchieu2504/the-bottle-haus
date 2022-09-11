@@ -105,6 +105,15 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
                             />
                             <p>You don't have any products in your store yet</p>
                         </div>
+                        <div className={clsx(styles.cart_total)}>
+                            <p>TOTAL</p>
+                            <span>
+                                ${" "}
+                                {convertPrice(
+                                    orderUnpaid.totalPrice?.toString()
+                                )}
+                            </span>
+                        </div>
                     </div>
                 );
             }
@@ -141,6 +150,15 @@ function ShoppingCart({ showShoppingCart, handleClickAllCart }) {
                                 alt="You don't have any products in your store yet"
                             />
                             <p>You don't have any products in your store yet</p>
+                        </div>
+                        <div className={clsx(styles.cart_total)}>
+                            <p>TOTAL</p>
+                            <span>
+                                ${" "}
+                                {convertPrice(
+                                    orderUnpaid.totalPrice?.toString()
+                                )}
+                            </span>
                         </div>
                     </div>
                 );
