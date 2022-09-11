@@ -183,9 +183,8 @@ const Header = (props) => {
                         <div
                             ref={cartRef}
                             className={clsx(styles.cart, {
-                                [styles.hasCart]:
-                                    orderUnpaid.length > 0 ||
-                                    dataCartSession.length > 0,
+                                [styles.hasCart]: orderUnpaid.length > 0,
+                                [styles.hasCart]: dataCartSession.length > 0,
                             })}
                         >
                             <div

@@ -218,6 +218,7 @@ function PageCart(props) {
                         </div>
                         <div className={clsx(styles.product)}>
                             {loading ? <Loading /> : <StoreProduct />}
+                            {loading && <Loading />}
                         </div>
                     </div>
                     <div

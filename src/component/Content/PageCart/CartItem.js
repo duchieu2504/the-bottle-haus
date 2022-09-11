@@ -15,6 +15,7 @@ import {
     patchOrderUnpaidProductIds,
 } from "apiServices/orderServices";
 import { setItems, setLoading } from "redux/orderUnpaid";
+import { NavLink } from "react-router-dom";
 
 CartItem.propTypes = {
     item: PropTypes.object,
@@ -35,8 +36,10 @@ function CartItem(props) {
 
     const { quantily, productId } = item;
 
+    // const [loading, setLoading] = useState(false);
     // lấy thông tin sản phẩm
     const dataCategory = useSelector((state) => state.products.items);
+
     const dataProdcuts = [...dataCategory];
 
     const product = dataProdcuts.find((item) => item._id === productId) || 0;
@@ -193,9 +196,12 @@ function CartItem(props) {
                     alt="img"
                     className={clsx(styles.product_item_img)}
                 />
-                <a href="/" className={clsx(styles.product_item_title)}>
+                <NavLink
+                    to={`/the-bottle-haus/${product.category}/${productId}`}
+                    className={clsx(styles.product_item_title)}
+                >
                     {product.title} <br />
-                </a>
+                </NavLink>
             </div>
             <div className={clsx(styles.product_item_price)}>
                 ${convertPrice(product.price)}
