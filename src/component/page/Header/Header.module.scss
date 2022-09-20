@@ -1,12 +1,12 @@
+@use "./../../../scss/breakpoints" as *;
 @import "./../../../scss/base";
-
 .header {
     &_container {
         background-color: #ededed;
         position: fixed;
         width: 100%;
         top: 0;
-        height: 100px;
+        height: 64px;
         box-shadow: 0 1px 10px rgba(0, 0, 0, 0.1);
         z-index: 10;
         transition: height 0.25s linear;
@@ -19,18 +19,56 @@
                 transition: height 0.25s linear, opacity 0.25s linear;
             }
         }
+        @include lg {
+            height: 100px;
+        }
     }
     &_wrap {
         height: 64px;
         display: flex;
         opacity: 1;
-        justify-content: space-between;
+        // justify-content: space-between;
+        justify-content: flex-end;
         transition: height 0.25s linear;
-
+        position: relative;
         align-items: center;
+        &_menu {
+            position: relative;
+            width: 40px;
+            height: 40px;
+            margin-right: 16px;
+            background-color: #fff;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 40%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 50%;
+                height: 2.5px;
+                background-color: rgb(43, 43, 43);
+                border-radius: 20px;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                top: 60%;
+                left: 50%;
+                transform: translate(-60%, -50%);
+                width: 40%;
+                height: 2.5px;
+                background-color: rgb(43, 43, 43);
+                border-radius: 20px;
+            }
+        }
         &_search {
             position: relative;
             display: flex;
+            flex: 1;
             align-items: center;
             justify-content: flex-end;
             margin-right: 16px;
@@ -112,6 +150,27 @@
                     padding-left: 10px;
                     color: #000;
                 }
+                &_searchProduct {
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    transform: translate(0px, 10px);
+                    min-height: 100px;
+                    min-width: 300px;
+                    max-width: 350px;
+                    z-index: 1;
+                    padding: 10px 20px;
+                    background-color: #fff;
+                    border-radius: 20px;
+                    box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.26);
+                    transition: all 0.5s ease-in;
+
+                    visibility: hidden;
+                    &.showSearchProduct {
+                        visibility: visible;
+                        transition: all 0.5s ease-in 0.5s;
+                    }
+                }
             }
             .btn {
                 border: none;
@@ -148,17 +207,24 @@
                 }
             }
         }
-    }
-    &_wrap_logo {
-        flex: 1;
-        text-align: center;
-        transform: translate(25%, 0);
-    }
-    &_logo {
-        img {
-            max-width: 50%;
-            width: 100px;
-            overflow: hidden;
+        &_logo {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            bottom: 0;
+            z-index: 1;
+            // flex: 1;
+            // text-align: center;
+            transform: translate(-50%, 0);
+            &_link {
+                img {
+                    // max-width: 50%;
+                    width: 100px;
+                    padding: 10px 0;
+                    height: 100%;
+                    overflow: hidden;
+                }
+            }
         }
     }
 }
@@ -250,6 +316,10 @@
 .navbar {
     &_container {
         transition: height 0.25s linear 0.1s, opacity 0.25s linear 0.1s;
+        display: none;
+        @include lg {
+            display: block;
+        }
     }
     &_list {
         display: flex;

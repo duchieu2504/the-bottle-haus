@@ -156,10 +156,14 @@
     .product_rating {
         display: flex;
         align-items: center;
+        padding: 20px 0;
         &_list_start {
             display: flex;
             align-items: center;
             height: 36px;
+            .customers_reviews_item_rating {
+                margin: 0;
+            }
         }
         &_title {
             font-size: 1.4rem;
@@ -168,17 +172,7 @@
             font-family: $font-gilroy;
             text-decoration: underline;
             color: #000;
-        }
-        &_star {
-            background-image: url("https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/b_rev.svg");
-            // https://cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/rev.svg
-            background-repeat: no-repeat;
-            background-size: contain;
-            background-position: top center;
-            width: 20px;
-            height: 20px;
-            margin-right: 6px;
-            position: relative;
+            margin-bottom: 20px;
         }
     }
     .product_price_quantity {
@@ -251,7 +245,7 @@
 
     .product_des {
         height: 135px;
-        padding: 20px 0;
+        padding: 0px 0 30px;
         margin-bottom: 30px;
         transition: all 0.3s linear;
         &.show_content {

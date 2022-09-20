@@ -3,24 +3,18 @@ import styles from "./ProductDetail.module.scss";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ProductCard from "../ProductCard/ProductCard";
-import { buyProduct } from "redux/productsCart";
 import "./ProductImg.css";
 import convertPrice from "util/convertNumber";
 import ProductReview from "./ProductReview";
 import { Notice } from "util/NoticeOfPurchase/Notice";
 import styleImageDetail from "./styleImage";
-import { randomProduct } from "util/RandomProduct";
 import { AuthContext } from "Context/AuthProvider";
-import { getAddressesDefault } from "apiServices/addressServices";
-import {
-    getOrderUnpaid,
-    postOrder,
-    postOrderUnpaid,
-} from "apiServices/orderServices";
+import { getOrderUnpaid, postOrderUnpaid } from "apiServices/orderServices";
 import Loading from "util/Loading";
 import ProductsRandom from "../ProductsRandom/ProductsRandom";
 import { setItems, setLoading } from "redux/orderUnpaid";
+import { getReviewParameter } from "apiServices/reviewServices";
+import { ListStar } from "./ItemReview";
 
 const ProductDetail = () => {
     const dispatch = useDispatch();
@@ -48,7 +42,8 @@ const ProductDetail = () => {
     // div product description
     const [activeMore, setActiveMore] = useState(true);
 
-    // hình ảnh sản phẩm
+    // thông số đánh giá san pham
+    const [parameterReviews, setParameterReviews] = useState({});
 
     // aactiveImageFake
     const [activeImageFake, setActiveImageFake] = useState(false);
@@ -83,6 +78,14 @@ const ProductDetail = () => {
         return () => document.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // lấy thông số các đánh giá san pham
+    useEffect(() => {
+        const getParameter = async () => {
+            const result = await getReviewParameter(productId);
+            await setParameterReviews(result);
+        };
+        getParameter();
+    }, []);
     //kiểm tra xem đã có sản phẩm trong cửa hàng chưa
 
     // lựa chọn kích thước sản phẩm
@@ -99,13 +102,7 @@ const ProductDetail = () => {
         orderUnpaid.productIds?.find((item) => item.productId === _id) || false;
     const handleClickAddProduct = async () => {
         // nếu đã có trong giỏ hàng sẽ tạo thông báo
-        // const notice = () => {
-        //     const time = setTimeout(function () {
-        //         setActiveImageFake(false);
-        //     }, 1000);
-        //     setActiveImageFake(true);
-        //     // return clearTimeout(time);
-        // };
+
         //action add product in cart
         if (uid) {
             // TH người dùng đã có tài khoản thì lưu trên database
@@ -127,12 +124,7 @@ const ProductDetail = () => {
                     if (toastRef.current && notice_element)
                         toastRef.current.removeChild(notice_element);
                 }, 3400);
-                // a.onclick = function (e) {
-                //     if (e.target.closest(".notice_close")) {
-                //         toastRef.current.removeChild(a);
-                //         clearTimeout(autoRemoveId);
-                //     }
-                // };
+
                 toastRef.current.appendChild(Notice());
             }
 
@@ -214,12 +206,7 @@ const ProductDetail = () => {
                     if (toastRef.current && notice_element)
                         toastRef.current.removeChild(notice_element);
                 }, 3400);
-                // a.onclick = function (e) {
-                //     if (e.target.closest(".notice_close")) {
-                //         toastRef.current.removeChild(a);
-                //         clearTimeout(autoRemoveId);
-                //     }
-                // };
+
                 toastRef.current.appendChild(Notice());
             }
         }
@@ -343,33 +330,20 @@ const ProductDetail = () => {
                                                 styles.product_rating_list_start
                                             )}
                                         >
-                                            <span
-                                                className={clsx(
-                                                    styles.product_rating_star
+                                            <ListStar
+                                                star={Math.ceil(
+                                                    parameterReviews.average_rating
                                                 )}
-                                            ></span>
-                                            <span
-                                                className={clsx(
-                                                    styles.product_rating_star
-                                                )}
-                                            ></span>
-                                            <span
-                                                className={clsx(
-                                                    styles.product_rating_star
-                                                )}
-                                            ></span>
-                                            <span
-                                                className={clsx(
-                                                    styles.product_rating_star
-                                                )}
-                                            ></span>
+                                            />
                                         </div>
                                         <div
                                             className={clsx(
                                                 styles.product_rating_title
                                             )}
                                         >
-                                            3 reviews
+                                            {parameterReviews?.totalReviews ||
+                                                0}
+                                            reviews
                                         </div>
                                     </div>
 
@@ -444,7 +418,10 @@ const ProductDetail = () => {
                         </div>
                     </div>
                 )}
-                <ProductReview />
+                <ProductReview
+                    productId={_id}
+                    parameterReviews={parameterReviews}
+                />
                 <div className={clsx(styles.recommendation)}>
                     <div className={clsx(styles.recommendation_header)}>
                         <div className={clsx(styles.recommendation_text)}>
@@ -461,9 +438,7 @@ const ProductDetail = () => {
                         <ProductsRandom />
                     </div>
                 </div>
-                <div ref={toastRef} id={clsx(styles.notice)}>
-                    {/* <Notice activeNotice={activeNotice} /> */}
-                </div>
+                <div ref={toastRef} id={clsx(styles.notice)}></div>
             </div>
         </div>
     );

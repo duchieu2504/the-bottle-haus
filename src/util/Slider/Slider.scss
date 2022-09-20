@@ -1,10 +1,16 @@
+@use "./../../scss/breakpoints" as *;
+
 .slider_horizontal {
     position: relative;
-    height: 70vh;
     // width: 100vw;
+    height: 30vh;
+
     margin: 0 auto;
     overflow: hidden;
     border-radius: 60px;
+    @include lg {
+        height: 70vh;
+    }
     &_list {
         height: 100%;
         display: flex;
@@ -38,7 +44,10 @@
     &_wrap {
         position: absolute;
         bottom: 32px;
-        left: 100px;
+        left: 8px;
+        @include lg {
+            left: 100px;
+        }
     }
     &_buttons {
         margin: auto;

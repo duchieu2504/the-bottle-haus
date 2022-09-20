@@ -6,6 +6,9 @@ class GetAllApiProdcts {
     getImageProduct = (params) => {
         return axiosClient.get(`products/${params}/image`);
     };
+    getSearchProduct = (query) => {
+        return axiosClient.get(`search?title=${query}`);
+    };
 
     getProduct = (u) => {};
 }

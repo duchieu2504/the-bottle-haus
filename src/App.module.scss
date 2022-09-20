@@ -1,0 +1,33 @@
+@use "./scss/breakpoints" as *;
+
+@media (max-width: 319px) {
+}
+
+//Thiết bị di động
+@media (min-width: 320px) and (max-width: 480px) {
+}
+
+//iPad, Máy tính bảng
+@media (min-width: 481px) and (max-width: 768px) {
+}
+
+//Màn hình nhỏ, máy tính xách tay
+@media (min-width: 769px) and (max-width: 1024px) {
+}
+
+//Máy tính để bàn, màn hình lớn
+@media (min-width: 1025px) and (max-width: 1200px) {
+}
+
+//Màn hình cực lớn, TV
+@media (min-width: 1201px) {
+}
+
+.container {
+    @include lg {
+        display: block;
+        margin-top: 100px;
+    }
+    margin-top: 64px;
+    background-color: #fff;
+}

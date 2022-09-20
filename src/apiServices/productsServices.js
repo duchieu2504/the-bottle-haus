@@ -19,3 +19,13 @@ export const productsApi = async () => {
         console.log("lỗi sever");
     }
 };
+
+export const getSearchProduct = async (query) => {
+    try {
+        const result = await apiProducts.getSearchProduct(query);
+        console.log(result.data);
+        return result.data;
+    } catch (err) {
+        console.log("Error :", err.message);
+    }
+};

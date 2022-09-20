@@ -1,0 +1,49 @@
+// Small tablets and large smartphones (landscape view)
+// Máy tính bảng nhỏ và điện thoại thông minh lớn (chế độ xem ngang)
+$screen-sm-min: 576px;
+
+// Small tablets (portrait view)
+// Máy tính bảng nhỏ (chế độ xem dọc)
+$screen-md-min: 768px;
+
+// Tablets and small desktops
+// Máy tính bảng và máy tính để bàn nhỏ
+$screen-lg-min: 992px;
+
+// Large tablets and desktops
+// Máy tính bảng và máy tính để bàn lớn
+$screen-xl-min: 1200px;
+
+// Small devices
+@mixin sm {
+    @media (min-width: #{$screen-sm-min}) {
+        @content;
+    }
+}
+
+// Medium devices
+@mixin md {
+    @media (min-width: #{$screen-md-min}) {
+        @content;
+    }
+}
+
+// Large devices
+@mixin lg {
+    @media (min-width: #{$screen-lg-min}) {
+        @content;
+    }
+}
+
+// Extra large devices
+@mixin xl {
+    @media (min-width: #{$screen-xl-min}) {
+        @content;
+    }
+}
+// Custom devices
+@mixin rwd($screen) {
+    @media (min-width: $screen) {
+        @content;
+    }
+}

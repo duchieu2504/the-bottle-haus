@@ -80,7 +80,7 @@ export const postOrderUnpaid = async (uid, data) => {
         await apiOrderProducts.postOrderUnpaid(uid, data);
         console.log("Update dữ liệu thành công");
     } catch (err) {
-        console.log("Lỗi lất đơn hàng chưa thanh toán");
+        console.log("Lỗi lấy đơn hàng chưa thanh toán");
     }
 };
 

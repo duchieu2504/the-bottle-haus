@@ -1,0 +1,38 @@
+.searchProduct {
+    &_list {
+    }
+    &_item {
+        border-bottom: 1px solid #dbdbdb;
+        padding: 6px 0;
+        &:last-child {
+            border-bottom: 0px solid #dbdbdb;
+        }
+        &_link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            img {
+                width: 30px;
+            }
+            p {
+                font-size: 1.4rem;
+                line-height: 2rem;
+                padding: 0 20px;
+                color: #000;
+                font-weight: bold;
+                flex: 1;
+            }
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &_no_product {
+        font-size: 1.6rem;
+        color: #000;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}

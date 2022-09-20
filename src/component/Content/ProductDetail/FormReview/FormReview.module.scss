@@ -1,0 +1,140 @@
+.form_submit {
+    width: 90%;
+    margin: auto;
+}
+.form_group {
+    width: 100%;
+    height: 68px;
+    margin-bottom: 6px;
+
+    margin-top: 30px;
+
+    text-align: start;
+    position: relative;
+    &:last-child {
+        padding-bottom: 20px;
+    }
+}
+.form_label {
+    position: absolute;
+    left: 0px;
+    top: 0%;
+    pointer-events: none;
+    transform: translate(0, -100%);
+    // z-index: 1;
+
+    padding: 6px 4px;
+    color: rgb(153, 152, 152);
+    // background-color: #fff;
+    letter-spacing: 0.5px;
+    font-size: 1.6rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.form_control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    // z-index: 2;
+
+    font-size: 1.6rem;
+    line-height: 2rem;
+    color: #000;
+
+    padding: 16px 16px;
+    width: 100%;
+    border-radius: 12px;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+}
+.form_invalid {
+    & .form_control {
+        border: 1px solid;
+        border-color: red;
+    }
+}
+.form_border {
+    i {
+        &::before,
+        &::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background-color: #3399ff;
+            transition: 0.4s;
+        }
+    }
+}
+.form_border::before,
+.form_border::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #3399ff;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+.form_border::after,
+.form_border i::after {
+    top: auto;
+    bottom: 0;
+    left: auto;
+    right: 0;
+}
+.form_control:focus ~ .form_border::after,
+.form_control:focus ~ .form_border::before {
+    width: 100%;
+    transition: 0.3s;
+}
+.form_control:focus ~ .form_border i::after,
+.form_control:focus ~ .form_border i::before {
+    height: 100%;
+    transition: 0.3s;
+}
+
+.form_message {
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    color: #f33a58;
+    font-size: 1.2rem;
+    line-height: 1.6rem;
+    padding: 2px 0 0;
+    text-align: start;
+}
+.footer {
+    margin-top: 6px;
+    text-align: center;
+    &_submit {
+        letter-spacing: 1px;
+        width: 150px;
+        border-radius: 10px;
+        color: #000;
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        margin: auto;
+        font-size: 1.6rem;
+        line-height: 4.8rem;
+        background-color: #fff;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        &:hover {
+            transition: all 0.5s ease;
+            color: #fff;
+            background-color: #105756;
+        }
+        &.have_evaluated {
+            &:hover {
+                transition: all 0.5s ease;
+                background-color: #fd7a1f;
+                color: #fff;
+            }
+        }
+    }
+}

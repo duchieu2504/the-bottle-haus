@@ -94,7 +94,7 @@ const Main = () => {
             <div className={clsx(styles.under_legend)}>
                 <div className="grid wide" style={{ height: "100%" }}>
                     <div className="row" style={{ height: "100%" }}>
-                        <div className="col l-4">
+                        <div className="col l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"
@@ -129,7 +129,7 @@ const Main = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="col l-4">
+                        <div className="col l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"
@@ -164,7 +164,7 @@ const Main = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="col l-4">
+                        <div className="col l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"

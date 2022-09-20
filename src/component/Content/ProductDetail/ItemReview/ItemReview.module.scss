@@ -1,0 +1,60 @@
+.customers_reviews_item {
+    padding: 24px 0;
+    border-top: 1px solid #ccc;
+    &_rating {
+        position: relative;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: start;
+        margin-bottom: 12px;
+        &_star {
+            padding: 0 6px 0 0;
+
+            svg {
+                width: 20px;
+                height: 20px;
+                g {
+                    path {
+                        transition: all 0.5s ease;
+                        fill: rgb(237, 237, 237);
+                    }
+                }
+            }
+            &.showStar {
+                g {
+                    path {
+                        transition: all 0.5s ease;
+                        fill: #fe7c22;
+                    }
+                }
+            }
+        }
+    }
+    &_verified {
+        background: #000000;
+        color: #fff;
+        padding: 2px 4px;
+        font-size: 1.2rem;
+    }
+    h1 {
+        font-size: 2rem;
+        padding: 12px 0 50px 0;
+    }
+    p {
+        margin-top: 12px;
+        font-weight: 400;
+        font-size: 1.6rem;
+        color: #969696;
+        width: 85%;
+    }
+    &_name {
+        padding: 30px 0 6px;
+        font-size: 1.6rem;
+        font-weight: bold;
+        color: #757575;
+    }
+    &_date {
+        font-size: 1.6rem;
+        color: #757575;
+    }
+}

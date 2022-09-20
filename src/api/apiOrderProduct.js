@@ -24,21 +24,21 @@ class ApiOrderProducts {
     };
     patchOrderUnpaid = (uid, data) => {
         return axiosClient({
-            method: "PATCh",
+            method: "PATCH",
             url: `orderProducts/${uid}`,
             data: data,
         });
     };
     patchOrderUnpaidProductIds = (uid, data) => {
         return axiosClient({
-            method: "PATCh",
+            method: "PATCH",
             url: `orderProducts/${uid}/productIds`,
             data: data,
         });
     };
     patchOrderUnpaidDeleteProductId = (uid, data) => {
         return axiosClient({
-            method: "PATCh",
+            method: "PATCH",
             url: `orderProducts/${uid}/deleteProductId`,
             data: data,
         });

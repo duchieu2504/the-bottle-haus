@@ -4,6 +4,7 @@ import productsCart from "./productsCart";
 import activeLogin from "./Login";
 import orderUnpaid from "./orderUnpaid";
 import orderProducts from "./orderProducts";
+import productSearch from "./productSearch";
 
 const rootReducer = {
     products: productReducer,
@@ -11,6 +12,7 @@ const rootReducer = {
     productsCart: productsCart,
     orderProducts: orderProducts,
     orderUnpaid: orderUnpaid,
+    productSearch: productSearch,
 };
 
 const store = configureStore({

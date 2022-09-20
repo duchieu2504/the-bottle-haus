@@ -9,23 +9,26 @@ import { showPageLogin, clickNavbar } from "redux/Login";
 import ShoppingCart from "component/Content/ShoppingCart";
 import { GetAllProdcts } from "api/apiProduct";
 import { AuthContext } from "Context/AuthProvider";
+import SearchProduct from "component/Content/SearchProduct";
+import { getSearchProduct } from "apiServices/productsServices";
+import { SET_PRODUCTS_SEARCH } from "redux/productSearch";
 
 const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
     const [activeSearch, setActiveSearch] = useState(false);
     const [showHeader, setShowHeader] = useState(false);
     const [dataSession, setDataSession] = useState(false);
+    const [apiSearchProduct, setApiSearchProduct] = useState([]);
+    const [loadingSearch, setLoadingSearch] = useState(false);
+    const [showSearchProduct, setShowSearchProduct] = useState(false);
 
     const activeLogin = useSelector((state) => state.activeLogin.activeLogin);
+    const productSearch = useSelector((state) => state.productSearch.items);
 
     // san phâm trong giỏ hàng
     const orderUnpaid = useSelector((state) => state.orderUnpaid.items) || [];
     const dataCartSession =
         JSON.parse(sessionStorage.getItem("productIds")) || [];
-
-    useEffect(() => {
-        console.log(dataCartSession);
-    }, [dataCartSession]);
 
     // const activeNavbar = useSelector(state => state.activeLogin.activeNavbar)
     const dispatch = useDispatch();
@@ -42,19 +45,19 @@ const Header = (props) => {
     // bấm ngoài element cart sẽ tắt tab giỏ hàng
     useEffect(() => {
         const handleOut = (e) => {
-            if (cartRef.current) {
-                const isCheck = cartRef.current.contains(e.target);
-                if (!isCheck) {
-                    setShowShoppingCart(isCheck);
-                }
+            const isCheck =
+                cartRef.current && cartRef.current.contains(e.target);
+            if (!isCheck) {
+                setShowShoppingCart(isCheck);
             }
         };
         const handleOutSearch = (e) => {
-            if (searchRef.current) {
-                const isCheck = searchRef.current.contains(e.target);
-                if (!isCheck) {
-                    setActiveSearch(isCheck);
-                }
+            const isCheckSearch =
+                searchRef.current && searchRef.current.contains(e.target);
+
+            if (!isCheckSearch) {
+                setActiveSearch(isCheckSearch);
+                setShowSearchProduct(false);
             }
         };
         document.addEventListener("click", handleOut);
@@ -85,6 +88,9 @@ const Header = (props) => {
     //Bấm vào icon tìm kiếm sẽ hiện ra ô tìm kiếm
     const handleClickSearch = () => {
         setActiveSearch(true);
+        if (productSearch.length > 0) {
+            setShowSearchProduct(true);
+        }
     };
 
     //Bấm vào cart sẽ hiện bảng giỏ hàng
@@ -99,9 +105,28 @@ const Header = (props) => {
     // Bấm icon login hiện thị trang login
     const handleClickLogin = (e) => {
         e.preventDefault();
-        console.log(activeLogin);
         const action = showPageLogin(activeLogin);
         dispatch(action);
+    };
+
+    // handleChangeSearch
+    const handleChangeSearch = async (e) => {
+        const time = setTimeout(async () => {
+            if (e.target.value !== "") {
+                setShowSearchProduct(true);
+                await setLoadingSearch(true);
+                const res = await getSearchProduct(e.target.value);
+                await setApiSearchProduct(res);
+                await dispatch(SET_PRODUCTS_SEARCH(res));
+                await setLoadingSearch(false);
+                return;
+            } else {
+                await dispatch(SET_PRODUCTS_SEARCH([]));
+                await setApiSearchProduct([]);
+                return;
+            }
+        }, 500);
+        return () => clearTimeout(time);
     };
     return (
         <header>
@@ -112,10 +137,11 @@ const Header = (props) => {
             >
                 <div className="grid wide">
                     <div className={clsx(styles.header_wrap)}>
+                        {/* logo  */}
                         <div className={clsx(styles.header_wrap_logo)}>
                             <NavLink
                                 to="/the-bottle-haus/home"
-                                className={clsx(styles.header_logo)}
+                                className={clsx(styles.header_wrap_logo_link)}
                             >
                                 <img
                                     src="https://cdn.shopify.com/s/files/1/0313/6228/5699/files/logo_d7a04cee-992d-4fe7-a757-7113f9927484_200x.png?v=1637139812"
@@ -124,17 +150,16 @@ const Header = (props) => {
                             </NavLink>
                         </div>
 
+                        {/* menu mobile phone */}
+                        <div className={clsx(styles.header_wrap_menu)}></div>
+
+                        {/* Search */}
                         <div
                             className={clsx(styles.header_wrap_search, {
                                 [styles.active]: activeSearch,
                             })}
                             ref={searchRef}
                         >
-                            {/* <div
-                                className={clsx(
-                                    styles.header_wrap_search_border
-                                )}
-                            ></div> */}
                             <div
                                 className={clsx(
                                     styles.header_wrap_search_input
@@ -146,7 +171,22 @@ const Header = (props) => {
                                     )}
                                     placeholder="Search"
                                     type="text"
+                                    onChange={handleChangeSearch}
                                 />
+                                <div
+                                    className={clsx(
+                                        styles.header_wrap_search_input_searchProduct,
+                                        {
+                                            [styles.showSearchProduct]:
+                                                showSearchProduct,
+                                        }
+                                    )}
+                                >
+                                    <SearchProduct
+                                        loadingSearch={loadingSearch}
+                                        apiSearchProduct={apiSearchProduct}
+                                    />
+                                </div>
                             </div>
 
                             <button
@@ -162,6 +202,7 @@ const Header = (props) => {
                             </button>
                         </div>
 
+                        {/* Sign In */}
                         <div className={clsx(styles.header_wrap_signIn)}>
                             {uid ? (
                                 <NavLink to="/the-bottle-haus/account">
@@ -180,6 +221,7 @@ const Header = (props) => {
                             )}
                         </div>
 
+                        {/* Cart */}
                         <div
                             ref={cartRef}
                             className={clsx(styles.cart, {

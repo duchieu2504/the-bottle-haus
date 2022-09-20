@@ -6,7 +6,13 @@ import delete_icon from "./delete.svg";
 import momo_icon from "./momo.svg";
 import Iphone from "./mobile_phone.svg";
 import done from "./done.svg";
+import star_icon from "./star.svg";
+
 import double_down_arrow from "./double-down-arrow.svg";
+import leftArrow from "./left-arrow.svg";
+import leftDouleArrow from "./double-left-arrow.svg";
+import RightDouleArrow from "./double-right-arrows.svg";
+import rightArrow from "./right-arrow.svg";
 
 const SvgIcon = {
     FACEBOOK_ICON: facebook_icon,
@@ -17,7 +23,12 @@ const SvgIcon = {
     MOMO_ICON: momo_icon,
     IPHONE: Iphone,
     DONE: done,
+    STAR: star_icon,
     DOUBLE_DOWN_ARROW: double_down_arrow,
+    RIGHTARROW: rightArrow,
+    LEFTARROW: leftArrow,
+    LEFT_DOULE_ARROW: leftDouleArrow,
+    RIGHT_DOULE_ARROW: RightDouleArrow,
 };
 
 export default SvgIcon;

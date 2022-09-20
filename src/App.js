@@ -19,6 +19,8 @@ import { productsApi } from "apiServices/productsServices";
 import AuthProvider from "Context/AuthProvider";
 import PageUserInfo from "component/Content/PageUserInfo";
 import FormAddress from "component/Content/FormAddress";
+import styles from "./App.module.scss";
+import clsx from "clsx";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -46,12 +48,7 @@ const App = () => {
                         >
                             <ScrollToTop />
                             <Header />
-                            <main
-                                style={{
-                                    marginTop: "100px",
-                                    background: "#fff",
-                                }}
-                            >
+                            <main className={clsx(styles.container)}>
                                 <Routes>
                                     <Route
                                         path="/the-bottle-haus/"
