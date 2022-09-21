@@ -1,4 +1,4 @@
-@use "./scss/breakpoints" as *;
+@use "./assets/scss/breakpoints" as *;
 
 @media (max-width: 319px) {
 }
@@ -21,6 +21,15 @@
 
 //Màn hình cực lớn, TV
 @media (min-width: 1201px) {
+}
+
+.shop_demo {
+    overflow: hidden;
+}
+
+.main {
+    margin-top: 80px;
+    min-height: 90vh;
 }
 
 .container {

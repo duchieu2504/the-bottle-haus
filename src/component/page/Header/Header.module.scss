@@ -1,5 +1,5 @@
-@use "./../../../scss/breakpoints" as *;
-@import "./../../../scss/base";
+@use "./../../../assets/scss/breakpoints" as *;
+@import "./../../../assets/scss/base";
 .header {
     &_container {
         background-color: #ededed;

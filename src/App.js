@@ -1,26 +1,36 @@
 import React, { useEffect } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import clsx from "clsx";
+import AOS from "aos";
+
 import Header from "./component/page/Header/";
 import Footer from "./component/page/Footer/Footer.js";
 import Main from "./component/page/Main/index.js";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import GlobalStyles from "scss/index.js";
-import NavabarInfo from "component/Content/PageInfo/PageInfo.js";
-import Products from "component/Content/PageProducts/PageProducts.js";
-import ProductDetail from "component/Content/ProductDetail/ProductDetail.js";
-import PageLogin from "component/Content/PageLogin/PageLogin.js";
+import NotFound from "component/NotFound";
+
 import ScrollToTop from "util/ScrollToTop.js";
-import AOS from "aos";
-import PageCart from "component/Content/PageCart/PageCart.js";
-import CheckOut from "component/Content/PageCheckOut/CheckOut.js";
-import TotalProvider from "Context/TotalProvider";
-import { useDispatch } from "react-redux";
-import { GET_ALL_PRODUCTS, setLoadingProducts } from "redux/productSlice";
-import { productsApi } from "apiServices/productsServices";
-import AuthProvider from "Context/AuthProvider";
-import PageUserInfo from "component/Content/PageUserInfo";
-import FormAddress from "component/Content/FormAddress";
+
+import TotalProvider from "dataLocal/Context/TotalProvider";
+import AuthProvider from "dataLocal/Context/AuthProvider";
+import {
+    GET_ALL_PRODUCTS,
+    setLoadingProducts,
+} from "dataLocal/redux/productSlice";
+
+import { productsApi } from "connectApi/apiServices/productsServices";
+
 import styles from "./App.module.scss";
-import clsx from "clsx";
+import GlobalStyles from "assets/scss";
+
+import Store from "features/Store";
+import ProductDetail from "features/ProductDetail";
+import CatalogProducts from "features/CatalogProduct";
+import User from "features/User";
+import CheckOut from "features/CheckOut";
+import FormAddress from "features/FormAddress";
+import ContactUs from "features/ContactUs/ContactUs";
+import PageLogin from "features/Login";
 
 const App = () => {
     const dispatch = useDispatch();
@@ -50,22 +60,25 @@ const App = () => {
                             <Header />
                             <main className={clsx(styles.container)}>
                                 <Routes>
-                                    <Route
-                                        path="/the-bottle-haus/"
-                                        element={<Main />}
-                                    ></Route>
                                     <Route path="/the-bottle-haus/">
                                         <Route
-                                        // path="/the-bottle-haus/home"
-                                        // element={
-                                        //     <Navigate replace to="/home" />
-                                        // }
-                                        // element={<Main /> }
+                                            exact
+                                            path="home"
+                                            element={<Main />}
+                                        />
+                                        <Route
+                                            path=""
+                                            element={
+                                                <Navigate
+                                                    replace
+                                                    to="/the-bottle-haus/home"
+                                                />
+                                            }
                                         />
                                         <Route
                                             exact
                                             path="account"
-                                            element={<PageUserInfo />}
+                                            element={<User />}
                                         />
                                         <Route
                                             exact
@@ -78,21 +91,16 @@ const App = () => {
                                             element={<FormAddress />}
                                         />
                                         <Route
-                                            exact
-                                            path="home"
-                                            element={<Main />}
-                                        />
-                                        <Route
                                             path="login"
                                             element={<PageLogin />}
                                         />
                                         <Route
                                             path="thong_tin"
-                                            element={<NavabarInfo />}
+                                            element={<ContactUs />}
                                         />
                                         <Route
                                             path="cart"
-                                            element={<PageCart />}
+                                            element={<Store />}
                                         />
                                         <Route
                                             path="checkout"
@@ -100,12 +108,13 @@ const App = () => {
                                         />
                                         <Route
                                             path=":url"
-                                            element={<Products />}
+                                            element={<CatalogProducts />}
                                         />
                                         <Route
                                             path=":url/:productId"
                                             element={<ProductDetail />}
                                         />
+                                        <Route element={<NotFound />} />
                                     </Route>
                                 </Routes>
                                 <PageLogin />

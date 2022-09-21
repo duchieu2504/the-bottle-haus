@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
-import Slider from "../../../util/Slider";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import clsx from "clsx";
-import styles from "./Main.module.scss";
-import "aos/dist/aos.css";
 import AOS from "aos";
-import "./Main.css";
-import Slider_3d from "util/Slider_3d";
-import ProductCard from "component/Content/ProductCard/ProductCard.js";
+import "aos/dist/aos.css";
 import { useSelector } from "react-redux";
-import SliderDow from "util/Slider_dow";
-import SliderReviews from "util/Slider_reviews";
 import { NavLink } from "react-router-dom";
-import { randomProduct } from "util/RandomProduct";
-import { AuthContext } from "Context/AuthProvider";
-import ProductsRandom from "component/Content/ProductsRandom/ProductsRandom";
+
+import styles from "./Main.module.scss";
+import "./Main.css";
+import { randomProduct } from "util/Func";
+
+import ProductsRandom from "component/ProductsRandom";
+import Slider from "component/Slide/Slider";
+import Slider_3d from "component/Slide/Slider_3d";
+import SliderReviews from "component/Slide/Slider_reviews";
+import SliderDow from "component/Slide/Slider_dow";
 
 const Main = () => {
     const h1Ref = useRef();

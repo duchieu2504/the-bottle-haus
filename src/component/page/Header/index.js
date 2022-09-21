@@ -1,17 +1,19 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { NavLink } from "react-router-dom";
-import styles from "./Header.module.scss";
 import clsx from "clsx";
-
-import SvgIcon from "svg";
 import { useDispatch, useSelector } from "react-redux";
-import { showPageLogin, clickNavbar } from "redux/Login";
-import ShoppingCart from "component/Content/ShoppingCart";
-import { GetAllProdcts } from "api/apiProduct";
-import { AuthContext } from "Context/AuthProvider";
-import SearchProduct from "component/Content/SearchProduct";
-import { getSearchProduct } from "apiServices/productsServices";
-import { SET_PRODUCTS_SEARCH } from "redux/productSearch";
+import { NavLink } from "react-router-dom";
+
+import styles from "./Header.module.scss";
+import SvgIcon from "assets/svg";
+
+import { showPageLogin } from "dataLocal/redux/Login";
+import { AuthContext } from "dataLocal/Context/AuthProvider";
+import { SET_PRODUCTS_SEARCH } from "dataLocal/redux/productSearch";
+
+import { getSearchProduct } from "connectApi/apiServices/productsServices";
+
+import Shopping from "features/Shopping";
+import SearchProduct from "./component/SearchProduct";
 
 const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
@@ -235,7 +237,7 @@ const Header = (props) => {
                             >
                                 <img src={SvgIcon.CART_ICON} alt="Cart" />
                             </div>
-                            <ShoppingCart
+                            <Shopping
                                 showShoppingCart={showShoppingCart}
                                 handleClickAllCart={handleClickAllCart}
                             />

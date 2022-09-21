@@ -1,0 +1,81 @@
+@import "./../../../../assets/scss/base";
+
+.product_item {
+    display: flex;
+    padding: 20px 0px;
+    align-items: center;
+    color: $text-color;
+    position: relative;
+
+    &_wrap {
+        display: flex;
+        align-items: center;
+        width: 50%;
+    }
+    &_img {
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 90px;
+        object-fit: contain;
+        border-radius: 12px;
+    }
+
+    &_info {
+        flex: 1;
+        font-size: 1.3rem;
+    }
+    &_title {
+        font-weight: 700;
+        font-size: 1.8rem;
+        line-height: 2.6rem;
+        color: $text-color;
+        width: 100%;
+        padding: 24px 16px;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &-size {
+    }
+    &_price {
+        width: calc(100% / 6);
+        text-align: center;
+        font-size: 1.8rem;
+        font-weight: 700;
+    }
+    &_quantily {
+        display: flex;
+        justify-content: center;
+        font-size: 1.6rem;
+        align-items: center;
+        width: calc(100% / 6);
+
+        .btn {
+            border: none;
+            font-size: 1.7rem;
+            font-weight: 900;
+            width: 40px;
+            height: 40px;
+            background-color: #fff7ec;
+            border-radius: 50%;
+            cursor: pointer;
+            &:hover {
+                background-color: #ffdba9;
+            }
+        }
+        p {
+            font-size: 1.3rem;
+            padding: 12px;
+            width: 40px;
+            height: 40px;
+            text-align: center;
+        }
+    }
+    &_total {
+        font-size: 1.8rem;
+        font-weight: 700;
+        line-height: 4rem;
+        width: calc(100% / 6);
+        text-align: center;
+    }
+}
