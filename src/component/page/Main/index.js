@@ -205,7 +205,7 @@ const Main = () => {
             {/* catalog_wrap */}
             <div className={clsx(styles.catalog_wrap_container)}>
                 {/* Sản phẩm nổi bật */}
-                <div className="grid  wide">
+                <div className="grid wide">
                     <div className={clsx(styles.products_featured_container)}>
                         <div
                             className={clsx(

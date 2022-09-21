@@ -1,4 +1,4 @@
-@import "./../../../../assets/scss/base";
+@use "./../../../../assets/scss/base" as *;
 
 .product_reviews {
     padding: 60px 0 100px;

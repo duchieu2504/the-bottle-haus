@@ -1,4 +1,4 @@
-@import "./../../assets/scss/base";
+@use "./../../assets/scss/base" as *;
 .cart {
     position: absolute;
     top: 50px;

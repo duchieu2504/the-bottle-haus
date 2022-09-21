@@ -1,4 +1,4 @@
-@import "./../../../../assets/scss/base";
+@use "./../../../../assets/scss/base" as *;
 
 .product_item {
     display: flex;

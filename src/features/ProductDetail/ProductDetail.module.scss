@@ -1,4 +1,4 @@
-@import "./../../assets/scss/base";
+@use "./../../assets/scss/base" as *;
 @keyframes growth {
     0% {
         opacity: 0;

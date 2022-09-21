@@ -8,7 +8,6 @@ const TotalProvider = ({ children }) => {
     const dataCategory = useSelector((state) => state.products.items);
     const loading = useSelector((state) => state.products.loading);
     const [totalProduct, setTotalProduct] = useState(0);
-    const [totalProduct1, setTotalProduct1] = useState(0);
     const dataCategoryArray = [...dataCategory];
 
     const dataSession = JSON.parse(sessionStorage.getItem("productIds")) || [];

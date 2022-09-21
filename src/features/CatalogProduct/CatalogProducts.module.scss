@@ -1,4 +1,4 @@
-@import "./../../assets/scss/base";
+@use "./../../assets/scss/base" as *;
 
 .main_product {
     padding: 90px 0;
