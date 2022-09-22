@@ -25,13 +25,9 @@ function SelectField(props) {
     const [dataDistrict, setDataDistrict] = useState([]);
     const [dataWards, setDataWards] = useState([]);
 
-    const [city, setCity] = useState("");
-    const [district, setDistrict] = useState("");
-    const [wards, setWards] = useState("");
-
     const [codeCity, setCodeCity] = useState(0);
     const [codeDistrict, setCodeDistrict] = useState(0);
-    // const [ codeWards, setCodeWards ] = useState(0)
+    const [codeWards, setCodeWards] = useState(0);
 
     const [selectOptionCity, setSelectOptionCity] = useState(0);
     const [selectOptionDis, setSelectOptionDis] = useState(0);
@@ -113,7 +109,7 @@ function SelectField(props) {
     }, []);
 
     const handleChangleSelect = (e) => {
-        setWards(e.target.value);
+        setCodeWards(e.target.value);
 
         const nameCity = dataCity.find((i) => +i.code === +codeCity);
         const nameDis = dataDistrict.find((i) => +i.code === +codeDistrict);
@@ -139,10 +135,9 @@ function SelectField(props) {
             <div className={clsx(styles.form_select)}>
                 <select
                     id="city"
-                    value={city || selectOptionCity}
+                    value={codeCity || selectOptionCity}
                     className={clsx(styles.form_control)}
                     onChange={(e) => {
-                        setCity(e.target.value);
                         setCodeCity(e.target.value);
                         setLoadingDis(false);
                     }}
@@ -162,10 +157,9 @@ function SelectField(props) {
                 </select>
                 <select
                     id="district"
-                    value={district || selectOptionDis}
+                    value={codeDistrict || selectOptionDis}
                     className={clsx(styles.form_control)}
                     onChange={(e) => {
-                        setDistrict(e.target.value);
                         setCodeDistrict(e.target.value);
                         setLoadingWards(false);
                     }}
@@ -185,7 +179,7 @@ function SelectField(props) {
                 </select>
                 <select
                     id="wards"
-                    value={wards || selectOptionwards}
+                    value={codeWards || selectOptionwards}
                     onChange={handleChangleSelect}
                     className={clsx(styles.form_control)}
                 >
@@ -203,9 +197,7 @@ function SelectField(props) {
                     )}
                 </select>
             </div>
-            {loadingCity ? <div></div> : <Loading />}
-            {loadingDis ? <div></div> : <Loading />}
-            {loadingWards ? <div></div> : <Loading />}
+            {loadingCity || loadingDis || loadingWards ? <></> : <Loading />}
             {showErrors && (
                 <span className={clsx(styles.form_message)}>
                     {errors[name]}

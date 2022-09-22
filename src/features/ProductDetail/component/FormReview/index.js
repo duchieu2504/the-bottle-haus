@@ -3,9 +3,8 @@ import clsx from "clsx";
 import * as Yup from "yup";
 import { FastField, Formik } from "formik";
 
-import InputField from "./InputField";
-
 import styles from "./FormReview.module.scss";
+import InputField from "component/custom-filelds/InputField";
 
 const FormReview = (props) => {
     const { yourReview, handleSubmit } = props;

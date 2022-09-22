@@ -2,7 +2,7 @@ import React from "react";
 import clsx from "clsx";
 // import PropTypes from 'prop-types';
 
-import styles from "./User.module.scss";
+import styles from "./InputField.module.scss";
 
 InputField.propTypes = {};
 
@@ -17,10 +17,7 @@ function InputField(props) {
                 [styles.form_invalid]: showErrors,
             })}
         >
-            <label
-                htmlFor="billing_address_phone"
-                className={clsx(styles.form_label)}
-            >
+            <label htmlFor={name} className={clsx(styles.form_label)}>
                 {label}
             </label>
             <input

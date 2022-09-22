@@ -18,10 +18,13 @@ import { getAllOrder } from "connectApi/apiServices/orderServices";
 
 import { NoticeNoOrderProducts } from "component/NoticeOfPurchase/Notice";
 import Loading from "component/Loading";
+
 import FormReview from "../FormReview";
-import ItemReview, { ListStar } from "../ItemReveiw";
+import ListStar from "../ListStar";
+
 import Pagination from "features/ProductDetail/Pagination";
-import { StarSvg } from "features/ProductDetail/StarSvg";
+import { StarSvg } from "features/ProductDetail/component/StarSvg";
+import ItemReview from "../ItemReveiw";
 
 const ProductReview = ({ productId, parameterReviews }) => {
     const dispatch = useDispatch();

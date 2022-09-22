@@ -1,31 +1,9 @@
 import React from "react";
 import clsx from "clsx";
-
-import { StarSvg } from "features/ProductDetail/StarSvg";
+import PropTypes from "prop-types";
 
 import styles from "./ItemReview.module.scss";
-
-export const ListStar = ({ star }) => {
-    const numberStar = [5, 4, 3, 2, 1];
-    return (
-        <div className={clsx(styles.customers_reviews_item_rating)}>
-            {numberStar.map((number) => {
-                return (
-                    <div
-                        className={clsx(
-                            styles.customers_reviews_item_rating_star,
-                            {
-                                [styles.showStar]: +star >= number,
-                            }
-                        )}
-                    >
-                        <StarSvg />
-                    </div>
-                );
-            })}
-        </div>
-    );
-};
+import ListStar from "../ListStar";
 
 const ItemReview = ({ review }) => {
     const { comment, displayName, star, title, createdAt, updatedAt } = review;
@@ -36,7 +14,9 @@ const ItemReview = ({ review }) => {
             data-aos="fade-left"
             data-aos-delay="50"
         >
-            <ListStar star={star} />
+            <div className={clsx(styles.customers_reviews_item_star)}>
+                <ListStar star={star} />
+            </div>
             <span className={clsx(styles.customers_reviews_item_verified)}>
                 Verified
             </span>
@@ -51,5 +31,10 @@ const ItemReview = ({ review }) => {
         </div>
     );
 };
+
+ListStar.propTypes = {
+    review: PropTypes.object,
+};
+ListStar.defaultProps = { review: {} };
 
 export default ItemReview;

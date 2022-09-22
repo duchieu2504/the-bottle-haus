@@ -7,8 +7,8 @@ import { useNavigate } from "react-router";
 
 import styles from "./User.module.scss";
 
-import InputField from "./InputField";
 import SelectField from "./SelectField";
+import InputField from "component/custom-filelds/InputField";
 
 UserFormik.propTypes = {
     adderss: PropTypes.object,

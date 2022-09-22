@@ -1,34 +1,8 @@
 .customers_reviews_item {
     padding: 24px 0;
     border-top: 1px solid #ccc;
-    &_rating {
-        position: relative;
-        display: flex;
-        flex-direction: row-reverse;
-        justify-content: start;
-        margin-bottom: 12px;
-        &_star {
-            padding: 0 6px 0 0;
-
-            svg {
-                width: 20px;
-                height: 20px;
-                g {
-                    path {
-                        transition: all 0.5s ease;
-                        fill: rgb(237, 237, 237);
-                    }
-                }
-            }
-            &.showStar {
-                g {
-                    path {
-                        transition: all 0.5s ease;
-                        fill: #fe7c22;
-                    }
-                }
-            }
-        }
+    &_star {
+        padding-bottom: 20px;
     }
     &_verified {
         background: #000000;

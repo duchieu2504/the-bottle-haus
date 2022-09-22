@@ -9,9 +9,9 @@ import styleImageDetail from "./styleImage";
 
 import { Notice } from "component/NoticeOfPurchase/Notice";
 import Loading from "component/Loading";
-import { ListStar } from "./component/ItemReveiw";
 import ProductReview from "./component/ReviewProduct";
 import ProductsRandom from "component/ProductsRandom";
+import ListStar from "./component/ListStar";
 
 import { setItems, setLoading } from "dataLocal/redux/orderUnpaid";
 import { AuthContext } from "dataLocal/Context/AuthProvider";
