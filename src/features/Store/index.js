@@ -30,6 +30,8 @@ const Store = (props) => {
     const [totalSessionLoading, setTotalSessionLoading] = useState(false);
 
     const orderUnpaid = useSelector((state) => state.orderUnpaid.items);
+    const loadingOrder = useSelector((state) => state.orderUnpaid.loading);
+
     const loading = useSelector((state) => state.products.loading);
 
     // lưu sản phẩm trong  redux nếu chưa đăng  nhập
@@ -104,9 +106,9 @@ const Store = (props) => {
 
     const StoreProduct = () => {
         if (uid) {
-            if (orderUnpaid && orderUnpaid.productIds.length > 0) {
+            if (orderUnpaid) {
                 return (
-                    <div className={clsx(styles.product)}>
+                    <>
                         {orderUnpaid.productIds?.map((item, k) => {
                             const timeDelay = (k + 4) * 50;
                             return (
@@ -127,25 +129,23 @@ const Store = (props) => {
                                 </div>
                             );
                         })}
-                    </div>
+                    </>
                 );
             } else {
                 return (
-                    <div className={clsx(styles.product)}>
-                        <div
-                            className={clsx(styles.no_product)}
-                            data-aos="fade-up"
-                            data-aos-easing="ease-out"
-                        >
-                            <img
-                                src="https://img.icons8.com/emoji/36/000000/warning-emoji.png"
-                                alt="Warning"
-                            />
-                            <p>
-                                You don't have any products, please choose to
-                                buy one
-                            </p>
-                        </div>
+                    <div
+                        className={clsx(styles.no_product)}
+                        data-aos="fade-up"
+                        data-aos-easing="ease-out"
+                    >
+                        <img
+                            src="https://img.icons8.com/emoji/36/000000/warning-emoji.png"
+                            alt="Warning"
+                        />
+                        <p>
+                            You don't have any products, please choose to buy
+                            one
+                        </p>
                     </div>
                 );
             }
@@ -218,9 +218,9 @@ const Store = (props) => {
                             <p>Quantity</p>
                             <p>Total</p>
                         </div>
-                        <div className={clsx(styles.product)}>
+                        <div className={clsx(styles.products_list)}>
                             {loading ? <Loading /> : <StoreProduct />}
-                            {loading && <Loading />}
+                            {loadingOrder && <Loading />}
                         </div>
                     </div>
                     <div

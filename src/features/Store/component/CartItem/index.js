@@ -224,15 +224,16 @@ function CartItem(props) {
                     {"+"}
                 </button>
             </div>
+
             <p className={clsx(styles.product_item_total)}>
                 ${convertPrice(totalPrice)}
             </p>
             <div
-                className={clsx(styles.product_delete)}
+                className={clsx(styles.product_item_delete)}
                 onClick={handleDeleteProduct}
             >
                 <img
-                    className={clsx(styles.product_delete_img)}
+                    className={clsx(styles.product_item_delete_img)}
                     src={SvgIcon.DELETE_ICON}
                     alt="DELETE"
                 />

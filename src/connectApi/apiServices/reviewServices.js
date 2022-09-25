@@ -7,7 +7,6 @@ export const getAllReviewProduct = async (productId, _page, _limit) => {
             _page,
             _limit
         );
-        console.log("Success get review Product", res.data);
         return res.data;
     } catch (err) {
         console.log("Error", err.message);

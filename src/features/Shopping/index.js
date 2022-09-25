@@ -71,7 +71,7 @@ function Shopping({ showShoppingCart, handleClickAllCart }) {
             // await setLoading(false);
         };
         orderUnpaid();
-    }, [uid, showShoppingCart]);
+    }, [uid]);
 
     const Item = () => {
         if (uid) {

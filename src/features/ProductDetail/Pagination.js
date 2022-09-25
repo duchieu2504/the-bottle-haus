@@ -82,24 +82,26 @@ const Pagination = ({
 
         if (_page + 1 >= 4 && _page <= pageTotal - 3) {
             setTranslate(getWidth * (_page - 2));
-
             return;
         }
     };
 
     const handleClickNumPagi = (e) => {
         setFilter({ ...filter, _page: +e.target.innerText });
-
-        if (+e.target.innerText >= pageTotal - 2) {
-            setTranslate(getWidth * (_page - 2));
-
-            return;
-        }
-        if (+e.target.innerText <= 3) {
+        if (pageTotal <= 4) {
             setTranslate(0);
             return;
+        } else {
+            if (+e.target.innerText <= 3) {
+                setTranslate(0);
+                return;
+            }
+            if (+e.target.innerText >= pageTotal - 2) {
+                setTranslate(getWidth * (pageTotal - 5));
+                return;
+            }
+            setTranslate(getWidth * (+e.target.innerText - 3));
         }
-        setTranslate(getWidth * (+e.target.innerText - 3));
     };
 
     // DOule Click

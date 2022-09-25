@@ -49,6 +49,23 @@
                 height: 4px;
                 z-index: 2;
             }
+            &_list {
+                .no_product {
+                    color: #000;
+                    align-items: center;
+                    display: flex;
+                    justify-content: center;
+                    padding: 50px 0;
+                    p {
+                        font-size: 1.6rem;
+                        line-height: 2rem;
+                        padding-left: 12px;
+                    }
+                    img {
+                        width: 24px;
+                    }
+                }
+            }
             &_navbar {
                 display: flex;
                 padding-bottom: 16px;
@@ -77,57 +94,6 @@
                         width: calc(100% / 6);
                     }
                 }
-            }
-        }
-    }
-    .product {
-        &_delete {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            position: absolute;
-            top: 50%;
-            right: 0%;
-            transform: translate(100%, -50%);
-
-            &:hover .product_delete_title {
-                visibility: visible;
-                opacity: 1;
-            }
-            &_img {
-                width: 20px;
-                height: 20px;
-            }
-            &_title {
-                position: absolute;
-                top: -32px;
-                left: 20px;
-                visibility: hidden;
-                opacity: 0;
-                transition: all 0.2s ease-in;
-                p {
-                    color: #000;
-                    font-size: 1.2rem;
-                    font-weight: 550;
-                    position: absolute;
-                    top: 15px;
-                    left: 14px;
-                }
-            }
-        }
-        .no_product {
-            color: #000;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-            padding: 50px 0;
-            p {
-                font-size: 1.6rem;
-                line-height: 2rem;
-                padding-left: 12px;
-            }
-            img {
-                width: 24px;
             }
         }
     }
