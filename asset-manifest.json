@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/the-bottle-haus/static/css/main.284c68b3.chunk.css",
-    "main.js": "/the-bottle-haus/static/js/main.2fcd4548.chunk.js",
-    "main.js.map": "/the-bottle-haus/static/js/main.2fcd4548.chunk.js.map",
+    "main.css": "/the-bottle-haus/static/css/main.e7caa85f.chunk.css",
+    "main.js": "/the-bottle-haus/static/js/main.a9929891.chunk.js",
+    "main.js.map": "/the-bottle-haus/static/js/main.a9929891.chunk.js.map",
     "runtime-main.js": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js",
     "runtime-main.js.map": "/the-bottle-haus/static/js/runtime-main.f79f2d81.js.map",
     "static/css/2.ae1ec601.chunk.css": "/the-bottle-haus/static/css/2.ae1ec601.chunk.css",
-    "static/js/2.3aa2c739.chunk.js": "/the-bottle-haus/static/js/2.3aa2c739.chunk.js",
-    "static/js/2.3aa2c739.chunk.js.map": "/the-bottle-haus/static/js/2.3aa2c739.chunk.js.map",
+    "static/js/2.d09766d7.chunk.js": "/the-bottle-haus/static/js/2.d09766d7.chunk.js",
+    "static/js/2.d09766d7.chunk.js.map": "/the-bottle-haus/static/js/2.d09766d7.chunk.js.map",
     "index.html": "/the-bottle-haus/index.html",
     "static/css/2.ae1ec601.chunk.css.map": "/the-bottle-haus/static/css/2.ae1ec601.chunk.css.map",
-    "static/css/main.284c68b3.chunk.css.map": "/the-bottle-haus/static/css/main.284c68b3.chunk.css.map",
-    "static/js/2.3aa2c739.chunk.js.LICENSE.txt": "/the-bottle-haus/static/js/2.3aa2c739.chunk.js.LICENSE.txt",
+    "static/css/main.e7caa85f.chunk.css.map": "/the-bottle-haus/static/css/main.e7caa85f.chunk.css.map",
+    "static/js/2.d09766d7.chunk.js.LICENSE.txt": "/the-bottle-haus/static/js/2.d09766d7.chunk.js.LICENSE.txt",
     "static/media/cart.2b340a39.svg": "/the-bottle-haus/static/media/cart.2b340a39.svg",
     "static/media/delete.4801f250.svg": "/the-bottle-haus/static/media/delete.4801f250.svg",
     "static/media/done.5a58c8da.svg": "/the-bottle-haus/static/media/done.5a58c8da.svg",
@@ -32,8 +32,8 @@
   "entrypoints": [
     "static/js/runtime-main.f79f2d81.js",
     "static/css/2.ae1ec601.chunk.css",
-    "static/js/2.3aa2c739.chunk.js",
-    "static/css/main.284c68b3.chunk.css",
-    "static/js/main.2fcd4548.chunk.js"
+    "static/js/2.d09766d7.chunk.js",
+    "static/css/main.e7caa85f.chunk.css",
+    "static/js/main.a9929891.chunk.js"
   ]
 }
