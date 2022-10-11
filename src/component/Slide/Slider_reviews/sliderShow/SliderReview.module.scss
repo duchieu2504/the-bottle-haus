@@ -1,19 +1,28 @@
-@import "../../../../assets/scss/base.scss";
+@use "../../../../assets/scss/base.scss" as *;
+@use "../../../../assets/scss/breakpoints" as *;
 .slider_reviews_list {
     height: 100%;
     display: flex;
 }
 .slider_reviews_item {
-    width: calc(1200px / 3);
+    width: 100vmin;
     margin: 0 20px;
-    padding: 40px 30px;
+
+    padding: 30px 20px;
+
     border-radius: 30px;
     border: 1px solid #dbdbdb;
     background: #f6f6f6;
     //   background-image: url('${content}');
+    @include md {
+        padding: 40px 30px;
+    }
+    @include lg {
+        width: calc(1200px / 3);
+    }
     &_img {
-        width: 100px;
-        height: 100px;
+        // width: 100px;
+        // height: 100px;
         margin: auto;
         img {
             width: 100%;
@@ -24,9 +33,15 @@
     &_no_img {
         background-color: rgba(255, 255, 255, 0.13);
         animation: toOpacity 1.5s ease-in-out 0.5s infinite alternate none running;
-        width: 100px;
-        height: 100px;
+        width: 60px;
+        height: 60px;
         border-radius: 16px;
+
+        margin: auto;
+        @include md {
+            width: 100px;
+            height: 100px;
+        }
     }
     &_text {
         min-height: 230px;

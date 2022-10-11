@@ -1,3 +1,4 @@
+@use "./../../../assets/scss/breakpoints" as *;
 @keyframes animationImage {
   0% {
   }
@@ -22,15 +23,30 @@
 .slider_3d {
   user-select: none;
   position: relative;
-  margin: 24px 0 48px;
-  min-height: 400px;
-  transform: translateX(-40px);
+
+  margin: 0px 0 36px;
+
+  min-height: 50vw;
+  transform: translateX(-10px);
+
+  @include md {
+    min-height: 400px;
+    margin: 0px 0 60px;
+    // transform: translateX(-40px);
+  }
+  @include lg {
+    min-height: 400px;
+    margin: 24px 0 48px;
+    transform: translateX(-40px);
+  }
   &_overlay {
   }
 }
 .slider_3d_list {
   width: 100%;
-  padding: 24px 0;
+  @include md {
+    padding: 24px 0;
+  }
   &.active {
     transform: translate(35.5px, 10px);
     transition: transform 0.4s ease-in-out;
@@ -46,14 +62,25 @@
   left: 0;
   right: 0;
   margin: auto;
-  width: 60%;
   border-radius: 4px;
   cursor: pointer;
   transition: transform 0.4s ease;
   transform: scale(1) translateY(20px);
-  height: 20vw;
   perspective: 1000px;
   transform-style: preserve-3d;
+
+  height: 50vw;
+  width: 70%;
+
+  @include md {
+    height: 40vw;
+    width: 50%;
+  }
+
+  @include lg {
+    width: 60%;
+    height: 20vw;
+  }
   &.active {
     animation: animationImage 0.4s ease-in-out forwards;
   }
@@ -91,10 +118,16 @@
 .slider_arrow {
   position: absolute;
   z-index: 4;
-  top: 47%;
+  top: 53%;
+  left: 0;
   display: flex;
-  width: 93%;
+  width: 100%;
   justify-content: flex-end;
+
+  @include md {
+    top: 47%;
+    width: 93%;
+  }
   &_right {
     opacity: 0.7;
     &:hover {
@@ -106,6 +139,13 @@
     cursor: pointer;
     &:last-child {
       right: 0;
+    }
+
+    @include md {
+      width: 48px;
+    }
+    @include lg {
+      width: 24px;
     }
   }
 }

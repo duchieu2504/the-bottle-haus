@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect, useMemo } from "react";
 import clsx from "clsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import styles from "./CatalogProducts.module.scss";
@@ -15,9 +15,14 @@ import Pagination from "./component/Pagination/Pagination";
 import { removeVN, getParent } from "util/Func";
 
 import SvgIcon from "assets/svg";
+import { showMenuCatalog } from "dataLocal/redux/Login";
 
 function CatalogProducts() {
     const { url } = useParams();
+
+    const showCatalogMenu = useSelector(
+        (state) => state.activeLogin.showCatalog
+    );
     const dataCategory = useSelector((state) => state.products.items);
     const loading = useSelector((state) => state.products.loading);
     const dataProdcuts = [...dataCategory];
@@ -97,10 +102,14 @@ function CatalogProducts() {
     const filterItemRef = useRef();
     const sortItemRef = useRef();
 
+    const dispatch = useDispatch();
     // Thay đổi data khi chuyển sang mặt hàng khác
     useEffect(() => {
-        setDataClassify(dataUrl);
+        // ẩn page menu catalog khi chuyển click vào navbar trong catalog menu
+        const action = !showCatalogMenu;
+        dispatch(showMenuCatalog(action));
 
+        setDataClassify(dataUrl);
         // tạo giá trị khởi tạo cho index mỗi khi thay đổi url
         setIndex(0);
         setIndexSort(0);
@@ -264,7 +273,7 @@ function CatalogProducts() {
         <div className={clsx(styles.main_product)}>
             <div className="grid wide">
                 <div className="row">
-                    <div className="col l-2-4">
+                    <div className="col c-12 l-2-4">
                         <div className={clsx(styles.filter_panel)}>
                             <div
                                 ref={filterRef}
@@ -318,7 +327,7 @@ function CatalogProducts() {
                             </div>
                         </div>
                     </div>
-                    <div className="col l-9-4">
+                    <div className="col c-12 l-9-4">
                         <div className={clsx(styles.header)}>
                             <div
                                 data-aos="fade-down-right"
@@ -415,7 +424,7 @@ function CatalogProducts() {
                                         dataProductPage.map((item, index) => {
                                             return (
                                                 <div
-                                                    className="col l-3"
+                                                    className="col c-6 l-3"
                                                     key={item.id}
                                                 >
                                                     <ProductCard

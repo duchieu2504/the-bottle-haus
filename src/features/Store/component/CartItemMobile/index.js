@@ -1,0 +1,255 @@
+import React, { useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import clsx from "clsx";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+
+import SvgIcon from "assets/svg";
+
+import styles from "./CartItemMobile.module.scss";
+import "aos/dist/aos.css";
+
+import { convertPrice } from "util/Func";
+import { AuthContext } from "dataLocal/Context/AuthProvider";
+import { setItems, setLoading } from "dataLocal/redux/orderUnpaid";
+
+import {
+    getOrderUnpaid,
+    patchOrderUnpaidDeleteProductId,
+    patchOrderUnpaidProductIds,
+} from "connectApi/apiServices/orderServices";
+
+CartItemMobile.propTypes = {
+    item: PropTypes.object,
+    timeDelay: PropTypes.number,
+};
+CartItemMobile.defaultProps = {
+    item: {},
+    timeDelay: "",
+};
+
+function CartItemMobile(props) {
+    const { item, totalSessionLoading, setTotalSessionLoading } = props;
+
+    const {
+        user: { uid },
+    } = useContext(AuthContext);
+
+    const dispatch = useDispatch();
+
+    const { quantily, productId } = item;
+
+    // const [loading, setLoading] = useState(false);
+    // lấy thông tin sản phẩm
+    const dataCategory = useSelector((state) => state.products.items);
+
+    const dataProdcuts = [...dataCategory];
+
+    const product = dataProdcuts.find((item) => item._id === productId) || 0;
+
+    const [quanti, setQuanti] = useState(Number(quantily));
+    const totalPrice = (product.price * quanti).toString();
+
+    // Thay đổi số lượng khi click vào nút giảm
+    const handlePrevQuantity = async () => {
+        setQuanti(quanti - 1);
+
+        if (uid) {
+            const data = {
+                productId: productId,
+                quantily: Number(quanti) - 1,
+            };
+            await patchOrderUnpaidProductIds(uid, data);
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrde = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrde);
+            return;
+
+            //  TH có tài khoản
+        } else {
+            // TH chua co  tài khoản
+            const dataSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const dataSessionCopy = [...dataSession];
+            const resultDataSession = dataSessionCopy.map((item) => {
+                if (item.productId === productId) {
+                    return { productId, quantily: `${Number(quanti) - 1}` };
+                } else {
+                    return { ...item };
+                }
+            });
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(resultDataSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) - Number(product.price)}`
+                )
+            );
+            return;
+        }
+    };
+
+    // Thay đổi số lượng khi click vào nút tăng
+    const handleNextQuantity = async () => {
+        setQuanti(quanti + 1);
+
+        if (uid) {
+            const data = {
+                productId: productId,
+                quantily: Number(quanti) + 1,
+            };
+
+            await patchOrderUnpaidProductIds(uid, data);
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrder = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrder);
+            return;
+        } else {
+            const productIdsSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const dataSessionCopy = [...productIdsSession];
+            const resultDataSession = dataSessionCopy.map((item) => {
+                if (item.productId === productId) {
+                    return { productId, quantily: `${Number(quanti) + 1}` };
+                } else {
+                    return { ...item };
+                }
+            });
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(resultDataSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) + Number(product.price)}`
+                )
+            );
+
+            return;
+        }
+    };
+
+    const handleDeleteProduct = async () => {
+        if (uid) {
+            //th: có tài khoản
+            await patchOrderUnpaidDeleteProductId(uid, {
+                productId: productId,
+            });
+
+            await dispatch(setLoading());
+            const resultOrderUnpaid = await getOrderUnpaid(uid);
+            const actionGetOrder = await setItems(resultOrderUnpaid);
+            await dispatch(actionGetOrder);
+        } else {
+            // không có tài khoản
+            const productIdsSession = JSON.parse(
+                sessionStorage.getItem("productIds")
+            );
+            const totalSession = JSON.parse(sessionStorage.getItem("total"));
+
+            const item = productIdsSession.find(
+                (i) => i.productId === productId
+            );
+            const index = productIdsSession.indexOf(item);
+            productIdsSession.splice(index, 1);
+
+            setTotalSessionLoading(!totalSessionLoading);
+
+            sessionStorage.setItem(
+                "productIds",
+                JSON.stringify(productIdsSession)
+            );
+
+            sessionStorage.setItem(
+                "total",
+                JSON.stringify(
+                    `${Number(totalSession) - Number(product.price) * quanti}`
+                )
+            );
+        }
+    };
+
+    return (
+        <div className={clsx(styles.product_item)}>
+            <img
+                src={product.image}
+                alt="img"
+                className={clsx(styles.product_item_img)}
+            />
+            <div className={clsx(styles.product_item_wrap)}>
+                <div className={clsx(styles.product_item_title)}>
+                    <NavLink
+                        to={`/the-bottle-haus/${product.category}/${productId}`}
+                        className={clsx(styles.product_item_title_link)}
+                    >
+                        {product.title} <br />
+                    </NavLink>
+                    <div className={clsx(styles.product_item_price)}>
+                        - ${convertPrice(product.price)}
+                    </div>
+                </div>
+                <div className={clsx(styles.product_item_quantily)}>
+                    <button
+                        onClick={handlePrevQuantity}
+                        className={clsx(styles.btn)}
+                        disabled={quanti <= 1}
+                    >
+                        {"-"}
+                    </button>
+                    <p>{quanti}</p>
+                    <button
+                        className={clsx(styles.btn)}
+                        onClick={handleNextQuantity}
+                    >
+                        {"+"}
+                    </button>
+                </div>
+
+                <p className={clsx(styles.product_item_total)}>
+                    Total: ${convertPrice(totalPrice)}
+                </p>
+            </div>
+            <div
+                className={clsx(styles.product_item_delete)}
+                onClick={handleDeleteProduct}
+            >
+                <img
+                    className={clsx(styles.product_item_delete_img)}
+                    src={SvgIcon.DELETE_ICON}
+                    alt="DELETE"
+                />
+                {/* <div className={clsx(styles.product_delete_title)}>
+                    <img
+                        src="https://img.icons8.com/ios/50/000000/topic.png"
+                        alt="Comment delete"
+                    />
+                    <p>Delete</p>
+                </div> */}
+            </div>
+        </div>
+    );
+}
+
+export default CartItemMobile;

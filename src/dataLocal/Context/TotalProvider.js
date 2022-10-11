@@ -14,9 +14,7 @@ const TotalProvider = ({ children }) => {
 
     useEffect(() => {
         const dataSession1 = () => {
-            window.addEventListener("storage", () => {
-                console.log(dataSession);
-            });
+            window.addEventListener("storage", () => {});
         };
         return () => {
             dataSession1();

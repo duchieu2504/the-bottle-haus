@@ -23,12 +23,12 @@ const SliderImg = (props) => {
     const resizeRef = useRef();
     const sliderDowRef = useRef();
     useEffect(() => {
-        const height = document.querySelector(".slider_dow").clientHeight;
-        setGetHeight(height);
-    }, []);
-    useEffect(() => {
         setState({ ...state, translate: getHeight });
     }, [getHeight]);
+    useEffect(() => {
+        const height = document.querySelector(".slider_dow_item").clientHeight;
+        setGetHeight(height);
+    }, []);
 
     useEffect(() => {
         autoPlayRef.current = nextSlide;
@@ -144,15 +144,16 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <div className="slider_dow" ref={sliderDowRef}>
-            <SliderDowContent
-                activeIndex={activeIndex}
-                slides={_slides}
-                translate={translate}
-                transition={transition}
-                height={getHeight * slidesCopy.length}
-            />
-
+        <>
+            <div className="slider_dow" ref={sliderDowRef}>
+                <SliderDowContent
+                    activeIndex={activeIndex}
+                    slides={_slides}
+                    translate={translate}
+                    transition={transition}
+                    height={getHeight * slidesCopy.length}
+                />
+            </div>
             <div className="button_arrow">
                 <div className="button">
                     <div
@@ -189,7 +190,7 @@ const SliderImg = (props) => {
                     <p>{_slides[activeIndex + 2].name}</p>
                 </div>
             </div>
-        </div>
+        </>
     );
 };
 const images = [

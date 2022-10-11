@@ -1,4 +1,5 @@
 @use "../../../assets/scss/base" as *;
+@use "../../../assets/scss/breakpoints" as *;
 
 .footer {
     background-color: #105b59;
@@ -14,7 +15,7 @@
     }
 
     h2 {
-        font-family: Gilroy;
+        font-family: $font-gilroy;
         font-style: normal;
         font-weight: 600;
         font-size: 20px;
@@ -22,6 +23,11 @@
         color: #fff;
         margin: 0;
         padding: 12px 0;
+
+        text-align: center;
+        @include lg {
+            text-align: start;
+        }
     }
 
     p {
@@ -32,6 +38,11 @@
         color: #ededed;
         line-height: 17px;
         margin: 14px 0;
+
+        text-align: center;
+        @include lg {
+            text-align: start;
+        }
     }
 
     h4 {
@@ -76,6 +87,11 @@
     }
     .text_right {
         text-align: right;
+        text-align: center;
+        margin-top: 20px;
+        @include lg {
+            text-align: start;
+        }
     }
 }
 .form_email {

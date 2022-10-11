@@ -1,4 +1,5 @@
 @use "./../../assets/scss/base" as *;
+@use "./../../assets/scss/breakpoints" as *;
 @keyframes growth {
     0% {
         opacity: 0;
@@ -28,26 +29,22 @@
 }
 .product_briefing {
     position: relative;
-    padding-left: 20px;
     z-index: 0;
-    // border-top: 1px solid #e5e5e5;
-    // padding: 34px;
-    // border-radius: 34px;
-    // box-shadow: 3px 9px 34px 0 rgba(0, 0, 0, 0.2);
-    &::after {
-        content: "";
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        left: calc(50% + 20px);
-        background: #f6f6f6;
-        width: 200%;
-        height: 100%;
+
+    @include lg {
+        padding-left: 20px;
     }
+
     .product_img {
         animation: growth linear 0.3s;
         position: relative;
         min-height: 320px;
+
+        width: 70%;
+        margin: auto;
+        @include lg {
+            width: 100%;
+        }
         .img {
             width: 100%;
             height: 100%;
@@ -103,11 +100,27 @@
             }
         }
     }
+    &_content {
+        position: relative;
+        &::after {
+            content: "";
+            position: absolute;
+            z-index: -1;
+            top: 0;
+            left: -50%;
+            background: #ebebeb;
+            width: 200%;
+            height: 100%;
+            @include md {
+                background: #f6f6f6;
+            }
+        }
+    }
 
     .product_content {
-        padding: 20px 30px;
-        // margin: auto;
-        // width: 75%;
+        @include md {
+            padding: 20px 30px;
+        }
     }
     .product_header {
         // opacity: 1;
@@ -282,10 +295,19 @@
 
     .product_footer {
         // width: 400px;
+        margin: 20px 0;
+        @include lg {
+            margin: 0;
+        }
         .product_btn {
             display: flex;
             justify-content: space-around;
             text-align: center;
+            flex-wrap: wrap;
+
+            @include lg {
+                flex-wrap: initial;
+            }
 
             .btn {
                 cursor: pointer;
@@ -307,24 +329,40 @@
                 &_show_all_link {
                     display: flex;
                     align-items: center;
+                    padding: 0 4px;
                     img {
                         height: 32px;
                     }
                     p {
                         font-size: 1.4rem;
-                        padding: 14px 20px 14px 6px;
+
+                        @include md {
+                            padding: 14px 20px 14px 6px;
+                        }
                     }
                 }
                 &_add_gift {
                     font-size: 1.6rem;
-                    line-height: 3rem;
-                    padding: 6px 24px;
+                    padding: 6px 12px;
+                    line-height: 4rem;
+
                     border: 1px solid #ababab;
                     border-radius: 16px;
+                    @include md {
+                        line-height: 3rem;
+                        padding: 6px 24px;
+                    }
                 }
             }
         }
         .btn_show_all {
+            margin: 0px 0 12px;
+            height: 5rem;
+            padding: 0px 36px;
+            @include md {
+                height: 4.6rem;
+                margin: 0 auto;
+            }
             @include show_all_beffor(180px);
         }
     }

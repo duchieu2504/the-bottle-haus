@@ -51,7 +51,17 @@ const SliderImg = (props) => {
 
     useEffect(() => {
         const width = document.querySelector(".slider_reviews").clientWidth;
-        const translateWidth = width / 3;
+        let translateWidth;
+        if (window.innerWidth < 768) {
+            translateWidth = width;
+        } else if (768 <= window.innerWidth < 1024) {
+            translateWidth = width;
+        } else {
+            console.log("1");
+        }
+        if (window.innerWidth > 1024) {
+            translateWidth = width / 3;
+        }
         setGetWidth(translateWidth);
     }, []);
 

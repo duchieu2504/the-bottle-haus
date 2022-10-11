@@ -16,6 +16,7 @@ import Loading from "component/Loading";
 import CartItem from "./component/CartItem";
 
 import { patchOrderUnpaid } from "connectApi/apiServices/orderServices";
+import CartItemMobile from "./component/CartItemMobile";
 
 // Store.propTypes = {};
 
@@ -28,6 +29,8 @@ const Store = (props) => {
     const [lengthUnipad, setLengthUnipad] = useState(0);
     const [totalSession, setTotalSession] = useState(0);
     const [totalSessionLoading, setTotalSessionLoading] = useState(false);
+
+    const [cartItemMobile, setCartItemMobile] = useState(false);
 
     const orderUnpaid = useSelector((state) => state.orderUnpaid.items);
     const loadingOrder = useSelector((state) => state.orderUnpaid.loading);
@@ -50,6 +53,16 @@ const Store = (props) => {
         // const action = removeProduct(id);
         // dispatch(action);
     };
+
+    // lựa chọn hình thức hiện thị item cart
+    useEffect(() => {
+        console.log(window.innerWidth < 576);
+        if (window.innerWidth < 576) {
+            setCartItemMobile(true);
+            return;
+        }
+        setCartItemMobile(false);
+    }, []);
 
     useEffect(() => {
         const totalSession = JSON.parse(sessionStorage.getItem("total"));
@@ -103,6 +116,7 @@ const Store = (props) => {
             }
         }
     };
+    console.log(cartItemMobile);
 
     const StoreProduct = () => {
         if (uid) {
@@ -178,15 +192,27 @@ const Store = (props) => {
                                     data-aos-easing="ease-out"
                                     data-aos-mirror="true"
                                 >
-                                    <CartItem
-                                        item={item}
-                                        totalSessionLoading={
-                                            totalSessionLoading
-                                        }
-                                        setTotalSessionLoading={
-                                            setTotalSessionLoading
-                                        }
-                                    />
+                                    {cartItemMobile ? (
+                                        <CartItemMobile
+                                            item={item}
+                                            totalSessionLoading={
+                                                totalSessionLoading
+                                            }
+                                            setTotalSessionLoading={
+                                                setTotalSessionLoading
+                                            }
+                                        />
+                                    ) : (
+                                        <CartItem
+                                            item={item}
+                                            totalSessionLoading={
+                                                totalSessionLoading
+                                            }
+                                            setTotalSessionLoading={
+                                                setTotalSessionLoading
+                                            }
+                                        />
+                                    )}
                                 </div>
                             );
                         })
@@ -208,16 +234,21 @@ const Store = (props) => {
                 <div className={clsx(styles.header_line)}></div>
                 <div className={clsx(styles.container)}>
                     <div className={clsx(styles.products)}>
-                        <div
-                            className={clsx(styles.products_navbar)}
-                            data-aos="fade-up"
-                            data-aos-easing="ease"
-                        >
-                            <p>Product</p>
-                            <p>Price</p>
-                            <p>Quantity</p>
-                            <p>Total</p>
-                        </div>
+                        {cartItemMobile ? (
+                            <></>
+                        ) : (
+                            <div
+                                className={clsx(styles.products_navbar)}
+                                data-aos="fade-up"
+                                data-aos-easing="ease"
+                            >
+                                <p>Product</p>
+                                <p>Price</p>
+                                <p>Quantity</p>
+                                <p>Total</p>
+                            </div>
+                        )}
+
                         <div className={clsx(styles.products_list)}>
                             {loading ? <Loading /> : <StoreProduct />}
                             {loadingOrder && <Loading />}

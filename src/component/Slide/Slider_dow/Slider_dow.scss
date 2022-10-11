@@ -1,18 +1,27 @@
+@use "./../../../assets/scss/breakpoints" as *;
 .slider_dow {
     position: relative;
-    height: 75vh;
+    height: 60vh;
     overflow: hidden;
-
+    @include md {
+        height: 60vh;
+    }
+    @include lg {
+        height: 75vh;
+    }
     &_list {
         width: 100%;
         display: flex;
         flex-direction: column;
     }
     &_item {
-        height: 75vh;
+        height: 60vh;
         width: 100%;
         display: flex;
         //   background-image: url('${content}');
+        @include md {
+            height: 75vh;
+        }
         &_text {
             flex: 1;
             padding: 30px 0 50px;
@@ -42,10 +51,14 @@
             font-family: "Gilroy", sans-serif;
             font-style: normal;
             font-weight: 700;
-            font-size: 5.4rem;
-            line-height: 4rem;
+            font-size: 3rem;
+            line-height: 3rem;
             color: #1a1817;
             display: block;
+            @include md {
+                font-size: 5.4rem;
+                line-height: 4rem;
+            }
         }
 
         p {
@@ -101,6 +114,14 @@
                 left: 0;
                 transform: translate(0, -50%);
                 z-index: 2;
+                @include md {
+                    transform: translate(0, -64%);
+                    height: 50%;
+                }
+                @include lg {
+                    transform: translate(0, -50%);
+                    height: 64%;
+                }
             }
         }
     }
@@ -141,57 +162,70 @@
             }
         }
     }
-    .button_arrow {
+}
+.button_arrow {
+    $widthButton: 51px;
+    position: absolute;
+    bottom: 0%;
+    right: 0%;
+    transform: translate(0%, 100%);
+    z-index: 1;
+    display: flex;
+
+    @include md {
         position: absolute;
         bottom: 0;
         right: 25%;
         transform: translate(50%, 0);
         display: flex;
-        &_text {
-            background: #fcd0a1;
-            padding: 30px 12px;
+    }
+    &_text {
+        background: #fcd0a1;
+        padding: 30px 12px;
+        border-top-right-radius: 10px;
+        min-width: calc(100vw - $widthButton);
+        @include md {
             min-width: 250px;
-            border-top-right-radius: 10px;
         }
-        h2 {
-            font-family: Gilroy;
-            font-style: normal;
-            font-weight: 400;
-            font-size: 15px;
-            color: rgba(68, 58, 49, 0.42);
-            margin-bottom: 10px;
-        }
-        p {
-            font-family: Gilroy;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 20px;
-            color: #191817;
-            margin-top: 0;
-        }
-        .button {
-            &_arrow_btn {
-                cursor: pointer;
-                width: 51px;
-                height: 50%;
-                img {
-                    width: 60%;
-                    transform: translate(10px, 10px);
-                }
+    }
+    h2 {
+        font-family: Gilroy;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        color: rgba(68, 58, 49, 0.42);
+        margin-bottom: 10px;
+    }
+    p {
+        font-family: Gilroy;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        color: #191817;
+        margin-top: 0;
+    }
+    .button {
+        &_arrow_btn {
+            cursor: pointer;
+            width: $widthButton;
+            height: 50%;
+            img {
+                width: 60%;
+                transform: translate(10px, 10px);
             }
-            &_arrow_left {
-                background: #ffdfbd;
-            }
-            &_arrow_right {
-                background: #f2bf88;
-            }
-            // position: absolute;
-            // top: 0;
-            // left: 0;
-            // display: flex;
-            // flex-direction: column;
-            // width: 24px;
-            // height: 100%;
         }
+        &_arrow_left {
+            background: #ffdfbd;
+        }
+        &_arrow_right {
+            background: #f2bf88;
+        }
+        // position: absolute;
+        // top: 0;
+        // left: 0;
+        // display: flex;
+        // flex-direction: column;
+        // width: 24px;
+        // height: 100%;
     }
 }

@@ -3,28 +3,32 @@
 .slider_horizontal {
     position: relative;
     // width: 100vw;
-    height: 30vh;
+    // height: 26vh;
 
     margin: 0 auto;
     overflow: hidden;
-    border-radius: 60px;
+    border-radius: 20px;
     @include lg {
-        height: 70vh;
+        border-radius: 52px;
+        // height: 70vh;
     }
     &_list {
         height: 100%;
         display: flex;
     }
     &_item {
-        height: 70vh;
+        // height: 70vh;
         width: 100%;
         //   background-image: url('${content}');
         &_img {
-            padding-top: 44%;
+            padding-top: 45%;
 
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
+            @include md {
+                padding-top: 44%;
+            }
         }
     }
     &__dots {
@@ -43,8 +47,11 @@
     }
     &_wrap {
         position: absolute;
-        bottom: 32px;
+        bottom: 24px;
         left: 8px;
+        @include md {
+            left: 50px;
+        }
         @include lg {
             left: 100px;
         }
@@ -52,11 +59,16 @@
     &_buttons {
         margin: auto;
         display: flex;
-        width: 100px;
+        width: 80px;
+        // width: 100px;
         justify-content: space-around;
     }
     &_length {
         padding: 12px 0;
+        display: none;
+        @include lg {
+            display: block;
+        }
         span {
             font-weight: 700;
             font-size: 1.8rem;
@@ -67,8 +79,10 @@
     }
     &_arrow {
         display: flex;
-        height: 40px;
-        width: 40px;
+        // height: 40px;
+        // width: 40px;
+        height: 30px;
+        width: 30px;
         justify-content: center;
         background: transparent;
         border: 3px solid #fff;
@@ -81,7 +95,8 @@
             transform: scale(1.1);
         }
         img {
-            width: 20px;
+            width: 10px;
+            // width: 20px;
             &:focus {
                 outline: 0;
             }

@@ -253,7 +253,10 @@ const ProductDetail = () => {
                             <div
                                 data-aos="fade-left"
                                 data-aos-duration="0.3"
-                                className="col l-6"
+                                className={clsx(
+                                    styles.product_briefing_content,
+                                    "col l-6"
+                                )}
                             >
                                 <div className={styles.product_content}>
                                     <div

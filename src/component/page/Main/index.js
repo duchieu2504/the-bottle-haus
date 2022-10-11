@@ -94,7 +94,7 @@ const Main = () => {
             <div className={clsx(styles.under_legend)}>
                 <div className="grid wide" style={{ height: "100%" }}>
                     <div className="row" style={{ height: "100%" }}>
-                        <div className="col l-4 m-4">
+                        <div className="col c-4 l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"
@@ -129,7 +129,7 @@ const Main = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="col l-4 m-4">
+                        <div className="col c-4 l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"
@@ -164,7 +164,7 @@ const Main = () => {
                                 </p>
                             </div>
                         </div>
-                        <div className="col l-4 m-4">
+                        <div className="col c-4 l-4 m-4">
                             <div
                                 className={clsx(styles.under_legend_item)}
                                 data-aos="fade-up"
@@ -434,7 +434,12 @@ const Main = () => {
                                         data-aos-easing="linear"
                                         data-aos-duration="800"
                                     >
-                                        <NavLink to="/">
+                                        <NavLink
+                                            to="/"
+                                            className={clsx(
+                                                styles.content_item_link
+                                            )}
+                                        >
                                             <div
                                                 className={clsx(
                                                     styles.content_img
@@ -473,7 +478,12 @@ const Main = () => {
                                         data-aos-easing="linear"
                                         data-aos-duration="900"
                                     >
-                                        <NavLink to="/">
+                                        <NavLink
+                                            to="/"
+                                            className={clsx(
+                                                styles.content_item_link
+                                            )}
+                                        >
                                             <div
                                                 className={clsx(
                                                     styles.content_item_title
@@ -516,7 +526,12 @@ const Main = () => {
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
-                                    <NavLink to="/">
+                                    <NavLink
+                                        to="/"
+                                        className={clsx(
+                                            styles.content_item_link
+                                        )}
+                                    >
                                         <div
                                             className={clsx(styles.content_img)}
                                             style={{
@@ -545,7 +560,12 @@ const Main = () => {
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
-                                    <NavLink to="/">
+                                    <NavLink
+                                        to="/"
+                                        className={clsx(
+                                            styles.content_item_link
+                                        )}
+                                    >
                                         <div
                                             className={clsx(
                                                 styles.content_item_title
@@ -579,7 +599,12 @@ const Main = () => {
                                     data-aos-easing="linear"
                                     data-aos-duration="1100"
                                 >
-                                    <NavLink to="/">
+                                    <NavLink
+                                        to="/"
+                                        className={clsx(
+                                            styles.content_item_link
+                                        )}
+                                    >
                                         <div
                                             className={clsx(styles.content_img)}
                                             style={{
@@ -614,7 +639,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="700"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(styles.content_img)}
                                         style={{
@@ -642,7 +670,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="650"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(styles.content_img)}
                                         style={{
@@ -670,7 +701,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="600"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(styles.content_img)}
                                         style={{
@@ -697,7 +731,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="800"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(
                                             styles.content_item_title
@@ -723,7 +760,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="700"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(styles.content_img)}
                                         style={{
@@ -748,7 +788,10 @@ const Main = () => {
                                 data-aos-easing="linear"
                                 data-aos-duration="800"
                             >
-                                <NavLink to="/">
+                                <NavLink
+                                    to="/"
+                                    className={clsx(styles.content_item_link)}
+                                >
                                     <div
                                         className={clsx(
                                             styles.content_item_title
@@ -776,7 +819,7 @@ const Main = () => {
                 <div className={clsx(styles.our_blog_wrap)}>
                     <div className="grid wide">
                         <div className="row">
-                            <div className="col l-3">
+                            <div className="col c-12 l-3">
                                 <div className={clsx(styles.our_blog_text)}>
                                     <h2> Our Blog </h2>
                                     <p
@@ -804,7 +847,7 @@ const Main = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col l-3">
+                            <div className="col c-12 l-3">
                                 <div className={clsx(styles.our_blog_item)}>
                                     <a
                                         href="/"
@@ -830,7 +873,7 @@ const Main = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col l-3">
+                            <div className="col c-12 l-3">
                                 <div className={clsx(styles.our_blog_item)}>
                                     <a
                                         href="/"
@@ -854,7 +897,7 @@ const Main = () => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="col l-3">
+                            <div className="col c-12 l-3">
                                 <div className={clsx(styles.our_blog_item)}>
                                     <a
                                         href="/"

@@ -1,0 +1,44 @@
+.menu_catalog {
+    margin-bottom: 12px;
+
+    p {
+        font-size: 1.8rem;
+        color: #000;
+        padding: 30px 16px 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 12px;
+
+        transition: all 0.3s linear;
+        &.active {
+            background-color: #9acbd0;
+            border: 1px solid #9acbd0;
+            color: #fff;
+            letter-spacing: 1px;
+            font-weight: bold;
+
+            transition: all 0.3s linear;
+        }
+    }
+    &_list {
+        display: none;
+        &.showCatalog {
+            display: block;
+            margin-bottom: 30px;
+        }
+    }
+    &_item {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        margin-bottom: 12px;
+    }
+    &_link {
+        font-size: 1.8rem;
+        letter-spacing: 0.8px;
+        padding: 20px 16px;
+
+        color: #000;
+        display: block;
+        font-weight: bold;
+    }
+}

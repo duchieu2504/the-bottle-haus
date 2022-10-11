@@ -14,6 +14,13 @@ import leftDouleArrow from "./double-left-arrow.svg";
 import RightDouleArrow from "./double-right-arrows.svg";
 import rightArrow from "./right-arrow.svg";
 
+import itemMenuHeader_1 from "./itemMenuHeader_1.svg";
+import itemMenuHeader_2 from "./itemMenuHeader_2.svg";
+import itemMenuHeader_3 from "./itemMenuHeader_3.svg";
+import itemMenuHeader_4 from "./itemMenuHeader_4.svg";
+
+import closeSvg from "./close.svg";
+
 const SvgIcon = {
     FACEBOOK_ICON: facebook_icon,
     FACEBOOK_ICON2: facebook_icon_2,
@@ -29,6 +36,11 @@ const SvgIcon = {
     LEFTARROW: leftArrow,
     LEFT_DOULE_ARROW: leftDouleArrow,
     RIGHT_DOULE_ARROW: RightDouleArrow,
+    itemMenuHeader_1: itemMenuHeader_1,
+    itemMenuHeader_2: itemMenuHeader_2,
+    itemMenuHeader_3: itemMenuHeader_3,
+    itemMenuHeader_4: itemMenuHeader_4,
+    closeSvg: closeSvg,
 };
 
 export default SvgIcon;

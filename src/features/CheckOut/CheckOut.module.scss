@@ -1,6 +1,12 @@
 // checkout_details
+@use "./../../assets/scss/breakpoints" as *;
+
 .checkout_details {
     display: flex;
+    flex-direction: column-reverse;
+    @include md {
+        flex-direction: row;
+    }
     &_container {
         position: relative;
         z-index: 2;
@@ -22,9 +28,19 @@
         }
     }
     &_main {
-        width: 60%;
-        padding: 30px 60px;
+        width: 100%;
         border-right: 1px solid #e1e1e1;
+        padding: 30px 10px;
+
+        @include md {
+            width: 60%;
+
+            padding: 30px 20px;
+        }
+        @include lg {
+            padding: 30px 60px;
+        }
+
         // user
         .customer_infor {
             display: block;

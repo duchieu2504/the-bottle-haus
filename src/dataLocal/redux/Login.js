@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const init = {
     activeLogin: false,
     activeNavbar: 0,
+    showCatalog: false,
 };
 
 const products = createSlice({
@@ -17,9 +18,13 @@ const products = createSlice({
             state.activeNavbar = action.payload;
             return state;
         },
+        showMenuCatalog: (state, action) => {
+            state.showCatalog = action.payload;
+            return state;
+        },
     },
 });
 
 const { reducer, actions } = products;
-export const { showPageLogin, clickNavbar } = actions;
+export const { showPageLogin, clickNavbar, showMenuCatalog } = actions;
 export default reducer;

@@ -492,18 +492,19 @@ function CheckOut() {
                                         )}
                                     >
                                         USD{" "}
-                                        {convertPrice(
-                                            (
-                                                Number(shipper) +
-                                                Number(totalUnipad)
-                                            ).toString()
-                                        ) ||
-                                            convertPrice(
-                                                (
-                                                    Number(shipper) +
-                                                    Number(totalSession)
-                                                ).toString()
-                                            )}
+                                        {uid
+                                            ? convertPrice(
+                                                  (
+                                                      Number(shipper) +
+                                                      Number(totalUnipad)
+                                                  ).toString()
+                                              )
+                                            : convertPrice(
+                                                  (
+                                                      Number(shipper) +
+                                                      Number(totalSession)
+                                                  ).toString()
+                                              )}
                                     </h1>
                                 </div>
                             </div>

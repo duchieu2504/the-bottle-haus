@@ -199,7 +199,7 @@ const ProductReview = ({ productId, parameterReviews }) => {
                         <div className="row justify-center">
                             {reviewFeature.map((review) => {
                                 return (
-                                    <div className="col l-4">
+                                    <div className="col c-12 l-4">
                                         <ItemReview review={review} />
                                     </div>
                                 );

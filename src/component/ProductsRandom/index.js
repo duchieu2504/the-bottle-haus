@@ -66,7 +66,7 @@ function ProductsRandom() {
                     <div className="row">
                         {dataSimilarProducts.map((item, index) => {
                             return (
-                                <div className="col l-3" key={item.id}>
+                                <div className="col c-6 l-3" key={item.id}>
                                     <ProductCard item={item} index={index} />
                                 </div>
                             );

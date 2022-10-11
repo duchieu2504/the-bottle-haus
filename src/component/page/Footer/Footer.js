@@ -8,7 +8,7 @@ const Footer = () => {
             <div className={clsx(styles.footer)}>
                 <div className="grid wide">
                     <div className="row">
-                        <div className="col l-3">
+                        <div className="col c-12 l-3">
                             <h2>Proposition 65 Warning</h2>
                             <p>
                                 WARNING: Drinking distilled spirits, beer,
@@ -18,7 +18,7 @@ const Footer = () => {
                                 www.P65Warnings.ca.gov/alcohol
                             </p>
                         </div>
-                        <div className="col l-6">
+                        <div className="col c-12 l-6">
                             <div className={clsx(styles.text_center)}>
                                 <h2>Newsleter</h2>
                                 <p>
@@ -55,7 +55,7 @@ const Footer = () => {
                                 <h4>Please Drink Responsibly</h4>
                             </div>
                         </div>
-                        <div className="col l-3">
+                        <div className="col c-12 l-3">
                             <div className={clsx(styles.text_right)}>
                                 <h2>Resources</h2>
                                 <div className={clsx(styles.resources_list)}>

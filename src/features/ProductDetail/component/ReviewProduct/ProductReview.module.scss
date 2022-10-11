@@ -1,7 +1,11 @@
 @use "./../../../../assets/scss/base" as *;
+@use "./../../../../assets/scss/breakpoints" as *;
 
 .product_reviews {
-    padding: 60px 0 100px;
+    padding: 30px 0;
+    @include md {
+        padding: 60px 0 100px;
+    }
     &_title {
         text-align: center;
 
@@ -104,7 +108,10 @@
             background-color: transparent;
             padding: 12px 24px;
             display: block;
-            margin: 30px auto 10px;
+            margin: 10px auto 10px;
+            @include md {
+                margin: 30px auto 10px;
+            }
             &:hover {
                 text-decoration: underline;
             }
@@ -124,18 +131,43 @@
     &_graph {
         display: flex;
         background-color: #f6f6f6;
-        padding: 24px 40px;
         border-top-left-radius: 20px;
         border-top-right-radius: 20px;
+        flex-direction: column;
+        padding: 24px 0px;
+
+        justify-content: center;
+        flex-wrap: wrap;
+        @include md {
+            flex-direction: row;
+        }
+
+        @include lg {
+            flex-wrap: inherit;
+            justify-content: start;
+
+            padding: 24px 40px;
+        }
         &_text {
+            min-width: 50%;
+            @include lg {
+                min-width: 0;
+            }
             h2 {
                 font-weight: 600;
                 font-size: 3rem;
                 line-height: 5rem;
                 color: #000;
-                padding-bottom: 100px;
-                padding-right: 50px;
+                padding-bottom: 20px;
+                padding-right: 0px;
                 border-right: 1px solid #dedede;
+                text-align: center;
+                @include md {
+                    text-align: start;
+
+                    padding-bottom: 100px;
+                    padding-right: 50px;
+                }
             }
             &_summary {
                 font-size: 1.6rem;
@@ -147,6 +179,11 @@
             &_list {
                 flex: 1;
                 padding-left: 20px;
+
+                min-width: 50%;
+                @include lg {
+                    min-width: 0;
+                }
             }
             &_item {
                 padding-top: 10px;
@@ -194,8 +231,12 @@
             }
         }
         .widget_actions_wrapper {
-            height: 48px;
+            height: 100%;
+            margin: 20px 0;
 
+            @include md {
+                height: 48px;
+            }
             &_btn {
                 transition: all 0.25s linear;
                 font-size: 1.6rem;
@@ -206,6 +247,11 @@
                 color: #105756;
                 background-color: #fff;
                 cursor: pointer;
+
+                margin: auto;
+                @include md {
+                    margin: 0;
+                }
                 &:hover {
                     color: #fff;
                     background-color: #105756;

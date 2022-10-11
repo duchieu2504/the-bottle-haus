@@ -2,18 +2,14 @@
 @use "./../../../../assets/scss/breakpoints" as *;
 
 .product_item {
-    display: none;
     display: flex;
-
-    padding: 20px 0px;
+    margin-right: 26px;
     align-items: center;
     color: $text-color;
     position: relative;
 
     &_wrap {
-        display: flex;
-        align-items: center;
-        width: 50%;
+        width: 100%;
     }
     &_img {
         background-size: cover;
@@ -32,31 +28,36 @@
         font-size: 1.3rem;
     }
     &_title {
-        font-weight: 700;
-        font-size: 1.8rem;
-        line-height: 2.6rem;
-        color: $text-color;
-        padding: 0px 16px;
-        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        &_link {
+            font-weight: 700;
+            font-size: 1.8rem;
+            line-height: 2.6rem;
+            color: $text-color;
 
-        &:hover {
-            text-decoration: underline;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 1;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
-    &-size {
-    }
     &_price {
-        width: calc(100% / 6);
         text-align: center;
         font-size: 1.8rem;
         font-weight: 700;
+        min-width: 40px;
     }
     &_quantily {
         display: flex;
-        justify-content: center;
+        justify-content: start;
         font-size: 1.6rem;
         align-items: center;
-        width: calc(100% / 6);
+        width: 100%;
 
         .btn {
             border: none;
@@ -116,8 +117,7 @@
     &_total {
         font-size: 1.8rem;
         font-weight: 700;
-        line-height: 4rem;
-        width: calc(100% / 6);
-        text-align: center;
+        line-height: 3rem;
+        text-align: start;
     }
 }

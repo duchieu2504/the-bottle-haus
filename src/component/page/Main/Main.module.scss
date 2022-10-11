@@ -1,5 +1,6 @@
 @use "sass:math";
 @use "./../../../assets/scss/base" as *;
+@use "./../../../assets/scss/breakpoints" as *;
 
 .main {
     margin-top: 120px;
@@ -9,12 +10,15 @@
 }
 
 .under_legend {
-    padding: 12px 0 48px;
     background-color: #f6f6f6;
+
+    padding: 12px 0 20px;
+    @include md {
+        padding: 48px 0 48px;
+    }
     &_item {
         position: relative;
-        padding: 60px 36px;
-        min-height: 200px;
+        padding: 10px 6px;
         background: #ededed;
         border-radius: 20px;
         transition: transform 0.45s linear;
@@ -33,28 +37,56 @@
                 visibility: hidden;
             }
         }
+
+        @include md {
+            padding: 80px 6px 20px;
+        }
+        @include lg {
+            padding: 60px 36px;
+            min-height: 200px;
+        }
     }
     &_img {
         video {
             position: absolute;
-            top: 30px;
-            right: 27px;
+            top: 0px;
+            right: 50%;
+            transform: translate(50%, -50%);
             border-radius: 50%;
-            width: 130px;
+            width: 60px;
+            @include md {
+                width: 130px;
+            }
+            @include lg {
+                transform: translate(0%, 0%);
+
+                top: 30px;
+                right: 27px;
+            }
         }
         img {
             position: absolute;
-            top: 30px;
-            right: 27px;
-            width: 130px;
-            height: 130px;
+            top: 0px;
+            right: 50%;
+            transform: translate(50%, -50%);
+            width: 60px;
+            height: 60px;
             transition: all 0.3s ease-in-out;
             visibility: visible;
+            @include md {
+                width: 130px;
+                height: 130px;
+            }
+            @include lg {
+                top: 30px;
+                right: 27px;
+                transform: translate(0%, 0%);
+            }
         }
     }
     h3 {
         font-weight: 600;
-        font-size: 3.2rem;
+        font-size: 2rem;
         font-family: $font-gilroy;
         color: #000;
         width: max-content;
@@ -63,6 +95,9 @@
         line-height: 2.6rem;
         position: relative;
         transition: transform 0.5s linear;
+
+        padding-top: 20px;
+        margin: auto;
         &::before {
             content: "";
             position: absolute;
@@ -72,6 +107,13 @@
             height: 100%;
             background: linear-gradient(180deg, rgba(250, 218, 197, 0.2) 30%, #fadac5);
         }
+        @include md {
+            padding-top: 0px;
+            font-size: 3.2rem;
+        }
+        @include lg {
+            margin: 0 auto 0 0;
+        }
     }
     p {
         font-family: $font-slab;
@@ -80,15 +122,28 @@
         line-height: 2rem;
         transition: transform 0.5s linear;
         padding: 12px 0;
-        font-size: 18px;
+        font-size: 1rem;
         color: #000;
         margin-top: 12px;
+
+        text-align: center;
+
+        @include md {
+            font-size: 1.8rem;
+        }
+        @include lg {
+            text-align: start;
+        }
     }
 }
+
 // catalog_wrap_container
 .catalog_wrap_container {
     background-color: #f6f6f6;
-    padding: 60px 0;
+    padding: 10px 0;
+    @include md {
+        padding: 60px 0;
+    }
 }
 .products_featured {
     &_container {
@@ -100,8 +155,13 @@
         line-height: 4rem;
         justify-content: space-between;
         margin-bottom: 100px;
+
         .btn_show_all {
             @include show_all_width(120px);
+            margin: 0 0 0 auto;
+            @include md {
+                margin: auto;
+            }
         }
     }
     &_text {
@@ -109,13 +169,21 @@
         font-size: 2rem;
         line-height: 4rem;
         .text_fill {
-            font-size: 4.4rem;
-            line-height: 4rem;
+            font-size: 2.2rem;
+            line-height: 2.4rem;
             padding: 0;
+            @include md {
+                line-height: 4rem;
+                font-size: 4.4rem;
+            }
         }
         .text_stroke {
-            font-size: 4.8rem;
-            line-height: 3rem;
+            font-size: 2.8rem;
+            line-height: 2rem;
+            @include md {
+                line-height: 3rem;
+                font-size: 4.8rem;
+            }
         }
     }
     &_line {
@@ -123,6 +191,11 @@
         background-color: #111;
         flex: 0.95;
         transform: translateY(26px);
+
+        display: none;
+        @include md {
+            display: block;
+        }
     }
 }
 
@@ -143,16 +216,29 @@
 }
 
 .features_collections {
-    padding: 50px 0;
+    padding-top: 50px;
+    @include md {
+        padding-top: 00px;
+    }
     &_text {
         padding-bottom: 20px;
         .text_fill {
-            font-size: 5rem;
-            padding: 0 0 40px;
+            font-size: 3rem;
+            padding: 0 0 10px;
+
+            @include md {
+                font-size: 5rem;
+                padding: 0 0 40px;
+            }
         }
         .text_stroke {
-            font-size: 6rem;
+            font-size: 4rem;
+            line-height: 3rem;
             padding: 0;
+            @include md {
+                line-height: 5rem;
+                font-size: 6rem;
+            }
         }
     }
     h1 {
@@ -214,10 +300,22 @@
         }
     }
     .content_link {
-        height: 560px;
+        height: 400px;
         display: flex;
-        justify-content: center;
-        padding: 36px 40px 36px;
+        justify-content: start;
+        overflow-x: scroll;
+        min-width: 750px;
+        @include md {
+            height: 460px;
+            justify-content: center;
+            min-width: 0px;
+        }
+        @include lg {
+            height: 560px;
+            justify-content: center;
+            min-width: 0px;
+            padding: 36px 40px 36px;
+        }
     }
     .content_item {
         overflow: hidden;
@@ -231,6 +329,7 @@
             flex: 1;
             position: relative;
             overflow: hidden;
+            // min-width: 150px;
             .last,
             .first {
                 font-size: 1.6rem;
@@ -243,14 +342,20 @@
                 }
             }
         }
-        &_title {
-            background-color: #fe7c22;
+        &_link {
+            display: block;
             height: 100%;
             width: 100%;
         }
+        &_title {
+            background-color: #fe7c22;
+            border-radius: 16px;
+            height: 100%;
+            width: 100%;
+            // overflow: hidden;
+        }
         &:hover {
             .content_title {
-                opacity: 1;
                 transition: all 0.5s ease-in-out;
             }
 
@@ -270,9 +375,11 @@
         width: 100%;
         display: flex;
         color: #fff;
+        background-color: #fe7c22;
         font-family: $font-gilroy;
         letter-spacing: 1px;
         justify-content: center;
+        border-radius: 16px;
         align-items: center;
         transition: transform 0.3s ease-in-out;
     }
@@ -282,7 +389,7 @@
         text-transform: uppercase;
         font-family: $font-gilroy;
         letter-spacing: 1px;
-        color: #fff;
+        // color: #fff;
         height: 100%;
         width: 100%;
         transform: translateY(-100%);
@@ -321,6 +428,10 @@
     z-index: 1;
     &_content {
         display: flex;
+        flex-direction: column;
+        @include lg {
+            flex-direction: row;
+        }
     }
     &_wrap {
         flex: 1;
@@ -332,18 +443,28 @@
     }
     p {
         font-family: $font-gilroy;
-        padding: 20px 0px 20px 50px;
+        padding: 30px 0px 20px 0px;
 
-        font-size: 1.6rem;
-        line-height: 4rem;
+        font-size: 1.4rem;
+        line-height: 3rem;
         color: #757575;
         letter-spacing: 1px;
+        @include md {
+            font-size: 2rem;
+            line-height: 6rem;
+            padding: 30px 0px 20px 0px;
+        }
+        @include lg {
+            font-size: 1.6rem;
+            line-height: 4rem;
+            padding: 20px 0px 20px 50px;
+        }
     }
 }
 
 .slider_dow_container {
-    // position: relative;
-    margin: 80px 0 40px;
+    position: relative;
+    margin: 80px 0 102px;
     background: linear-gradient(to right, #ededed 50%, #9acbcf 50%);
     // &::after {
     //     content: "";
@@ -362,33 +483,60 @@
     background-color: rgba(148, 196, 200, 0.74);
     padding-top: 0px;
     .rare_text {
-        height: 450px;
+        min-height: 400px;
+        @include md {
+            min-height: 450px;
+        }
         &_img {
             position: absolute;
-            max-width: 100%;
+            max-width: 90%;
             top: 25px;
             left: 50%;
             transform: translate(-50%, 0%);
+            @include md {
+                max-width: 100%;
+            }
         }
         &_center {
             text-align: center;
             position: relative;
             .text_stroke {
-                font-size: 9.8rem;
+                font-size: 2rem;
                 -webkit-text-fill-color: transparent;
                 -webkit-text-stroke-color: #fff;
                 line-height: 150px;
                 position: relative;
+
+                @include md {
+                    font-size: 5.2rem;
+                }
+                @include lg {
+                    font-size: 8.8rem;
+                }
                 &::after {
                     content: "";
                     position: absolute;
-                    top: 20%;
-                    left: -20px;
+                    top: -10%;
+                    left: 0%;
+                    transform: translate(50%, 50%);
                     background-image: url("//cdn.shopify.com/s/files/1/0313/6228/5699/t/32/assets/rare_stroke-img.svg?v=163658585255637154151642089736");
                     background-size: contain;
                     background-repeat: no-repeat;
                     height: 100%;
-                    width: 70px;
+                    width: 40px;
+                    @include md {
+                        top: 26%;
+                        left: -14px;
+                        transform: translate(0%, 0%);
+
+                        width: 70px;
+                    }
+                    @include lg {
+                        top: 20%;
+                        left: 16px;
+                        transform: translate(0%, 0%);
+                        width: 70px;
+                    }
                 }
             }
             &_img {
@@ -408,13 +556,18 @@
                 font-style: normal;
                 font-weight: 400;
                 font-size: 20px;
+
+                display: none;
+
                 line-height: 24px;
                 color: #105b59;
                 width: 330px;
                 margin-top: 20px;
                 margin-bottom: 105px;
-                display: block;
                 position: relative;
+                @include md {
+                    display: block;
+                }
                 &::after {
                     content: "";
                     position: absolute;
@@ -430,6 +583,11 @@
             position: absolute;
             right: 0px;
             top: 200px;
+
+            display: none;
+            @include md {
+                display: block;
+            }
             &_wrap {
                 font-family: $font-slab;
                 font-style: normal;
@@ -485,15 +643,31 @@
 //customs_reivews
 .customers_reviews {
     &_text {
-        padding: 48px 0 90px;
+        padding: 48px 0;
+
+        @include md {
+            padding: 48px 0 90px;
+        }
         h1 {
-            font-size: 6rem;
+            font-size: 3rem;
             line-height: 4rem;
-            padding: 48px 0 16px;
+            padding: 10px 0 16px;
+            text-align: center;
+            @include md {
+                font-size: 6rem;
+                line-height: 4rem;
+                padding: 48px 0 16px;
+                text-align: start;
+            }
         }
         h2 {
             font-size: 5.4rem;
             line-height: 3.8rem;
+            text-align: center;
+            padding: 0;
+            @include md {
+                text-align: start;
+            }
         }
     }
 }
@@ -505,15 +679,26 @@
     &_wrap {
         background: #f6f6f6;
         width: 100%;
-        padding: 70px 70px;
+        margin: 70px 0;
+        @include lg {
+        }
     }
     &_text {
+        text-align: center;
+        @include lg {
+            text-align: start;
+        }
         h2 {
             font-weight: 600;
             font-size: 3rem;
             line-height: 4rem;
             color: #000;
             margin-bottom: 30px;
+
+            text-align: center;
+            @include md {
+                text-align: start;
+            }
         }
         &_description {
             font-weight: 400;
@@ -521,7 +706,17 @@
             letter-spacing: 1px;
             font-size: 1.4rem;
             color: rgba(26, 24, 23, 0.56);
-            margin-bottom: 60px;
+            margin-bottom: 10px;
+            @include md {
+                font-size: 2rem;
+                line-height: 3rem;
+                margin-bottom: 20px;
+            }
+            @include lg {
+                font-size: 2rem;
+                line-height: 3rem;
+                margin-bottom: 60px;
+            }
         }
     }
     &_btn {
@@ -532,6 +727,7 @@
     }
     &_link {
         cursor: pointer;
+        display: inline-block;
         text-decoration: none;
         p {
             color: #fff;
@@ -541,6 +737,7 @@
         }
     }
     &_item {
+        margin-top: 20px;
         &_link {
             text-decoration: none;
         }

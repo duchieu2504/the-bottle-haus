@@ -6,7 +6,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./Header.module.scss";
 import SvgIcon from "assets/svg";
 
-import { showPageLogin } from "dataLocal/redux/Login";
+import { showMenuCatalog, showPageLogin } from "dataLocal/redux/Login";
 import { AuthContext } from "dataLocal/Context/AuthProvider";
 import { SET_PRODUCTS_SEARCH } from "dataLocal/redux/productSearch";
 
@@ -14,6 +14,7 @@ import { getSearchProduct } from "connectApi/apiServices/productsServices";
 
 import Shopping from "features/Shopping";
 import SearchProduct from "./component/SearchProduct";
+import MenuHeader from "features/MenuHeader";
 
 const Header = (props) => {
     const [showShoppingCart, setShowShoppingCart] = useState(false);
@@ -23,9 +24,13 @@ const Header = (props) => {
     const [apiSearchProduct, setApiSearchProduct] = useState([]);
     const [loadingSearch, setLoadingSearch] = useState(false);
     const [showSearchProduct, setShowSearchProduct] = useState(false);
+    const [activeMenuHeader, setActiveMenuHeader] = useState(false);
 
     const activeLogin = useSelector((state) => state.activeLogin.activeLogin);
     const productSearch = useSelector((state) => state.productSearch.items);
+    const showCatalogMenu = useSelector(
+        (state) => state.activeLogin.showCatalog
+    );
 
     // san phâm trong giỏ hàng
     const orderUnpaid = useSelector((state) => state.orderUnpaid.items) || [];
@@ -111,6 +116,12 @@ const Header = (props) => {
         dispatch(action);
     };
 
+    const handleClickMenu = () => {
+        const action = !showCatalogMenu;
+        dispatch(showMenuCatalog(action));
+        // setActiveMenuHeader(true);
+    };
+
     // handleChangeSearch
     const handleChangeSearch = async (e) => {
         const time = setTimeout(async () => {
@@ -153,8 +164,14 @@ const Header = (props) => {
                         </div>
 
                         {/* menu mobile phone */}
-                        <div className={clsx(styles.header_wrap_menu)}></div>
-
+                        <div
+                            className={clsx(styles.header_wrap_menu)}
+                            onClick={handleClickMenu}
+                        ></div>
+                        <MenuHeader
+                        // activeMenuHeader={activeMenuHeader}
+                        // setActiveMenuHeader={setActiveMenuHeader}
+                        />
                         {/* Search */}
                         <div
                             className={clsx(styles.header_wrap_search, {
