@@ -144,16 +144,14 @@ const SliderImg = (props) => {
         }
     };
     return (
-        <>
-            <div className="slider_dow" ref={sliderDowRef}>
-                <SliderDowContent
-                    activeIndex={activeIndex}
-                    slides={_slides}
-                    translate={translate}
-                    transition={transition}
-                    height={getHeight * slidesCopy.length}
-                />
-            </div>
+        <div className="slider_dow" ref={sliderDowRef}>
+            <SliderDowContent
+                activeIndex={activeIndex}
+                slides={_slides}
+                translate={translate}
+                transition={transition}
+                height={getHeight * slidesCopy.length}
+            />
             <div className="button_arrow">
                 <div className="button">
                     <div
@@ -190,7 +188,7 @@ const SliderImg = (props) => {
                     <p>{_slides[activeIndex + 2].name}</p>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 const images = [

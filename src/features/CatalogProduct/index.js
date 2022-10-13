@@ -107,7 +107,7 @@ function CatalogProducts() {
     useEffect(() => {
         // ẩn page menu catalog khi chuyển click vào navbar trong catalog menu
         const action = !showCatalogMenu;
-        dispatch(showMenuCatalog(action));
+        dispatch(showMenuCatalog(false));
 
         setDataClassify(dataUrl);
         // tạo giá trị khởi tạo cho index mỗi khi thay đổi url

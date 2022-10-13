@@ -22,7 +22,7 @@ import Loading from "component/Loading";
 import CartItem from "component/ItemCartShopping";
 import UserFormik from "component/FormUser/UserFormik";
 
-import { convertPrice, getParent } from "util/Func";
+import { codeQr, convertPrice, getParent } from "util/Func";
 
 import { TotalContext } from "dataLocal/Context/TotalProvider";
 import { AuthContext } from "dataLocal/Context/AuthProvider";
@@ -49,6 +49,7 @@ function CheckOut() {
     // const data = useSelector((state) => state.productsCart);
     const dataSession = JSON.parse(sessionStorage.getItem("productIds")) || [];
     const totalSession = JSON.parse(sessionStorage.getItem("total")) || 0;
+    const code = codeQr();
 
     const dataProdcuts = useMemo(() => {
         if (uid) {
@@ -186,6 +187,7 @@ function CheckOut() {
             }
         }
     };
+
     // Quay trở lại trang thông tin khách Hàng
     const handleClickPrev = (e) => {
         e.preventDefault();
@@ -221,7 +223,7 @@ function CheckOut() {
             const ordeProductNew = {
                 address: _idAdress,
                 productIds,
-                code: "Hello",
+                code: code,
                 totalPrice: totalSession.toString(),
                 message: messOrdeProduct,
                 unpaid: true,
@@ -396,7 +398,7 @@ function CheckOut() {
                                         Money transfer content
                                     </p>
                                     <h1 className={clsx(styles.form_title)}>
-                                        Mã code (chưa viết api)
+                                        {uid ? orderUnpaid.code : code}
                                     </h1>
                                 </div>
                             </div>

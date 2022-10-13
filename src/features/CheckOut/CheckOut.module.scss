@@ -10,6 +10,7 @@
     &_container {
         position: relative;
         z-index: 2;
+        min-height: 90%;
         &::after {
             content: "";
             position: absolute;

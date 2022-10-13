@@ -92,3 +92,50 @@ export const convertPrice = (price) => {
     }
     return price;
 };
+
+// code đon Hàng
+const text = [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "G",
+    "H",
+    "I",
+    "K",
+    "L",
+    "M",
+    "N",
+    "O",
+    "P",
+    "Q",
+    "R",
+    "T",
+    "U",
+    "V",
+    "X",
+    "Y",
+];
+const num = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+const indexText = (arr) => {
+    let output = [];
+    for (let i = 0; i < 2; i++) {
+        const numRandom = Math.floor(Math.random() * arr.length);
+        output = [...output, numRandom];
+    }
+
+    const resultText = output.reduce((val, item) => {
+        val = val + arr[item];
+        return val;
+    }, "");
+
+    return resultText;
+};
+
+export const codeQr = () => {
+    const arrText = indexText(text);
+    const arrNum = indexText(num);
+    return arrText + arrNum;
+};
